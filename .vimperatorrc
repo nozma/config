@@ -1,0 +1,71 @@
+" Start Loading "{{{1
+echo "Vimperator Loading..."
+
+" Main Settings "{{{1
+set wildoptions=auto
+set complete=sl
+set nextpattern=^次(へ|の|ペ),^続き,\bnext\b,^>$,^(>>|&#187;)$,^(>|&#187;),(>|&#187;)$,\bmore\b
+set previouspattern=^前(へ|の|ペ),^戻る,\bprev|previous\b,^<$,^(<<|&#171;)$,^(<|&#171;),(<|&#171;)$
+set focuscontent
+set ignorecase
+set guioptions=r
+set! browser.tabs.closeButtons=2
+set visualbell
+hi Bell display:none;
+"set editor=meadow
+set editor=gvim
+
+" Key mapping "{{{1
+"yank region
+map y :echo 'Yank!'<CR>Y
+"j/kの移動量を5倍に
+map j 5<C-e>
+map k 5<C-y>
+"h/lでタブ移動
+map h <C-p>
+map l <C-n>
+"restart firefox
+map <A-r> :restart<CR>
+" Hatena Bookmark Search
+map B :hbs<Space>
+
+" QuickMarks "{{{1
+qmark t http://twitter.com/home
+qmark f http://favotter.matope.com/user.php?user=nozma
+qmark F http://f.hatena.ne.jp/Rion778/
+qmark l http://reader.livedoor.com/reader/
+qmark g https://github.com/
+qmark T http://www.tumblr.com/dashboard
+qmark m https://mail.google.com/
+qmark b http://b.hatena.ne.jp/Rion778/
+qmark d http://d.hatena.ne.jp/Rion778/
+qmark p http://projecteuler.net/index.php?section=problems&page=2
+qmark h http://hatenadiary.g.hatena.ne.jp/keyword/%e3%81%af%e3%81%a6%e3%81%aa%e8%a8%98%e6%b3%95%e4%b8%80%e8%a6%a7
+qmark L http://lang-8.com/93758
+qmark w https://wave.google.com/
+
+" Plugin "{{{1
+
+" feeder.js "{{{2
+
+" twitter.js "{{{2
+
+" copy.js "{{{2
+map T :twitter<Space>
+map ,l :copy<Space>titleAndURL<CR>:twitter<Space>Browsing: <S-Insert>
+map ,u :copy<Space>%URL%<CR>
+
+" feedSomeKeys_2.js "{{{2
+autocmd LocationChange .* :fmapc
+autocmd LocationChange 'reader\.livedoor\.com/reader' :fmap j k s a p o v c <Space> <S-Space> Z z b < >
+autocmd LocationChange mail\\.google\\.com/mail :fmap -depth 4 c / y j k n p o u e x s r a # [ ] z ? gi gs gt gd ga gc
+
+" Addon "{{{1
+" Hatena Bookmark "{{{2 'http://b.hatena.ne.jp/guide/firefox_addon'
+javascript if (typeof hBookmark != 'undefined') liberator.loadScript('chrome://hatenabookmark/content/vimperator/plugin/hatenabookmark.js', {__proto__: this}); 
+
+" Finish Loading "{{{1
+echo "Welcome! :-)"
+
+" __END__ "{{{1
+" vim: set filetype=vim :

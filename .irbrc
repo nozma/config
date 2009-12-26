@@ -1,0 +1,1 @@
+$KCODE = 'sjis'
