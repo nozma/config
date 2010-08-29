@@ -5,6 +5,8 @@ filetype plugin indent on
 syntax enable
 set nocompatible
 set shell=zsh
+" set spell
+" set spelllang=en_us  
 
 " Directory "{{{2
 
@@ -83,6 +85,11 @@ inoremap <expr> ,dt strftime('%H:%M:%S')
 " nnoremap <Space>gs. :<C-u>w<Enter>:<C-u>source $MYGVIMRC<Enter>
 " insert blank line [http://vim-users.jp/2009/08/hack57/]
 nnoremap O :<C-u>call append(expand('.'), '')<Cr>j
+" scroll-smooth
+map <C-U> <C-Y>2<C-Y>2<C-Y>2<C-Y>2<C-Y><C-Y>
+map <C-D> <C-E>2<C-E>2<C-E>2<C-E>2<C-E><C-E>
+" open new tab
+imap ,t :tabnew
 
 " Search and Input "{{{2
 
@@ -105,58 +112,65 @@ autocmd InsertEnter * highlight StatusLine guifg=#ccdc90 guibg=#2E4340
 autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ccdc90
 augroup END
 " Tab
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 set expandtab
 " automatic formatting
-set textwidth=72
+"set textwidth=72
+set textwidth=0
 set formatoptions=qmM
 
 " View "{{{2
 
+set showtabline=2
 set list
 set number
 set foldmethod=marker
 set laststatus=2
 set statusline=%F%m%r%h%w\%=[TYPE=%Y]\[FORMAT=%{&ff}]\[ENC=%{&fileencoding}]\[LOW=%l/%L,%3p%%]
 
-" Language {{{1
-" perl{{{2
+" Edit {{{1
+
+" CSV {{{2
+
+" Highlight a column in csv text.
+" :Csv 12   " highlight twelfth column
+" :Csv 0    " switch off highlight
+function! CSVH(colnr)
+  if a:colnr > 1
+    let n = a:colnr - 1
+    execute 'match Keyword /^\([^,]*,\)\{'.n.'}\zs[^,]*/'
+    execute 'normal! 0'.n.'f,'
+  elseif a:colnr == 1
+    match Keyword /^[^,]*/
+    normal! 0
+  else
+    match
+  endif
+endfunction
+command! -nargs=1 Csv :call CSVH(<args>)
+
+" Highlighting the header row 
+syntax match csvHeading /\%1l\%(\%("\zs\%([^"]\|""\)*\ze"\)\|\%(\zs[^,"]*\ze\)\)/
+highlight def link csvHeading Type
+
+" perl {{{2
 
 autocmd FileType perl,cgi :compiler perl
 nnoremap <C-p> :w !perl<CR>
 
 " commentstring {{{2
+
 autocmd Filetype hatena set commentstring=<!--%s-->
 autocmd Filetype R set commentstring=#%s
 autocmd Filetype lisp set commentstring=;;%s
 
 " Plugin "{{{1
-" skk.vim "{{{2
-
-" http://www.vim.org/scripts/script.php?script_id=1589
-let skk_jisyo ='~/.skk-jisyo'
-let skk_large_jisyo = '~/vimfiles/dict/skk/SKK-JISYO.L'
-let skk_auto_save_jisyo = 1
-let skk_keep_state = 0
-let skk_egg_like_newline = 1
-let skk_show_annotation = 1
-let skk_use_face = 1
-
-" VIM-LaTeX {{{2
-set shellslash
-set grepprg=grep\ -nH\ $*
-let g:Tex_CompileRule_dvi = 'platex -interaction=nonstopmode $*'
-let g:Tex_BibtexFlavor = 'jbibtex'
-let g:Tex_ViewRule_dvi = 'c:/tex/dviout/dviout.exe'
-let g:Tex_FormatDependency_pdf = 'dvi,pdf'
-let g:Tex_CompileRule_pdf = 'dvipdfmx $*.dvi'
-"let g:Tex_ViewRule_pdf = 'C:\Program Files\Adobe\Reader 9.0\Reader\AcroRd32.exe'
-let g:Tex_ViewRule_pdf = 'C:\Program Files\SumatraPDF\SumatraPDF.exe'
-let g:Tex_DefaultTargetFormat = 'pdf'
 
 " quickrun.vim {{{2
+
+" Align.vim{{{2
 
 " Fin. "{{{1
 set secure
