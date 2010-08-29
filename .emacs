@@ -179,6 +179,21 @@
 
 ;; -------------------- elisp ---------------------- {{{1
 
+;; migemo.el ;; {{{2
+(when (and (executable-find "cmigemo")
+           (require 'migemo nil t))
+  (setq migemo-command "cmigemo")
+  (setq migemo-options '("-q" "--emacs" "-i" "\a"))
+  (setq migemo-dictionary
+        "/usr/local/share/migemo/utf-8/migemo-dict")
+  (setq migemo-user-dictionary nil)
+  (setq migemo-regex-dictionary nil)
+  (setq migemo-use-pattern-alist t)
+  (setq migemo-use-frequent-pattern-alist t)
+  (setq migemo-pattern-alist-length 1000)
+  (setq migemo-coding-system 'utf-8-unix)
+  (migemo-init))
+
 ;; (install-elisp "http://www.emacswiki.org/emacs/download/auto-install.el") ;; {{{2
 (when (require 'auto-install nil t)
   (setq auto-install-directory "~/.emacs.d/elisp/")
@@ -191,8 +206,6 @@
   (global-set-key (kbd "C-'") 'redo)) ;C-'でredo
 
 ;;** smartchr.el {{{2 http://tech.kayac.com/archive/emacs-tips-smartchr.html
-(setq load-path
-      (cons "~/.emacs.d/emacs-smartchr" load-path))
 (require 'smartchr)
 ;; ;;** 行カーソル {{{2 http://blog.iwa-ya.net/2009/06/21/093100
 ;; (defface hlline-face
@@ -212,8 +225,6 @@
 ;; (global-hl-line-mode)
 
 ;;** org-mode {{{2
-(setq load-path (cons "~/.emacs.d/auto-install/org-mode/lisp" load-path))
-
 
 ;; Emacsでメモ・TODO管理 (http://e-arrows.sakura.ne.jp/2010/02/vim-to-emacs.html)
 (require 'org-install)
@@ -259,11 +270,6 @@
              (hatenahelper-mode 1)
              (setq simple-hatena-use-timestamp-permalink-flag nil)
              ))
-
-;; hown {{{2
-(autoload 'howm-menu "howm-mode" "Hitori Otegaru Wiki Modoki" t)
-(global-set-key "\C-c,," 'howm-menu)
-(setq howm-menu-lang 'ja)
 
 ;;** Outline-mode-setting {{{2
 ;; base 
