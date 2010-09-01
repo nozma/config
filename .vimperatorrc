@@ -74,6 +74,9 @@ map <M-r> :restart<CR>
 map B :hbs<Space>
 " Wikipedia
 map W :open wikipedia<Space>
+" JavaScript
+map ,j :javascript<Space>
+map ,J :open javascript:
 
 " Command {{{1
 " calendar
