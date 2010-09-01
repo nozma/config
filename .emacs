@@ -1,6 +1,6 @@
 ;;* ----- 基本設定 -----{{{1
 ;; path {{{2
-;; load-pathを追加する関数
+;; load-pathを追加する関数 (from WEB+DP PRESS Vol.58)
 (defun add-to-load-path (&rest paths)
   (let (path)
     (dolist (path paths paths)
@@ -29,27 +29,27 @@
         load-path))
 
 ;; encoding {{{2
-;; for mac
-(set-language-environment  "Japanese")
-(require 'ucs-normalize)
-(prefer-coding-system 'utf-8-hfs)
-(setq file-name-coding-system 'utf-8-hfs)
-(setq locale-coding-system 'utf-8-hfs)
-;; ;; other operating system
-;; (set-language-environment "Japanese")
-;; (prefer-coding-system 'utf-8)
-;; (setq file-name-coding-system 'utf-8)
-;; (setq locale-coding-system 'utf-8)
+; ;; for mac
+; (set-language-environment  "Japanese")
+; (require 'ucs-normalize)
+; (prefer-coding-system 'utf-8-hfs)
+; (setq file-name-coding-system 'utf-8-hfs)
+; (setq locale-coding-system 'utf-8-hfs)
+;; other operating system
+(set-language-environment "Japanese")
+(prefer-coding-system 'utf-8)
+(setq file-name-coding-system 'utf-8)
+(setq locale-coding-system 'utf-8)
 
 ;; Emacs が保持する terminfo を利用する
 (setq system-uses-terminfo nil)
 
-;; エスケープを綺麗に表示
+;; エスケープを綺麗に表示 {{{3
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
 ;; font {{{2
-;; Monaco and Osaka
+;; Monaco and Osaka {{{3
 ; (set-face-attribute 'default nil
 ; 		    :family "Monaco"
 ; 		    :height 120)
@@ -67,7 +67,7 @@
 ; 	(".*Osaka-medium.*" . 1.2)
 ; 	("-cdac$" . 1.4)))
 
-;; Inconsolata and Takaoゴシック
+;; Inconsolata and Takaoゴシック {{{3
 (set-default-font "Inconsolata-14")
 (set-face-font 'variable-pitch "Inconsolata-14")
 (set-fontset-font
@@ -130,9 +130,9 @@
 ;; 行番号の表示 {{{3
 (global-linum-mode)
 
-;; カラーテーマの設定 {{{3
-(when (require 'color-theme nil t)
-  (color-theme-initialize))
+;; ;; カラーテーマの設定 (http://www.nongnu.org/color-theme/) {{{3
+;; (when (require 'color-theme nil t)
+;;   (color-theme-initialize))
 
 ;; initial window setting {{{3 
 (setq initial-frame-alist '((width . 198)(height . 68)(top . 0)(left . 2)))
@@ -150,7 +150,7 @@
 		    )
               default-frame-alist))
 
-;; 行のハイライト
+;; 行のハイライト (from WEB+DB PRESS Vol.58) {{{3
 (defface my-hl-line-face
   '((((class color) (background dark))
      (:background "NavyBlue" t))
@@ -179,7 +179,11 @@
 
 ;; -------------------- elisp ---------------------- {{{1
 
-;; migemo.el ;; {{{2
+;; (install-elisp "http://www.emacswiki.org/emacs/download/multi-term.el") {{{2
+(when (require 'multi-term nil t)
+  (setq multi-term-program "/bin/zsh"))
+
+;; migemo.el (from WEB+DB PRESS Vol.58) {{{2
 (when (and (executable-find "cmigemo")
            (require 'migemo nil t))
   (setq migemo-command "cmigemo")
@@ -194,6 +198,49 @@
   (setq migemo-coding-system 'utf-8-unix)
   (migemo-init))
 
+;;; anything (from WEB+DB PRESS Vol.58) {{{2
+;; (auto-install-batch "anything") {{{3
+(when (require 'anything nil t)
+  (setq
+   anything-idle-delay 0.3              ; 候補表示までの時間
+   anything-input-idle-delay 0.2        ; タイプから再描画までの時間
+   anything-candidate-number-limit 100  ; 候補最大表示数
+   anything-quick-update t              ; 候補が多いとき体感速度向上
+   anything-enable-shortcuts 'alphabet) ; 候補選択をアルファベットで
+  (when (require 'anything-config nil t)
+    (setq anything-su-or-sudo "sudo"))  ; root権限実行時のコマンド
+  (require 'anything-match-plugin nil t)
+  (and (equal current-language-environment "Japanese")
+       (executable-find "cmigemo")
+       (require 'anything-migemo nil t))
+  (when (require 'anything-complete nil t)
+    ;; (anything-read-string-mode 1)    ; M-x補間をAnythingで
+    (anything-lisp-complete-symbol-set-timer 150)); lispシンボル補完候補の再検索時間
+  (require 'anything-show-completion nil t)
+  (when (require 'auto-install nil t)
+    (require 'anything-auto-install nil t))
+  (when (require 'descbinds-anything nil t)
+    (descbinds-anything-install))       ; describe-bindingsをAnythingに置き換える
+  (require 'anything-grep nil t))
+
+;; ドキュメント検索のためのanythingコマンド (WEB+DB PRESS Vol.58) {{{3
+(setq anything-for-document-sources
+      (list
+       anything-c-source-man-pages
+       anything-c-source-info-cl
+       anything-c-source-info-pages
+       anything-c-source-info-elisp
+       anything-c-source-apropos-emacs-commands
+       anything-c-source-apropos-emacs-functions
+       anything-c-source-apropos-emacs-variables))
+(defun anything-for-document ()
+  "Preconfigured 'anything' for anything-for-document."
+  (interactive)
+  (anything anything-for-document-sources
+            (thing-at-point 'symbol) nil nil nil
+            "*anything for document*"))
+(global-set-key (kbd "s-d") 'anything-for-document)
+   
 ;; (install-elisp "http://www.emacswiki.org/emacs/download/auto-install.el") ;; {{{2
 (when (require 'auto-install nil t)
   (setq auto-install-directory "~/.emacs.d/elisp/")
@@ -258,7 +305,7 @@
 
 ;;** simple-hatena-mode {{{2
 (setq load-path
-      (cons "~/.emacs.d/simple-hatena-mode" load-path))
+      (cons "~/.emacs.d/elisp/simple-hatena-mode" load-path))
 (require 'simple-hatena-mode)
 (setq simple-hatena-default-id "Rion778")
 (setq simple-hatena-bin "~/local/bin/hw.pl")
@@ -266,7 +313,7 @@
 (add-hook 'simple-hatena-mode-hook
           '(lambda ()
              (turn-on-screen-lines-mode)
-             (require 'hatenahelper-mode)
+             (require 'simple-hatenahelper-mode)
              (hatenahelper-mode 1)
              (setq simple-hatena-use-timestamp-permalink-flag nil)
              ))
