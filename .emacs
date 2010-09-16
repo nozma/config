@@ -1,4 +1,7 @@
 ;;* ----- 基本設定 -----{{{1
+;; エラー時にエラー箇所表示
+(setq debug-on-error t)
+
 ;; path {{{2
 ;; load-pathを追加する関数 (from WEB+DP PRESS Vol.58)
 (defun add-to-load-path (&rest paths)
@@ -8,7 +11,7 @@
         (add-to-list 'load-path default-directory)
         (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
           (normal-top-level-add-subdirs-to-load-path))))))
-;; elisp, confディレクトリとサブディレクトリをload-pathに追加
+;; elisp, confディレクトリとサブディレクトリをload-pathに追加
 (add-to-load-path "elisp" "conf")
 
 (setq load-path
@@ -41,10 +44,10 @@
 (setq file-name-coding-system 'utf-8)
 (setq locale-coding-system 'utf-8)
 
-;; Emacs が保持する terminfo を利用する
+;; Emacs が保持する terminfo を利用する
 (setq system-uses-terminfo nil)
 
-;; エスケープを綺麗に表示 {{{3
+;; エスケープを綺麗に表示 {{{3
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
@@ -67,15 +70,21 @@
 ; 	(".*Osaka-medium.*" . 1.2)
 ; 	("-cdac$" . 1.4)))
 
-;; Inconsolata and Takaoゴシック {{{3
-(set-default-font "Inconsolata-14")
-(set-face-font 'variable-pitch "Inconsolata-14")
+;; ;; Inconsolata and Takaoゴシック {{{3
+;; (set-default-font "Inconsolata-14")
+;; (set-face-font 'variable-pitch "Inconsolata-14")
+;; (set-fontset-font
+;;  nil 'japanese-jisx0208
+;;  (font-spec :family "TakaoExGothic"))
+(set-face-attribute 'default nil
+                    :family "Inconsolata"
+                    :height 140)
 (set-fontset-font
  nil 'japanese-jisx0208
  (font-spec :family "TakaoExGothic"))
 
 ;; key mapping {{{2
-;; C-hをバックスペースに割り当て {{{3
+;; C-hをバックスペースに割り当て {{{3
 (keyboard-translate ?\C-h ?\C-?)
 (global-set-key (kbd "C-x ?") 'help-command)
 
@@ -86,23 +95,23 @@
 (setq ns-command-modifier 'meta)
 (setq ns-alternate-modifier 'super)
 
-;; C-x bでミニバッファにバッファ候補を表示 {{{3
+;; C-x bでミニバッファにバッファ候補を表示 {{{3
 (iswitchb-mode t)
 (iswitchb-default-keybindings)
 
-;; C-kで行全体を削除 {{{3
+;; C-kで行全体を削除 {{{3
 (setq kill-whole-line t)
 
-;; C-mでnewline-and-indent {{{3
+;; C-mでnewline-and-indent {{{3
 (define-key global-map (kbd "C-m") 'newline-and-indent)
 
-;; M-kでカレントバッファを閉じる {{{3
+;; M-kでカレントバッファを閉じる {{{3
 (define-key global-map (kbd "M-k") 'kill-this-buffer)
 
-;; C-tでウィンドウを切り替える {{{3
+;; C-tでウィンドウを切り替える {{{3
 (define-key global-map (kbd "C-t") 'other-window)
 
-;; タブの代わりに空白を使用 {{{3
+;; タブの代わりに空白を使用 {{{3
 (setq-default indent-tabs-mode nil)
 
 
@@ -110,14 +119,14 @@
 ;; カーソル点滅ON {{{3
 (blink-cursor-mode t)
 
-;; タイトルバーにバッファ名を表示 {{{3
+;; タイトルバーにバッファ名を表示 {{{3
 (setq frame-title-format
       (format "%%f - Emacs@%s" (system-name)))
 
 ;; 起動時の画面を表示させない {{{3
 (setq inhibit-startup-screen t)
 
-;; ツールバー非表示 {{{3
+;; ツールバー非表示 {{{3
 (tool-bar-mode 0)
 
 ;; 対応する括弧の強調表示 {{{3
@@ -162,13 +171,13 @@
 (global-hl-line-mode)
 
 ;; backup {{{2
-;; バックアップファイル保存先設定 {{{3
+;; 保存先 {{{3
 (setq make-backup-files t)
 (setq backup-directory-alist
       (cons (cons "\\.*$" (expand-file-name "~/emacsbackup"))
             backup-directory-alist))
 
-;; バックアップファイルの設定 {{{3
+;; 設定 {{{3
 (setq verison-control t)
 (setq kept-new-versions 5)
 (setq kept-old-versions 5)
@@ -202,20 +211,20 @@
 ;; (auto-install-batch "anything") {{{3
 (when (require 'anything nil t)
   (setq
-   anything-idle-delay 0.3              ; 候補表示までの時間
-   anything-input-idle-delay 0.2        ; タイプから再描画までの時間
+   anything-idle-delay 0.3              ; 候補表示までの時間
+   anything-input-idle-delay 0.2        ; タイプから再描画までの時間
    anything-candidate-number-limit 100  ; 候補最大表示数
-   anything-quick-update t              ; 候補が多いとき体感速度向上
-   anything-enable-shortcuts 'alphabet) ; 候補選択をアルファベットで
+   anything-quick-update t              ; 候補が多いとき体感速度向上
+   anything-enable-shortcuts 'alphabet) ; 候補選択をアルファベットで
   (when (require 'anything-config nil t)
-    (setq anything-su-or-sudo "sudo"))  ; root権限実行時のコマンド
+    (setq anything-su-or-sudo "sudo"))  ; root権限実行時のコマンド
   (require 'anything-match-plugin nil t)
   (and (equal current-language-environment "Japanese")
        (executable-find "cmigemo")
        (require 'anything-migemo nil t))
   (when (require 'anything-complete nil t)
-    ;; (anything-read-string-mode 1)    ; M-x補間をAnythingで
-    (anything-lisp-complete-symbol-set-timer 150)); lispシンボル補完候補の再検索時間
+    ;; (anything-read-string-mode 1)    ; M-x補間をAnythingで
+    (anything-lisp-complete-symbol-set-timer 150)); lispシンボル補完候補の再検索時間
   (require 'anything-show-completion nil t)
   (when (require 'auto-install nil t)
     (require 'anything-auto-install nil t))
@@ -223,7 +232,7 @@
     (descbinds-anything-install))       ; describe-bindingsをAnythingに置き換える
   (require 'anything-grep nil t))
 
-;; ドキュメント検索のためのanythingコマンド (WEB+DB PRESS Vol.58) {{{3
+;; ドキュメント検索のためのanythingコマンド (WEB+DB PRESS Vol.58) {{{3
 (setq anything-for-document-sources
       (list
        anything-c-source-man-pages
@@ -250,7 +259,7 @@
 ;; (install-elisp "http://www.emacswiki.org/emacs/download/redo+.el) ;; {{{2
 (when (require 'redo+ nil t)
   ;; global-map
-  (global-set-key (kbd "C-'") 'redo)) ;C-'でredo
+  (global-set-key (kbd "C-'") 'redo)) ;C-'でredo
 
 ;;** smartchr.el {{{2 http://tech.kayac.com/archive/emacs-tips-smartchr.html
 (require 'smartchr)
@@ -273,7 +282,7 @@
 
 ;;** org-mode {{{2
 
-;; Emacsでメモ・TODO管理 (http://e-arrows.sakura.ne.jp/2010/02/vim-to-emacs.html)
+;; Emacsでメモ・TODO管理 (http://e-arrows.sakura.ne.jp/2010/02/vim-to-emacs.html)
 (require 'org-install)
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
@@ -310,6 +319,7 @@
 (setq simple-hatena-default-id "Rion778")
 (setq simple-hatena-bin "~/local/bin/hw.pl")
 (setq simple-hatena-root "~/.s-hatena")
+(require 'hatenahelper-mode)
 (add-hook 'simple-hatena-mode-hook
           '(lambda ()
              (turn-on-screen-lines-mode)
@@ -382,7 +392,7 @@
                 (concat YaTeX-prefix "<") 'YaTeX-uncomment-region)))
 
 ;;** ESS {{{2 
-; ;; 拡張子が.Rのファイルで自動的にR-mode
+; ;; 拡張子が.Rのファイルで自動的にR-mode
 ; (setq auto-mode-alist
 ;      (cons (cons "\\.R$" 'R-mode) auto-mode-alist))
 ; (autoload 'R-mode "ess-site" "Emacs Speaks Statistics mode" t)
@@ -407,7 +417,7 @@
 	       (repeat . nil)
 	       (modes  . '(ess-mode))))
 
-;; ウィンドウ分割設定
+;; ウィンドウ分割設定
 (defun ess:format-window-1 ()
   (split-window-horizontally)
   (other-window 1)
@@ -438,12 +448,12 @@
 (require 'auto-complete-yasnippet)
 (require 'auto-complete-acr)
 ;;** YaTeX {{{2
-;; .texファイルで自動的にyatex-mode
+;; .texファイルで自動的にyatex-mode
 (setq auto-mode-alist 
       (cons (cons "\\.tex$" 'yatex-mode) auto-mode-alist))
 (autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
 
-;; TeXShopでプレビュー
+;; TeXShopでプレビュー
 ;(setq tex-command "~/Library/TeXShop/bin/platex2pdf-utf8"
 ;      dvi2-command "open -a TexShop")
 
@@ -451,16 +461,16 @@
 (setq tex-command "latexmk -pdfps"
       dvi2-command "open -a Skim")
 
-;; 漢字コード
+;; 漢字コード
 (setq YaTeX-kanji-code 4)
 
 ;; AMS-LaTeX
 (setq YaTeX-use-AMS-LaTeX t)
 
 ;; GNU MDK {{{2
-;; ロードパスの追加
+;; ロードパスの追加
 (setq load-path (cons "/opt/local/share/mdk" load-path))
-;; .mixalファイル読み込みで自動的にmixal-mode
+;; .mixalファイル読み込みで自動的にmixal-mode
 (autoload 'mixal-mode "mixal-mode" t)
 (add-to-list 'auto-mode-alist '("\\.mixal\\'" . mixal-mode))
 ;; mixvmの使用
