@@ -167,7 +167,8 @@ autocmd Filetype R set commentstring=#%s
 autocmd Filetype lisp set commentstring=;;%s
 
 " Plugin "{{{1
-
+" neocomplcache http://github.com/Shougo/neocomplcache {{{2
+let g:neocomplcache_enable_at_startup = 1
 " quickrun.vim {{{2
 
 " Align.vim{{{2
