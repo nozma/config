@@ -4,8 +4,8 @@ echo "Vimperator Loading..."
 " Main Settings "{{{1
 set wildoptions=auto
 set complete=sl
-set nextpattern=^Ÿ(‚Ö|‚Ì|ƒy),^‘±‚«,\bnext\b,^>$,^(>>|&#187;)$,^(>|&#187;),(>|&#187;)$,\bmore\b
-set previouspattern=^‘O(‚Ö|‚Ì|ƒy),^–ß‚é,\bprev|previous\b,^<$,^(<<|&#171;)$,^(<|&#171;),(<|&#171;)$
+set nextpattern=^æ¬¡(ã¸|ã®|ãƒš),^ç¶šã,\bnext\b,^>$,^(>>|&#187;)$,^(>|&#187;),(>|&#187;)$,\bmore\b
+set previouspattern=^å‰(ã¸|ã®|ãƒš),^æˆ»ã‚‹,\bprev|previous\b,^<$,^(<<|&#171;)$,^(<|&#171;),(<|&#171;)$
 set focuscontent
 set ignorecase
 set guioptions=r
@@ -15,7 +15,7 @@ hi Bell display:none;
 set editor=gvim
 
 " Visual "{{{1
-"" ƒXƒe[ƒ^ƒXƒo[‚ÌƒtƒHƒ“ƒgƒTƒCƒY‚ğ‘å‚«‚­‚·‚é
+"" ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒãƒ¼ã®ãƒ•ã‚©ãƒ³ãƒˆã‚µã‚¤ã‚ºã‚’å¤§ããã™ã‚‹
 style chrome://* <<EOM
 #liberator-statusline {
     font-family: Menlo, Consolas, Monaco, monospace !important;
@@ -25,30 +25,30 @@ style chrome://* <<EOM
 }
 EOM
 
-"" ƒXƒe[ƒ^ƒXƒo[
+"" ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒãƒ¼
 hi StatusLine color: #000; background: #BBB; font-weight: normal; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace;
 hi StatusLineSecure color: #000; background: #9CF; font-weight: normal;
 hi StatusLineExtended color: #000; background: #9FF; font-weight: normal;
 hi StatusLineBroken color: #FFF; background: #900; font-weight: normal;
 
-"" ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“
+"" ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³
 hi CmdLine color: #000; background: #FFF; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; padding: 2px;
-hi Normal color: #000; background: #FFF; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; " ’ÊíƒeƒLƒXƒg
-hi InfoMsg color: #000; background: #FFF; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; "’Ê’mƒƒbƒZ[ƒW
-hi ModeMsg color: #000; background: #FFF; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; "ƒ‚[ƒh•\¦
-hi MoreMsg color: #000; background: #FFF; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; "‚³‚ç‚Éƒ‚[ƒh•\¦
-hi ErrorMsg color: #FFF; background: #F00; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; " ƒGƒ‰[ƒƒbƒZ[ƒW
-hi LineNr color: #F00; background: #FFF; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; " ƒGƒ‰[‚Ìs”Ô†
+hi Normal color: #000; background: #FFF; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; " é€šå¸¸æ™‚ãƒ†ã‚­ã‚¹ãƒˆ
+hi InfoMsg color: #000; background: #FFF; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; "é€šçŸ¥ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
+hi ModeMsg color: #000; background: #FFF; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; "ãƒ¢ãƒ¼ãƒ‰è¡¨ç¤º
+hi MoreMsg color: #000; background: #FFF; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; "ã•ã‚‰ã«ãƒ¢ãƒ¼ãƒ‰è¡¨ç¤º
+hi ErrorMsg color: #FFF; background: #F00; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; " ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
+hi LineNr color: #F00; background: #FFF; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; " ã‚¨ãƒ©ãƒ¼ã®è¡Œç•ªå·
 
-"" •âŠ®ƒŠƒXƒg
-hi CompTitle font-weight: bold; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; " ƒ^ƒCƒgƒ‹
-hi CompResult width: 600px; max-width: 600px; display: inline-block; overflow: hidden; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; " Œ‹‰Ê—“i¶‘¤j
-hi CompDesc width: 600px; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; " à–¾—“i‰E‘¤j
-hi CompItem font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; " •âŠ®ƒŠƒXƒg‚Ì1s
-hi CompItem[selected] color: #FFF; background: #000; font-weight: normal; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; " •âŠ®ƒŠƒXƒg‚Ì‘I‘ğ‚µ‚Ä‚¢‚és
-hi Filter color: #06E; font-weight: bold; " •âŠ®ƒŠƒXƒg‚Åƒ}ƒbƒ`‚µ‚½ƒeƒLƒXƒg
+"" è£œå®Œãƒªã‚¹ãƒˆ
+hi CompTitle font-weight: bold; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; " ã‚¿ã‚¤ãƒˆãƒ«
+hi CompResult width: 600px; max-width: 600px; display: inline-block; overflow: hidden; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; " çµæœæ¬„ï¼ˆå·¦å´ï¼‰
+hi CompDesc width: 600px; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; " èª¬æ˜æ¬„ï¼ˆå³å´ï¼‰
+hi CompItem font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; " è£œå®Œãƒªã‚¹ãƒˆã®1è¡Œ
+hi CompItem[selected] color: #FFF; background: #000; font-weight: normal; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; " è£œå®Œãƒªã‚¹ãƒˆã®é¸æŠã—ã¦ã„ã‚‹è¡Œ
+hi Filter color: #06E; font-weight: bold; " è£œå®Œãƒªã‚¹ãƒˆã§ãƒãƒƒãƒã—ãŸãƒ†ã‚­ã‚¹ãƒˆ
 
-"" ƒtƒB[ƒhƒAƒCƒRƒ“‚ğƒXƒe[ƒ^ƒXƒo[‚É•\¦
+"" ãƒ•ã‚£ãƒ¼ãƒ‰ã‚¢ã‚¤ã‚³ãƒ³ã‚’ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒãƒ¼ã«è¡¨ç¤º
 javascript <<EOF
 (function(){
     var feedPanel = document.createElement("statusbarpanel");
@@ -62,10 +62,10 @@ EOF
 " Key mapping "{{{1
 "yank region
 map y :echo 'Yank!'<CR>Y
-"j/k‚ÌˆÚ“®—Ê‘‰Á
+"j/kã®ç§»å‹•é‡å¢—åŠ 
 map j 8<C-e>
 map k 8<C-y>
-"h/l‚Åƒ^ƒuˆÚ“®
+"h/lã§ã‚¿ãƒ–ç§»å‹•
 map h <C-p>
 map l <C-n>
 "restart firefox
