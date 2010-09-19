@@ -78,7 +78,7 @@
 ;;  (font-spec :family "TakaoExGothic"))
 (set-face-attribute 'default nil
                     :family "Inconsolata"
-                    :height 140)
+                    :height 160)
 (set-fontset-font
  nil 'japanese-jisx0208
  (font-spec :family "TakaoExGothic"))
@@ -154,8 +154,8 @@
                     '(mouse-color . "white")
                     '(cursor-color . "white")
                     '(alpha . (85 85 0 0))
-		    '(width . 176)
-		    '(height . 51)
+		    '(width . 155)
+		    '(height . 48)
 		    '(top . 0)
 		    '(left . 0)
 		    )
