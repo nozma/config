@@ -138,14 +138,16 @@
 
 ;; 行番号の表示 {{{3
 (global-linum-mode)
+(set-face-attribute 'linum nil :foreground "red" :height 0.8)
+(setq linum-format "%4d")
 
 ;; ;; カラーテーマの設定 (http://www.nongnu.org/color-theme/) {{{3
 ;; (when (require 'color-theme nil t)
 ;;   (color-theme-initialize))
 
 ;; initial window setting {{{3 
-(setq initial-frame-alist '((width . 198)(height . 68)(top . 0)(left . 2)))
-(setq default-frame-alist
+;(setq initial-frame-alist '((width . 198)(height . 68)(top . 0)(left . 2)))
+(setq initial-frame-alist
       (append (list '(foreground-color . "azure3")
                     '(background-color . "black")
                     '(border-color . "black")
@@ -153,11 +155,12 @@
                     '(cursor-color . "white")
                     '(alpha . (85 85 0 0))
 		    '(width . 176)
-		    '(height . 45)
+		    '(height . 51)
 		    '(top . 0)
 		    '(left . 0)
 		    )
-              default-frame-alist))
+              initial-frame-alist))
+(setq default-frame-alist initial-frame-alist)
 
 ;; 行のハイライト (from WEB+DB PRESS Vol.58) {{{3
 (defface my-hl-line-face
