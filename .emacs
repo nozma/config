@@ -139,7 +139,7 @@
 ;; (when (require 'color-theme nil t)
 ;;   (color-theme-initialize))
 
-;; initial window setting {{{3 
+;; frame {{{3
 ;(setq initial-frame-alist '((width . 198)(height . 68)(top . 0)(left . 2)))
 (setq initial-frame-alist
       (append (list '(foreground-color . "azure3")
@@ -149,7 +149,7 @@
                     '(cursor-color . "white")
                     '(alpha . (85 85 0 0))
 		    '(width . 155)
-		    '(height . 48)
+		    '(height . 60)
 		    '(top . 0)
 		    '(left . 0)
 		    )
