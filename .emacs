@@ -77,36 +77,29 @@
  (font-spec :family "TakaoExGothic"))
 
 ;; key mapping {{{2
+;; C-zで逆スクロール
+(define-key global-map (kbd "C-z") 'scroll-down)
 ;; C-hをバックスペースに割り当て {{{3
 (keyboard-translate ?\C-h ?\C-?)
 (global-set-key (kbd "C-x ?") 'help-command)
-
 ;; OptionキーをMetaキーとして用いる(for Carbon Emacs) {{{3
 (setq mac-option-modifier 'meta)
-
 ;; commandとoptionいれかえ {{{3
 (setq ns-command-modifier 'meta)
 (setq ns-alternate-modifier 'super)
-
 ;; C-x bでミニバッファにバッファ候補を表示 {{{3
 (iswitchb-mode t)
 (iswitchb-default-keybindings)
-
 ;; C-kで行全体を削除 {{{3
 (setq kill-whole-line t)
-
 ;; C-mでnewline-and-indent {{{3
 (define-key global-map (kbd "C-m") 'newline-and-indent)
-
 ;; M-kでカレントバッファを閉じる {{{3
 (define-key global-map (kbd "M-k") 'kill-this-buffer)
-
 ;; C-tでウィンドウを切り替える {{{3
 (define-key global-map (kbd "C-t") 'other-window)
-
 ;; タブの代わりに空白を使用 {{{3
 (setq-default indent-tabs-mode nil)
-
 
 ;; visual {{{2
 ;; カーソル点滅ON {{{3
@@ -133,6 +126,14 @@
 (global-linum-mode)
 (set-face-attribute 'linum nil :foreground "red" :height 0.8)
 (setq linum-format "%4d")
+
+;; モードライン {{{3
+(line-number-mode t)                    ; 行番号
+(column-number-mode t)                  ; 列番号
+(require 'time)                         ; 時刻の表示
+(setq display-time-24hr-format t)
+(setq display-time-string-forms '(24-hours ":" minutes))
+(display-time-mode t)
 
 ;; ;; カラーテーマの設定 (http://www.nongnu.org/color-theme/) {{{3
 ;; (when (require 'color-theme nil t)
