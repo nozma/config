@@ -44,13 +44,6 @@
 (setq file-name-coding-system 'utf-8)
 (setq locale-coding-system 'utf-8)
 
-;; Emacs が保持する terminfo を利用する
-(setq system-uses-terminfo nil)
-
-;; エスケープを綺麗に表示 {{{3
-(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
-(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
-
 ;; font {{{2
 ;; Monaco and Osaka {{{3
 ; (set-face-attribute 'default nil
@@ -395,39 +388,27 @@
                 (concat YaTeX-prefix "<") 'YaTeX-uncomment-region)))
 
 ;;** ESS {{{2 
-; ;; 拡張子が.Rのファイルで自動的にR-mode
-; (setq auto-mode-alist
-;      (cons (cons "\\.R$" 'R-mode) auto-mode-alist))
-; (autoload 'R-mode "ess-site" "Emacs Speaks Statistics mode" t)
-; (autoload 'R "ess-site" nil 'interactive)
-; (require 'ess-site)
-(load "ess-site")
-
+(require 'ess-site)
+;; ウィンドウ分割設定
+(defun ess-format-window ()
+  (split-window-horizontally)
+  (other-window 1)
+  (split-window)
+  (other-window 1)
+  )
+(add-hook 'ess-pre-run-hook 'ess-format-window)
+(setq auto-mode-alist
+      (cons (cons "\\.r$" 'R-mode) auto-mode-alist))
+(autoload 'R-mode "ess-site" "Emacs Speaks Statistics mode" t)
 (setq ess-ask-for-ess-directory nil)
-(setq ess-pre-run-hook
-      '((lambda ()
-          (setq default-process-coding-system '(utf-8 . utf-8))
-          )))
-
-;; Path to R
 (setq-default inferior-R-program-name "/Library/Frameworks/R.framework/Resources/bin/R")
-
-;; M-x align (http://d.hatena.ne.jp/yag_ays/20090712/1247346981)
+;; align (http://d.hatena.ne.jp/yag_ays/20090712/1247346981)
 (require 'align)
 (add-to-list 'align-rules-list
              '(ess-assignment-operator
 	       (regexp . "\\(\\s-*\\)<-[^#\t\n]")
 	       (repeat . nil)
 	       (modes  . '(ess-mode))))
-
-;; ウィンドウ分割設定
-(defun ess:format-window-1 ()
-  (split-window-horizontally)
-  (other-window 1)
-  (split-window)
-  (other-window 1)
-  )
-(add-hook 'ess-pre-run-hook 'ess:format-window-1)
 
 ;;** R-object-popup.el {{{2
 ;;http://sheephead.homelinux.org/2010/03/02/1807/
