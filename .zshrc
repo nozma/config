@@ -14,7 +14,7 @@ PROMPT='%{'$'\e[''$[36]m%}%U%B%m{%n}%b%{'$'\e[''m%}%U%%%u '
 RPROMPT='%{'$'\e[''33m%}[%~]%{'$'\e[''m%}'
 
 # Set shell options {{{1
-setopt auto_cd auto_remove_slash auto_name_dirs
+setopt auto_cd auto_name_dirs
 setopt extended_history hist_ignore_dups hist_ignore_space prompt_subst
 setopt extended_glob list_types no_beep always_last_prompt
 setopt cdable_vars sh_word_split auto_param_keys pushd_ignore_dups
@@ -54,10 +54,11 @@ zstyle ':completion:*' format '%BCompleting %d%b'
 zstyle ':completion:*' group-name ''
 # 大文字小文字を区別しない
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*' completer _oldlist _complete
 
 # script {{{1
 # auto-fu.zsh
-source ~/.zsh/script/auto-fu.zsh; zle-line-init () { auto-fu-init; }; zle -N zle-line-init
+source ~/.zsh/script/auto-fu/auto-fu.zsh; zle-line-init () { auto-fu-init; }; zle -N zle-line-init
 
 # rvm
 if [[ -s /Users/rito/.rvm/scripts/rvm ]] ; then source /Users/rito/.rvm/scripts/rvm ; fi
