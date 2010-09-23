@@ -77,7 +77,7 @@
  (font-spec :family "TakaoExGothic"))
 
 ;; key mapping {{{2
-;; C-zで逆スクロール
+;; C-zで逆スクロール {{{3
 (define-key global-map (kbd "C-z") 'scroll-down)
 ;; C-hをバックスペースに割り当て {{{3
 (keyboard-translate ?\C-h ?\C-?)
@@ -182,6 +182,72 @@
 
 ;; 縦分割時の行折り返し設定
 (setq truncate-partial-width-windows nil)
+
+;; fontlock {{{2
+(global-font-lock-mode t)
+;; text-mode fontlock (import from simple-hatena-mode) {{{3
+(add-hook 'text-mode-hook
+          '(lambda ()
+             (require 'hatenahelper-mode)
+             (hatenahelper-mode 1)
+             (defvar hatena-text-font-lock-keywords nil)
+             (defvar hatena-text-slag-face 'hatena-text-slag-face)
+             (defvar hatena-text-subtitle-face 'hatena-text-subtitle-face)
+             (defvar hatena-text-inline-face 'hatena-text-inline-face)
+             (defvar hatena-text-markup-face 'hatena-text-markup-face)
+             (defvar hatena-text-link-face 'hatena-text-link-face)
+
+             (font-lock-add-keywords 'text-mode
+                                     (list
+                                       (list  "^\\(\\*[*a-zA-Z0-9_-]*\\)\\(.*\\)$"
+                                              '(1 hatena-text-slag-face t)
+                                              '(2 hatena-text-subtitle-face t))
+                                       ;; 必ず[]で囲まれていなければならないもの
+                                       (list "\\[[*a-zA-Z0-9_-]+\\(:[^\n]+\\)+\\]"
+                                             '(0 hatena-text-inline-face t))
+                                       ;; 必ずしも[]で囲まれていなくてもよいもの
+                                       (list "\\[?\\(id\\|a\\|b\\|d\\|f\\|g\\|graph\\|i\\|idea\\|map\\|question\\|r\\|isbn\\|asin\\)\\(:[a-zA-Z0-9_+:-]+\\)+\\]?"
+                                             '(0 hatena-text-inline-face t))
+                                       (list  "^\\(:\\)[^:\n]+\\(:\\)"
+                                              '(1 hatena-text-markup-face t)
+                                              '(2 hatena-text-markup-face t))
+                                       (list  "^\\([-+]+\\)"
+                                              '(1 hatena-text-markup-face t))
+                                       (list  "\\(((\\).*\\())\\)"
+                                              '(1 hatena-text-markup-face t)
+                                              '(2 hatena-text-markup-face t))
+                                       (list  "^\\(>>\\|<<\\|><!--\\|--><\\|>|?[^|]*|\\||?|<\\|=====?\\)"
+                                              '(1 hatena-text-markup-face t))
+                                       (list  "\\(s?https?://\[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#\]+\\)"
+                                              '(1 hatena-text-link-face t))))
+
+             (defface hatena-text-slag-face
+                      '((((class color) (background light)) (:foreground "IndianRed"))
+                        (((class color) (background dark)) (:foreground "wheat")))
+                      "小見出しの*タイムスタンプorスラッグ*部分のフェイス。")
+
+             (defface hatena-text-subtitle-face
+                      '((((class color) (background light)) (:foreground "DarkOliveGreen"))
+                        (((class color) (background dark)) (:foreground "wheat")))
+                      "小見出しのフェイス。")
+
+             (defface hatena-text-inline-face
+                      '((((class color) (background light)) (:foreground "MediumBlue" :bold t))
+                        (((class color) (background dark)) (:foreground "wheat" :bold t)))
+                      "id記法や[keyword:Emacs]等のface")
+
+             (defface hatena-text-markup-face
+                      '((((class color) (background light)) (:foreground "DarkOrange" :bold t))
+                        (((class color) (background dark)) (:foreground "IndianRed3" :bold t)))
+                      "はてなのマークアップのフェイス。")
+
+             (defface hatena-text-link-face
+                      '((((class color) (background light)) (:foreground "DeepPink"))
+                        (((class color) (background dark)) (:foreground "wheat")))
+                      "リンクのフェイス。")
+             (font-lock-mode 1)
+             (font-lock-fontify-buffer)
+             ))
 
 ;; -------------------- elisp ---------------------- {{{1
 
@@ -316,11 +382,10 @@
 (setq simple-hatena-default-id "Rion778")
 (setq simple-hatena-bin "~/local/bin/hw.pl")
 (setq simple-hatena-root "~/.s-hatena")
-(require 'hatenahelper-mode)
 (add-hook 'simple-hatena-mode-hook
           '(lambda ()
              (turn-on-screen-lines-mode)
-             (require 'simple-hatenahelper-mode)
+             (require 'hatenahelper-mode)
              (hatenahelper-mode 1)
              (setq simple-hatena-use-timestamp-permalink-flag nil)
              ))
