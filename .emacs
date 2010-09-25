@@ -150,7 +150,7 @@
                     '(border-color . "black")
                     '(mouse-color . "white")
                     '(cursor-color . "white")
-                    '(alpha . (85 85 0 0))
+                    '(alpha . (75 75 0 0))
 		    '(width . 155)
 		    '(height . 60)
 		    '(top . 0)
@@ -548,3 +548,9 @@
    '(slime-setup '(slime-fancy slime-banner)))
 
 (global-set-key "\C-cs" 'slime-selector)
+
+;;; moz.el
+(autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
+(add-hook 'javascript-mode-hook
+          (lambda ()
+            (moz-minor-mode 1)))
