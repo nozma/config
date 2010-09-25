@@ -549,9 +549,11 @@
 
 (global-set-key "\C-cs" 'slime-selector)
 
-;; ejacs {{{2
+;;; ejacs {{{2
+;; C-c C-jでjs-consoleを起動
+;; C-c C-rで選択範囲をインタプリタで実行 
 (autoload 'js-console "js-console" nil t)
-(defun js-console-eval-region (start end)
+(defun js-console-execute-region (start end)
   "Execute region"
   (interactive "r")
   (let ((buf-name (buffer-name (current-buffer))))
@@ -560,19 +562,17 @@
     (js-console-exec-input (car kill-ring))
     (switch-to-buffer-other-window buf-name)))
 (defun run-js-console-and-split-window ()
-  "Run js-console and split window."
+  "Run js-console and split window horizontally."
   (interactive)
   (split-window-horizontally)
   (js-console)
   (other-window 1)
   )
-  
-  
 (add-hook 'js-mode-hook
           (lambda ()
             (moz-minor-mode 1)
             (local-set-key "\C-c\C-j" 'run-js-console-and-split-window)
-            (local-set-key "\C-c\C-r" 'js-console-eval-region)
+            (local-set-key "\C-c\C-r" 'js-console-execute-region)
             ))
 
 ;;; moz.el {{{2
