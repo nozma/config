@@ -549,8 +549,32 @@
 
 (global-set-key "\C-cs" 'slime-selector)
 
-;;; moz.el {{{2
-(autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
+;; ejacs {{{2
+(autoload 'js-console "js-console" nil t)
+(defun js-console-eval-region (start end)
+  "Execute region"
+  (interactive "r")
+  (let ((buf-name (buffer-name (current-buffer))))
+    (copy-region-as-kill start end)
+    (switch-to-buffer-other-window "*js*")
+    (js-console-exec-input (car kill-ring))
+    (switch-to-buffer-other-window buf-name)))
+(defun run-js-console-and-split-window ()
+  "Run js-console and split window."
+  (interactive)
+  (split-window-horizontally)
+  (js-console)
+  (other-window 1)
+  )
+  
+  
 (add-hook 'js-mode-hook
           (lambda ()
-            (moz-minor-mode 1)))
+            (moz-minor-mode 1)
+            (local-set-key "\C-c\C-j" 'run-js-console-and-split-window)
+            (local-set-key "\C-c\C-r" 'js-console-eval-region)
+            ))
+
+;;; moz.el {{{2
+(autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
+
