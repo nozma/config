@@ -150,7 +150,7 @@
                     '(border-color . "black")
                     '(mouse-color . "white")
                     '(cursor-color . "white")
-                    '(alpha . (75 75 0 0))
+                    '(alpha . (80 80 0 0))
 		    '(width . 155)
 		    '(height . 60)
 		    '(top . 0)
@@ -551,7 +551,7 @@
 
 ;;; ejacs {{{2
 ;; C-c C-jでjs-consoleを起動
-;; C-c C-rで選択範囲をインタプリタで実行 
+;; C-c rで選択範囲を実行 
 (autoload 'js-console "js-console" nil t)
 (defun js-console-execute-region (start end)
   "Execute region"
@@ -570,11 +570,10 @@
   )
 (add-hook 'js-mode-hook
           (lambda ()
-            (moz-minor-mode 1)
+            (moz-minor-mode 1) ;; 要moz.el
             (local-set-key "\C-c\C-j" 'run-js-console-and-split-window)
-            (local-set-key "\C-c\C-r" 'js-console-execute-region)
+            (local-set-key "\C-cr" 'js-console-execute-region)
             ))
 
 ;;; moz.el {{{2
-(autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
-
+; (autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
