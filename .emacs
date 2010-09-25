@@ -549,8 +549,8 @@
 
 (global-set-key "\C-cs" 'slime-selector)
 
-;;; moz.el
+;;; moz.el {{{2
 (autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
-(add-hook 'javascript-mode-hook
+(add-hook 'js-mode-hook
           (lambda ()
             (moz-minor-mode 1)))
