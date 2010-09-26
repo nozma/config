@@ -545,11 +545,19 @@
              (cond ((not (featurep 'slime))
                     (require 'slime)
                     (normal-mode)))))
-
 (eval-after-load "slime"
    '(slime-setup '(slime-fancy slime-banner)))
-
 (global-set-key "\C-cs" 'slime-selector)
+(defun my-slime (&optional command coding-system)
+  "Run slime and split window."
+  (interactive)
+  (if (< (count-windows) 2)
+      (split-window-horizontally)
+  )
+  (other-window 1)
+  (slime command coding-system)
+  (other-window 1)
+  )
 
 ;;; ejacs {{{2
 ;; C-c C-jでjs-consoleを起動
