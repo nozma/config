@@ -558,6 +558,20 @@
   (slime command coding-system)
   (other-window 1)
   )
+(defun slime-repl-send-region (start end)
+  "Send region to slime-repl."
+  (interactive "r")
+  (let ((buf-name (buffer-name (current-buffer)))
+        (sbcl-buf (get-buffer "*slime-repl sbcl*")))
+    (cond (sbcl-buf 
+           (copy-region-as-kill start end)
+           (switch-to-buffer-other-window sbcl-buf)
+           (yank)
+           (slime-repl-send-input "\n")
+           (switch-to-buffer-other-window buf-name))
+          (t (message "Not exist *slime-repl sbcl* buffer!")))
+    ))
+(global-set-key "\C-c\C-r" 'slime-repl-send-region)
 
 ;;; ejacs {{{2
 ;; C-c C-jでjs-consoleを起動
@@ -574,7 +588,9 @@
 (defun run-js-console-and-split-window ()
   "Run js-console and split window horizontally."
   (interactive)
-  (split-window-horizontally)
+  (if (< (count-windows) 2)
+      (split-window-horizontally)
+  )
   (js-console)
   (other-window 1)
   )
