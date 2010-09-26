@@ -532,7 +532,8 @@
 (autoload 'mixvm "mixvm" "mixvm/gud interaction" t)
 
 ;;; SLIME {{{2
-
+;; M-x my-slime: 分割したウィンドウでslime起動
+;; C-c C-r: 選択範囲をslime-replへ送って評価
 (add-to-list 'load-path "/opt/local/share/emacs/site-lisp/slime")
 (require 'slime-autoloads)
 (setq slime-lisp-implementations
