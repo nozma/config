@@ -558,6 +558,7 @@
   (other-window 1)
   (slime command coding-system)
   (other-window 1)
+  (global-set-key "\C-cH" 'hyperspec-lookup)
   )
 (defun slime-repl-send-region (start end)
   "Send region to slime-repl."
@@ -654,3 +655,13 @@
  (set-face-attribute
   'tabbar-separator-face nil
   :height 0.7)
+
+;; w3m {{{2
+(require 'w3m-load)
+(setq w3m-home-page "http://google.com")
+(setq w3m-use-cookies t)
+(setq brouwse-url-brouser-function 'w3m-brouse-url)
+(add-hook 'w3m-mode-hook
+          (lambda ()
+            (local-set-key "\C-t" 'other-window)
+            ))
