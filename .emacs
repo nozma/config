@@ -540,6 +540,7 @@
      `((sbcl ("/opt/local/bin/sbcl"))
        (abcl ("/opt/local/bin/abcl"))
        (clisp ("/opt/local/bin/clisp"))))
+(setq slime-net-coding-system 'utf-8-unix)
 (add-hook 'lisp-mode-hook
            (lambda ()
              (global-set-key "\C-cH" 'hyperspec-lookup)
