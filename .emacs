@@ -164,13 +164,14 @@
 ;; 行のハイライト (from WEB+DB PRESS Vol.58) {{{3
 (defface my-hl-line-face
   '((((class color) (background dark))
-     (:background "NavyBlue" t))
+     (:background "gray10"
+      :underline  "gray24"))
     (((class color) (background light))
      (:background "LightGoldenrodYellow" t))
     (t (:bold t)))
   "hl-line's my face")
 (setq hl-line-face 'my-hl-line-face)
-(global-hl-line-mode)
+(global-hl-line-mode t)
 
 ;; backup {{{2
 ;; 保存先 {{{3
