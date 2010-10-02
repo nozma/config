@@ -140,6 +140,9 @@
 (setq display-time-string-forms '(24-hours ":" minutes))
 (display-time-mode t)
 
+;; 縦分割時の行折り返し設定 {{{3
+(setq truncate-partial-width-windows nil)
+
 ;; ;; カラーテーマの設定 (http://www.nongnu.org/color-theme/) {{{3
 ;; (when (require 'color-theme nil t)
 ;;   (color-theme-initialize))
@@ -186,8 +189,9 @@
 (setq kept-old-versions 5)
 (setq delete-old-versions t)
 
-;; 縦分割時の行折り返し設定
-(setq truncate-partial-width-windows nil)
+;; 状態の保存 {{{3
+(require 'desktop)
+(desktop-save-mode 1)
 
 ;; fontlock {{{2
 (global-font-lock-mode t)
