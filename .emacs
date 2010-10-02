@@ -102,6 +102,8 @@
 (define-key global-map (kbd "M-K") 'delete-frame)
 ;; C-tでウィンドウを切り替える {{{3
 (define-key global-map (kbd "C-t") 'other-window)
+;; C-Tでフレームを切り替える {{{3
+(define-key global-map (kbd "C-T") 'other-frame)
 ;; タブの代わりに空白を使用 {{{3
 (setq-default indent-tabs-mode nil)
 ;; 矩形選択 {{{3
