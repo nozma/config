@@ -7,7 +7,19 @@ export PATH=$HOME/local/bin:/opt/local/bin:/usr/local/bin:/usr/X11R6/bin:/usr/bi
 export MANPATH=$HOME/local/man:opt/local/man:usr/local/man:/usr/share/man:/usr/X11R6/man
 
 export LANG=ja_JP.UTF-8
-export LC_ALL="$LANG"
+export LC_CTYPE="$LANG"
+export LC_NUMERIC="$LANG"
+export LC_TIME=C
+export LC_COLLATE="$LANG"
+export LC_MONETARY="$LANG"
+export LC_MESSAGES="$LANG"
+export LC_PAPER="$LANG"
+export LC_NAME="$LANG"
+export LC_ADDRESS="$LANG"
+export LC_TELEPHONE="$LANG"
+export LC_MEASUREMENT="$LANG"
+export LC_IDENTIFICATION="$LANG"
+
 export EDITOR=vim
 
 export DISPLAY=":0.0"
