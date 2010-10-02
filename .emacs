@@ -98,6 +98,8 @@
 (define-key global-map (kbd "C-m") 'newline-and-indent)
 ;; M-kでカレントバッファを閉じる {{{3
 (define-key global-map (kbd "M-k") 'kill-this-buffer)
+;; M-Kでカレントフレームを閉じる {{{3
+(define-key global-map (kbd "M-K") 'delete-frame)
 ;; C-tでウィンドウを切り替える {{{3
 (define-key global-map (kbd "C-t") 'other-window)
 ;; タブの代わりに空白を使用 {{{3
