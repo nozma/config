@@ -351,21 +351,21 @@
 ;;** org-mode {{{2
 
 ;; ;; Emacsでメモ・TODO管理 (http://e-arrows.sakura.ne.jp/2010/02/vim-to-emacs.html)
-;; (require 'org-install)
-;; (define-key global-map "\C-cl" 'org-store-link)
-;; (define-key global-map "\C-ca" 'org-agenda)
-;; (define-key global-map "\C-c\C-r" 'org-remember)
-;; (setq org-startup-truncated nil)
-;; (setq org-return-follows-link t)
-;; (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
-;; (org-remember-insinuate)
-;; (setq org-directory "~/memo/")
-;; (setq org-default-notes-file (concat org-directory "notes.org"))
-;; (setq org-agenda-files '("~/memo/notes.org"))
-;; (setq org-remember-templates
-;;       '(("Todo" ?t "** TODO %?\n   %i\n   %a\n   %t" nil "Inbox")
-;;         ("Bug" ?b "** TODO %?   :bug:\n   %i\n   %a\n   %t" nil "Inbox")
-;;         ("Idea" ?i "** %?\n   %i\n   %a\n   %t" nil "New Ideas")))
+(require 'org-install)
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(define-key global-map "\C-c\C-r" 'org-remember)
+(setq org-startup-truncated nil)
+(setq org-return-follows-link t)
+(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+(org-remember-insinuate)
+(setq org-directory "~/memo/")
+(setq org-default-notes-file (concat org-directory "notes.org"))
+(setq org-agenda-files '("~/memo/notes.org"))
+(setq org-remember-templates
+      '(("Todo" ?t "** TODO %?\n   %i\n   %a\n   %t" nil "Inbox")
+        ("Bug" ?b "** TODO %?   :bug:\n   %i\n   %a\n   %t" nil "Inbox")
+        ("Idea" ?i "** %?\n   %i\n   %a\n   %t" nil "New Ideas")))
 
 ;; ;;** sense-region.el {{{2 (http://taiyaki.org/elisp/sense-region/)
 ;; (autoload 'sense-region-on "sense-region"
