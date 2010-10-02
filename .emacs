@@ -332,22 +332,6 @@
 
 ;;** smartchr.el {{{2 http://tech.kayac.com/archive/emacs-tips-smartchr.html
 (require 'smartchr)
-;; ;;** 行カーソル {{{2 http://blog.iwa-ya.net/2009/06/21/093100
-;; (defface hlline-face
-;;   '((((class color)
-;;       (background dark))
-;;      ;;(:background "dark state gray"))
-;;      (:background "gray10"
-;;                   :underline "gray24"))
-;;     (((class color)
-;;       (background light))
-;;      (:background "ForestGreen"
-;;                   :underline nil))
-;;     (t ()))
-;;   "*Face used by hl-line.")
-;; (setq hl-line-face 'hlline-face)
-;; ;;(setq hl-line-face 'underline)
-;; (global-hl-line-mode)
 
 ;;** org-mode {{{2
 
@@ -376,6 +360,7 @@
         ("Log" ?l "** %?\n   %i\n   %a\n   %U" nil "Inbox")
         ))
 (defun org ()
+  "Split window horizontally and open notes.org file."
   (interactive)
   (if (< (count-windows) 2)
       (split-window-horizontally) )
@@ -410,59 +395,59 @@
              (setq simple-hatena-use-timestamp-permalink-flag nil)
              ))
 
-;;** Outline-mode-setting {{{2
-;; base 
-(make-variable-buffer-local 'outline-level)
-(setq-default outline-level 'outline-level)
-(make-variable-buffer-local 'outline-heading-end-regexp)
-(setq-default outline-heading-end-regexp "\n")
-(make-variable-buffer-local 'outline-regexp)
-(setq-default outline-regexp "[*\f]+")
-;; prefixの変更
-;; (setq outline-minor-mode-putrefix "\C-c\C-o")
-(add-hook 'outline-minor-mode-hook
-	  (lambda () (local-set-key "\C-c\C-o"
-				    outline-mode-prefix-map)))
+;; ;;** Outline-mode-setting {{{2
+;; ;; base 
+;; (make-variable-buffer-local 'outline-level)
+;; (setq-default outline-level 'outline-level)
+;; (make-variable-buffer-local 'outline-heading-end-regexp)
+;; (setq-default outline-heading-end-regexp "\n")
+;; (make-variable-buffer-local 'outline-regexp)
+;; (setq-default outline-regexp "[*\f]+")
+;; ;; prefixの変更
+;; ;; (setq outline-minor-mode-putrefix "\C-c\C-o")
+;; (add-hook 'outline-minor-mode-hook
+;; 	  (lambda () (local-set-key "\C-c\C-o"
+;; 				    outline-mode-prefix-map)))
 
-;; text & outline 
-; (setq auto-mode-alist
-;  (cons ' ( "\\.txt\\'" . outline-mode) auto-mode-alist))
+;; ;; text & outline 
+;; (setq auto-mode-alist
+;;  (cons ' ( "\\.txt\\'" . outline-mode) auto-mode-alist))
 
-;; emacs-lisp 
-(add-hook 'lisp-interaction-mode-hook
- '(lambda ()
-    (setq outline-regexp ";;[*\f]+")
-    (outline-minor-mode t)))
-(add-hook 'emacs-lisp-mode-hook
- '(lambda ()
-    (setq outline-regexp ";;[*\f]+")
-    (outline-minor-mode t)))
+;; ;; emacs-lisp 
+;; (add-hook 'lisp-interaction-mode-hook
+;;  '(lambda ()
+;;     (setq outline-regexp ";;[*\f]+")
+;;     (outline-minor-mode t)))
+;; (add-hook 'emacs-lisp-mode-hook
+;;  '(lambda ()
+;;     (setq outline-regexp ";;[*\f]+")
+;;     (outline-minor-mode t)))
 
-;; YaTeX mode 
-(add-hook 'yatex-mode-hook
-          '(lambda () (outline-minor-mode t)))
-(make-variable-buffer-local 'outline-regexp)
-(add-hook
- 'yatex-mode-hook
- (function
-  (lambda ()
-    (progn
-      (setq outline-level 'latex-outline-level)
-      (setq outline-regexp
-            (concat "[ \t]*\\\\\\(documentstyle\\|documentclass\\|"
-                    "chapter\\|section\\|subsection\\|subsubsection\\)"
-                    "\\*?[ \t]*[[{]")
-     )))))
-(make-variable-buffer-local 'outline-level)
-(setq-default outline-level 'outline-level)
-(defun latex-outline-level ()
-  (save-excursion
-    (looking-at outline-regexp)
-    (let ((title (buffer-substring (match-beginning 1) (match-end 1))))
-      (cond ((equal (substring title 0 4) "docu") 15)
-            ((equal (substring title 0 4) "chap") 0)
-            ((equal (substring title 0 4) "appe") 0)
-            (t (length title))))))
+;; ;; YaTeX mode 
+;; (add-hook 'yatex-mode-hook
+;;           '(lambda () (outline-minor-mode t)))
+;; (make-variable-buffer-local 'outline-regexp)
+;; (add-hook
+;;  'yatex-mode-hook
+;;  (function
+;;   (lambda ()
+;;     (progn
+;;       (setq outline-level 'latex-outline-level)
+;;       (setq outline-regexp
+;;             (concat "[ \t]*\\\\\\(documentstyle\\|documentclass\\|"
+;;                     "chapter\\|section\\|subsection\\|subsubsection\\)"
+;;                     "\\*?[ \t]*[[{]")
+;;      )))))
+;; (make-variable-buffer-local 'outline-level)
+;; (setq-default outline-level 'outline-level)
+;; (defun latex-outline-level ()
+;;   (save-excursion
+;;     (looking-at outline-regexp)
+;;     (let ((title (buffer-substring (match-beginning 1) (match-end 1))))
+;;       (cond ((equal (substring title 0 4) "docu") 15)
+;;             ((equal (substring title 0 4) "chap") 0)
+;;             ((equal (substring title 0 4) "appe") 0)
+;;             (t (length title))))))
 
 ;; reftex-mode {{{2
 (add-hook 'yatex-mode-hook
