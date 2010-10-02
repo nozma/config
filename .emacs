@@ -265,6 +265,10 @@
 
 ;; -------------------- elisp ---------------------- {{{1
 
+;; egg.el (git://github.com/bogolisk/egg.git) {{{2
+(require 'egg)
+(define-key global-map (kbd "C-t") 'other-window) ;; 何故か無効になるので
+
 ;; (install-elisp "http://www.emacswiki.org/emacs/download/multi-term.el") {{{2
 (when (require 'multi-term nil t)
   (setq multi-term-program "/bin/zsh"))
