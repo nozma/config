@@ -180,6 +180,9 @@
 (setq hl-line-face 'my-hl-line-face)
 (global-hl-line-mode t)
 
+;; 画像ファイルを表示 {{{3
+(auto-image-file-mode t)
+
 ;; backup {{{2
 ;; 保存先 {{{3
 (setq make-backup-files t)
