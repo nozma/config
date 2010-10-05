@@ -15,38 +15,14 @@ hi Bell display:none;
 set editor=gvim
 
 " Visual "{{{1
-"" ステータスバーのフォントサイズを大きくする
-style chrome://* <<EOM
-#liberator-statusline {
-    font-family: Menlo, Consolas, Monaco, monospace !important;
-    font-weight: normal !important;
-    font-size: 10pt !important;
-    padding:2px 2px !important;
-}
-EOM
-
-"" ステータスバー
-hi StatusLine color: #000; background: #BBB; font-weight: normal; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace;
-hi StatusLineSecure color: #000; background: #9CF; font-weight: normal;
-hi StatusLineExtended color: #000; background: #9FF; font-weight: normal;
-hi StatusLineBroken color: #FFF; background: #900; font-weight: normal;
-
-"" コマンドライン
-hi CmdLine color: #000; background: #FFF; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; padding: 2px;
-hi Normal color: #000; background: #FFF; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; " 通常時テキスト
-hi InfoMsg color: #000; background: #FFF; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; "通知メッセージ
-hi ModeMsg color: #000; background: #FFF; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; "モード表示
-hi MoreMsg color: #000; background: #FFF; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; "さらにモード表示
-hi ErrorMsg color: #FFF; background: #F00; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; " エラーメッセージ
-hi LineNr color: #F00; background: #FFF; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; " エラーの行番号
+" http://vimperator.g.hatena.ne.jp/teramako/20100307/1267955731
+colorscheme persona
+" http://coderepos.org/share/browser/lang/javascript/vimperator-plugins/trunk/colors/sweets_snaka.vimp
+colorscheme sweets_snaka
 
 "" 補完リスト
-hi CompTitle font-weight: bold; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; " タイトル
 hi CompResult width: 600px; max-width: 600px; display: inline-block; overflow: hidden; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; " 結果欄（左側）
 hi CompDesc width: 600px; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; " 説明欄（右側）
-hi CompItem font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; " 補完リストの1行
-hi CompItem[selected] color: #FFF; background: #000; font-weight: normal; font-size: 10pt; font-family: Menlo, Consolas, Monaco, monospace; " 補完リストの選択している行
-hi Filter color: #06E; font-weight: bold; " 補完リストでマッチしたテキスト
 
 "" フィードアイコンをステータスバーに表示
 javascript <<EOF
@@ -65,9 +41,9 @@ map y :echo 'Yank!'<CR>Y
 "j/kの移動量増加
 map j 8<C-e>
 map k 8<C-y>
-"h/lでタブ移動
-map h <C-p>
-map l <C-n>
+"J/Kでタブ移動
+map K <C-p>
+map J <C-n>
 "restart firefox
 map <M-r> :restart<CR>
 " Hatena Bookmark Search
@@ -108,7 +84,7 @@ autocmd LocationChange 'reader\.livedoor\.com/reader' :fmap j k s a p o v c <Spa
 autocmd LocationChange 'mail\.google\.com/mail' :fmap c / y j k n p o u e x s r a # [ ] z ? gi gs gt gd ga gc
 
 " _smooziee.js "{{{2 http://coderepos.org/share/browser/lang/javascript/vimperator-plugins/trunk/_smooziee.js
-let g:smooziee_scroll_amount="300"
+let g:smooziee_scroll_amount="150"
 let g:smooziee_scroll_interval="30"
 " Addon "{{{1
 " Hatena Bookmark "{{{2 'http://b.hatena.ne.jp/guide/firefox_addon'
