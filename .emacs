@@ -374,7 +374,12 @@
 (org-remember-insinuate)
 (setq org-directory "~/memo/")
 (setq org-default-notes-file (concat org-directory "notes.org"))
-(setq org-agenda-files '("~/memo/notes.org"))
+(setq org-mobile-inbox-for-pull "~/memo/mobileorg.org")
+(setq org-mobile-directory "~/Dropbox/MobileOrg")
+(defvar org-agenda-files nil)
+(dolist (my-org-file (list "notes.org" "mobileorg.org"))
+  (add-to-list 'org-agenda-files (concat org-directory my-org-file) t)
+  )
 (setq org-remember-templates
       '(("Event" ?e "** %?   \n   %i\n   %a\n   %U" nil "Events")
         ("Todo" ?t "** TODO %?\n   %i\n   %a\n   %U" nil "Inbox")
