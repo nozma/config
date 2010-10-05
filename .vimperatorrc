@@ -41,7 +41,9 @@ map y :echo 'Yank!'<CR>Y
 "j/kの移動量増加
 map j 8<C-e>
 map k 8<C-y>
-"J/Kでタブ移動
+"J/K h/lでタブ移動
+map h <C-p>
+map l <C-n>
 map K <C-p>
 map J <C-n>
 "restart firefox
