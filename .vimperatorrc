@@ -81,6 +81,8 @@ map ,J :open javascript:
 " Command {{{1
 " calendar
 :command cal :js liberator.echo(<datepicker type="grid" xmlns={XUL}/>)
+" コマンドラインでime off
+:style -name comandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
 
 " Plugin "{{{1
 
