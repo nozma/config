@@ -375,7 +375,7 @@
 (setq org-directory "~/memo/")
 (setq org-default-notes-file (concat org-directory "notes.org"))
 (setq org-mobile-inbox-for-pull "~/memo/mobileorg.org")
-(setq org-mobile-directory "~/Dropbox/MobileOrg")
+(setq org-mobile-directory "~/Dropbox/MobileOrg/")
 (defvar org-agenda-files nil)
 (dolist (my-org-file (list "notes.org" "mobileorg.org"))
   (add-to-list 'org-agenda-files (concat org-directory my-org-file) t)
