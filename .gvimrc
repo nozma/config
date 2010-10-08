@@ -1,8 +1,8 @@
 "起動時ウィンドウ最大化
 "au GUIEnter * simalt ~x
-autocmd BufEnter * macaction performZoom:
+"autocmd BufEnter * macaction performZoom:
 " 起動時Windowサイズ
-"set lines=48
+set lines=48
 set columns=179
 " フォント // 使用フォント:Osaka[http://osakattf.hp.infoseek.co.jp/]
 if has('win32')
