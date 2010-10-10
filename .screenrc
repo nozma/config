@@ -16,3 +16,9 @@ bind n screen
 bind h prev
 bind l next
 bind L windowlist
+
+bindkey -m ' ' eval 'stuff \040' 'writebuf $HOME/tmp/screen-exchange' 'exec !!! sh -c "cat $HOME/tmp/screen-exchange | pbcopy"'
+bindkey -m Y   eval 'stuff Y'    'writebuf $HOME/tmp/screen-exchange' 'exec !!! sh -c "cat $HOME/tmp/screen-exchange | pbcopy"'
+bindkey -m y   eval 'stuff y'    'writebuf $HOME/tmp/screen-exchange' 'exec !!! sh -c "cat $HOME/tmp/screen-exchange | pbcopy"'
+bindkey -m W   eval 'stuff W'    'writebuf $HOME/tmp/screen-exchange' 'exec !!! sh -c "cat $HOME/tmp/screen-exchange | pbcopy"'
+
