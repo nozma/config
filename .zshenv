@@ -38,3 +38,6 @@ export RUBYLIB=$HOME/.gem/ruby/1.9.1/lib
 
 # perlbrew
 source /Users/rito/perl5/perlbrew/etc/bashrc
+
+# mysql
+export PATH=/usr/local/mysql/bin:$PATH
