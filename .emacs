@@ -147,20 +147,15 @@
 ;; 縦分割時の行折り返し設定 {{{3
 (setq truncate-partial-width-windows nil)
 
-;; カラーテーマの設定 (http://www.nongnu.org/color-theme/) {{{3
-(when (require 'color-theme nil t)
-  (color-theme-initialize))
-(load-file "~/.emacs.d/colors/color-theme-ir-black.el")
-(color-theme-ir-black)
-
 ;; frame {{{3
 ;(setq initial-frame-alist '((width . 198)(height . 68)(top . 0)(left . 2)))
 (setq initial-frame-alist
-      (append (list ; '(foreground-color . "azure3")
-                    ; '(background-color . "black")
-                    ; '(border-color . "black")
-                    ; '(mouse-color . "white")
-                    ; '(cursor-color . "white")
+      (append (list '(foreground-color . "azure3")
+		    '(background-color . "black")
+		    '(border-color . "black")
+		    ;'(mouse-color . "white")
+		    ;'(cursor-color . "white")
+                    '(cursor-type . bar)
                     '(alpha . (80 80 0 0))
 		    '(width . 155)
 		    '(height . 60)
@@ -170,11 +165,17 @@
               initial-frame-alist))
 (setq default-frame-alist initial-frame-alist)
 
+;; カラーテーマの設定 (http://www.nongnu.org/color-theme/) {{{3
+(when (require 'color-theme nil t)
+  (color-theme-initialize))
+(load-file "~/.emacs.d/colors/color-theme-ir-black.el")
+(color-theme-ir-black)
+
 ;; 行のハイライト (from WEB+DB PRESS Vol.58) {{{3
 (defface my-hl-line-face
   '((((class color) (background dark))
-     (:background "gray10"
-      :underline  "gray24"))
+     (:background "gray5"
+      :underline  "gray10"))
     (((class color) (background light))
      (:background "LightGoldenrodYellow" t))
     (t (:bold t)))
