@@ -14,7 +14,7 @@
         (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
           (normal-top-level-add-subdirs-to-load-path))))))
 ;; elisp, confディレクトリとサブディレクトリをload-pathに追加
-(add-to-load-path "elisp" "conf")
+(add-to-load-path "elisp" "conf" "colors")
 
 (setq load-path
       (append
@@ -147,18 +147,20 @@
 ;; 縦分割時の行折り返し設定 {{{3
 (setq truncate-partial-width-windows nil)
 
-;; ;; カラーテーマの設定 (http://www.nongnu.org/color-theme/) {{{3
-;; (when (require 'color-theme nil t)
-;;   (color-theme-initialize))
+;; カラーテーマの設定 (http://www.nongnu.org/color-theme/) {{{3
+(when (require 'color-theme nil t)
+  (color-theme-initialize))
+(load-file "~/.emacs.d/colors/color-theme-ir-black.el")
+(color-theme-ir-black)
 
 ;; frame {{{3
 ;(setq initial-frame-alist '((width . 198)(height . 68)(top . 0)(left . 2)))
 (setq initial-frame-alist
-      (append (list '(foreground-color . "azure3")
-                    '(background-color . "black")
-                    '(border-color . "black")
-                    '(mouse-color . "white")
-                    '(cursor-color . "white")
+      (append (list ; '(foreground-color . "azure3")
+                    ; '(background-color . "black")
+                    ; '(border-color . "black")
+                    ; '(mouse-color . "white")
+                    ; '(cursor-color . "white")
                     '(alpha . (80 80 0 0))
 		    '(width . 155)
 		    '(height . 60)
@@ -722,3 +724,7 @@
   (define-key map (kbd "C-b") 'zlc-select-previous)
   (define-key map (kbd "C-f") 'zlc-select-next)
 )
+
+;; Yet another incomplete http://d.hatena.ne.jp/tarao/20101011/1286804507 {{{2
+(require 'yaicomplete)
+(yaicomplete-mode)
