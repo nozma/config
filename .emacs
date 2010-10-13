@@ -129,7 +129,7 @@
 (show-paren-mode t)
 (setq show-paren-style 'expression)
 (set-face-background 'show-paren-match-face nil)
-(set-face-underline-p 'show-paren-match-face "gray")
+(set-face-underline-p 'show-paren-match-face "gray40")
 
 ;; 行番号の表示 {{{3
 (global-linum-mode)
@@ -168,14 +168,14 @@
 ;; カラーテーマの設定 (http://www.nongnu.org/color-theme/) {{{3
 (when (require 'color-theme nil t)
   (color-theme-initialize))
-(load-file "~/.emacs.d/colors/color-theme-ir-black.el")
+(load-file "~/.emacs.d/colors/color-theme-ir-black.el") ;; http://d.hatena.ne.jp/a666666/20100206/1265403745
 (color-theme-ir-black)
 
 ;; 行のハイライト (from WEB+DB PRESS Vol.58) {{{3
 (defface my-hl-line-face
   '((((class color) (background dark))
      (:background "gray5"
-      :underline  "gray10"))
+      :underline  "gray20"))
     (((class color) (background light))
      (:background "LightGoldenrodYellow" t))
     (t (:bold t)))
