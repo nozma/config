@@ -12,6 +12,8 @@ set guifont=Inconsolata:h14
 
 "gui
 "カラースキームの設定
-colorscheme darkblue
+"colorscheme darkblue
+"colorscheme ap_dark8
+colorscheme ir_black
 "透過設定
 set transparency=18
