@@ -57,8 +57,14 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*' completer _oldlist _complete
 
 # script {{{1
-# auto-fu.zsh
+# auto-fu.zsh {{{2
 source ~/.zsh/script/auto-fu/auto-fu.zsh; zle-line-init () { auto-fu-init; }; zle -N zle-line-init
 
-# rvm
+# screenでウィンドウタイトルを自動設定 {{{2
+# http://d.hatena.ne.jp/tarao/20100223/1266958660
+typeset -ga precmd_functions
+typeset -ga preexec_functions
+source ~/.zsh/term.zshrc
+
+# rvm {{{2
 if [[ -s /Users/rito/.rvm/scripts/rvm ]] ; then source /Users/rito/.rvm/scripts/rvm ; fi

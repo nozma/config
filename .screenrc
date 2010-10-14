@@ -12,6 +12,10 @@ hardstatus on
 
 hardstatus alwayslastline "screen |%02c %m/%d | %-w%{=b dd}%n %t%{-}%+w"
 
+# automatically set title
+# http://d.hatena.ne.jp/tarao/20100223/1266958660
+setenv SCREENTITLE auto
+
 bind n screen
 bind h prev
 bind l next
