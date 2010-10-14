@@ -17,6 +17,13 @@ bind h prev
 bind l next
 bind L windowlist
 
+bind -c REGION 2 split
+bind -c REGION 3 split -3
+bind -c REGION 1 only
+bind -c REGION 0 remove
+bind -c REGION o focus
+bind x command -c REGION
+
 bindkey -m ' ' eval 'stuff \040' 'writebuf $HOME/tmp/screen-exchange' 'exec !!! sh -c "cat $HOME/tmp/screen-exchange | pbcopy"'
 bindkey -m Y   eval 'stuff Y'    'writebuf $HOME/tmp/screen-exchange' 'exec !!! sh -c "cat $HOME/tmp/screen-exchange | pbcopy"'
 bindkey -m y   eval 'stuff y'    'writebuf $HOME/tmp/screen-exchange' 'exec !!! sh -c "cat $HOME/tmp/screen-exchange | pbcopy"'
