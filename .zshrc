@@ -1,6 +1,4 @@
 # Main {{{1
-autoload -U compinit && compinit
-compinit -u
 HISTFILE=$HOME/.zsh-history
 HISTSIZE=50000
 SAVEHIST=50000
@@ -14,9 +12,12 @@ PROMPT='%{'$'\e[''$[36]m%}%U%B%m{%n}%b%{'$'\e[''m%}%U%%%u '
 RPROMPT='%{'$'\e[''33m%}[%~]%{'$'\e[''m%}'
 
 # Set shell options {{{1
-setopt auto_cd auto_name_dirs
+# setopt auto_cd auto_name_dirs
 setopt extended_history hist_ignore_dups hist_ignore_space prompt_subst
-setopt extended_glob list_types no_beep always_last_prompt
+setopt extended_glob
+setopt list_types
+setopt no_beep
+setopt always_last_prompt
 setopt cdable_vars sh_word_split auto_param_keys pushd_ignore_dups
 #setopt auto_menu  correct rm_start_silent sum_keyboard_hack
 #setopt share_history inc_append_history
@@ -54,11 +55,20 @@ zstyle ':completion:*' format '%BCompleting %d%b'
 zstyle ':completion:*' group-name ''
 # 大文字小文字を区別しない
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-zstyle ':completion:*' completer _oldlist _complete
+zstyle ':completion:*' completer _oldlist _complete _match _ignored _approximate
+
+autoload -U compinit && compinit
 
 # script {{{1
 # auto-fu.zsh {{{2
-source ~/.zsh/script/auto-fu/auto-fu.zsh; zle-line-init () { auto-fu-init; }; zle -N zle-line-init
+## auto-fu.zsh stuff.
+# source ~/.zsh/script/auto-fu/auto-fu.zsh
+{ . ~/.zsh/auto-fu; auto-fu-install; }
+zstyle ':auto-fu:highlight' input bold
+zstyle ':auto-fu:highlight' completion fg=black,bold
+zstyle ':auto-fu:highlight' completion/one fg=white,bold,underline
+zstyle ':auto-fu:var' postdisplay $'\n-azfu-'
+zle-line-init () {auto-fu-init;}; zle -N zle-line-init
 
 # screenでウィンドウタイトルを自動設定 {{{2
 # http://d.hatena.ne.jp/tarao/20100223/1266958660

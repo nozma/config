@@ -62,6 +62,13 @@ map ,J :open javascript:
 " コマンドラインでime off
 :style -name comandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
 
+" 特定のページに対する設定 {{{1
+" Vimperatorを無効にするページ {{{2
+" リストにないページではVimperatorを復帰する
+autocmd LocationChange .* js modes.passAllKeys = false
+" Smart.fmのフラッシュページ
+autocmd LocationChange smart\\.fm/(study|flash) js modes.passAllKeys = true
+
 " Plugin "{{{1
 
 " feeder.js "{{{2
