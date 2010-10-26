@@ -399,6 +399,9 @@
       (split-window-horizontally) )
   (other-window 1)
   (find-file "~/memo/notes.org") )
+;; require cdlatex.el and texmathp.el (http://www.astro.uva.nl/~dominik/Tools/cdlatex)
+(setq org-export-with-LaTeX-fragments t)
+(add-hook 'org-mode-hook 'turn-on-org-cdlatex)
 
 ;; ;;** sense-region.el {{{2 (http://taiyaki.org/elisp/sense-region/)
 ;; (autoload 'sense-region-on "sense-region"
