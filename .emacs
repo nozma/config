@@ -34,43 +34,13 @@
         load-path))
 
 ;; encoding {{{2
-; ;; for mac
-; (set-language-environment  "Japanese")
-; (require 'ucs-normalize)
-; (prefer-coding-system 'utf-8-hfs)
-; (setq file-name-coding-system 'utf-8-hfs)
-; (setq locale-coding-system 'utf-8-hfs)
-;; other operating system
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
 (setq file-name-coding-system 'utf-8)
 (setq locale-coding-system 'utf-8)
 
 ;; font {{{2
-;; Monaco and Osaka {{{3
-; (set-face-attribute 'default nil
-; 		    :family "Monaco"
-; 		    :height 120)
-; 		    ;:height 90)
-; (set-fontset-font "fontset-default"
-; 		  'japanese-jisx0208
-; 		  '("Osaka" . "iso10646-1"))
-; (set-fontset-font "fontset-default"
-; 		  'katakana-jisx0201
-; 		  '("Osaka" . "iso10646-1"))
-; (setq face-font-rescale-alist
-;       '((".*Monaco-bold.*" . 1.0)
-; 	(".*Monaco-medium.*" . 1.0)
-; 	(".*Osaka-bold.*" . 1.2)
-; 	(".*Osaka-medium.*" . 1.2)
-; 	("-cdac$" . 1.4)))
-
-;; ;; Inconsolata and Takaoゴシック {{{3
-;; (set-default-font "Inconsolata-14")
-;; (set-face-font 'variable-pitch "Inconsolata-14")
-;; (set-fontset-font
-;;  nil 'japanese-jisx0208
-;;  (font-spec :family "TakaoExGothic"))
+;; Inconsolata and Takaoゴシック {{{3
 (set-face-attribute 'default nil
                     :family "Inconsolata"
                     :height 160)
@@ -148,7 +118,6 @@
 (setq truncate-partial-width-windows nil)
 
 ;; frame {{{3
-;(setq initial-frame-alist '((width . 198)(height . 68)(top . 0)(left . 2)))
 (setq initial-frame-alist
       (append (list '(foreground-color . "azure3")
 		    '(background-color . "black")
@@ -365,48 +334,23 @@
 (require 'smartchr)
 
 ;;** org-mode {{{2
+;; org-modeをGTDに使う方法 #1 - 雑多な覚え書き http://d.hatena.ne.jp/t0m0_tomo/20091229/1262082716
+(load "org-mode")
+(setq org-combined-agenda-icalendar-file "~/org/calendar/org.ics")
+(setq org-icalendar-include-todo nil)
+(setq org-icalendar-use-deadline '(event-if-todo event-if-not-todo))
+(setq org-icalendar-use-scheduled '(event-if-todo event-if-not-todo))
 
-;; ;; Emacsでメモ・TODO管理 (http://e-arrows.sakura.ne.jp/2010/02/vim-to-emacs.html)
-(require 'org-install)
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
-(define-key global-map "\C-cr" 'org-remember)
-(setq org-startup-truncated nil)
-(setq org-return-follows-link t)
-(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
-(org-remember-insinuate)
-(setq org-directory "~/memo/")
-(setq org-default-notes-file (concat org-directory "notes.org"))
-(setq org-mobile-inbox-for-pull "~/memo/mobileorg.org")
-(setq org-mobile-directory "~/Dropbox/MobileOrg/")
-(defvar org-agenda-files nil)
-(dolist (my-org-file (list "notes.org" "mobileorg.org"))
-  (add-to-list 'org-agenda-files (concat org-directory my-org-file) t)
-  )
-(setq org-remember-templates
-      '(("Event" ?e "** %?   \n   %i\n   %a\n   %U" nil "Events")
-        ("Todo" ?t "** TODO %?\n   %i\n   %a\n   %U" nil "Inbox")
-        ("Scheduling" ?s "** %?\n   %i\n   %a\n   %U" nil "Tasks")
-        ("Idea" ?i "** %?\n   %i\n   %a\n   %U" nil "New Ideas")
-        ("Memo" ?m "** %?\n   %i\n   %a\n   %U" nil "Work Memos")
-        ("GoodThing" ?g "** %?\n   %i\n   %U" nil "Good Things")
-        ("Want" ?a "** %?\n   %i\n   %U" nil "Wants")
-        ))
-(defun org ()
-  "Split window horizontally and open notes.org file."
+(defun org-push-daily-my ()
   (interactive)
-  (if (< (count-windows) 2)
-      (split-window-horizontally) )
-  (other-window 1)
-  (find-file "~/memo/notes.org") )
-;; require cdlatex.el and texmathp.el (http://www.astro.uva.nl/~dominik/Tools/cdlatex)
-(setq org-export-with-LaTeX-fragments 'dvipng)
-(add-hook 'org-mode-hook 'turn-on-org-cdlatex)
+  (org-export-icalendar-combine-agenda-files)
+  (call-process "org2googleCalendar.pl" nil nil nil
+                (expand-file-name org-combined-agenda-icalendar-file)))
+(define-key global-map [f12] 'org-push-daily-my)
 
-;; ;;** sense-region.el {{{2 (http://taiyaki.org/elisp/sense-region/)
-;; (autoload 'sense-region-on "sense-region"
-;;   "System to toggle region and rectangle." t nil)
-;; (sense-region-on)
+(setq org-directory "~/org")
+(setq org-mobile-inbox-for-pull "~/org/flagged.org")
+(setq org-mobile-directory "~/Dropbox/MobileOrg")
 
 ;;** screen-lines-mode {{{2
 (autoload 'screen-lines-mode "screen-lines"
@@ -430,60 +374,6 @@
              (hatenahelper-mode 1)
              (setq simple-hatena-use-timestamp-permalink-flag nil)
              ))
-
-;; ;;** Outline-mode-setting {{{2
-;; ;; base 
-;; (make-variable-buffer-local 'outline-level)
-;; (setq-default outline-level 'outline-level)
-;; (make-variable-buffer-local 'outline-heading-end-regexp)
-;; (setq-default outline-heading-end-regexp "\n")
-;; (make-variable-buffer-local 'outline-regexp)
-;; (setq-default outline-regexp "[*\f]+")
-;; ;; prefixの変更
-;; ;; (setq outline-minor-mode-putrefix "\C-c\C-o")
-;; (add-hook 'outline-minor-mode-hook
-;; 	  (lambda () (local-set-key "\C-c\C-o"
-;; 				    outline-mode-prefix-map)))
-
-;; ;; text & outline 
-;; (setq auto-mode-alist
-;;  (cons ' ( "\\.txt\\'" . outline-mode) auto-mode-alist))
-
-;; ;; emacs-lisp 
-;; (add-hook 'lisp-interaction-mode-hook
-;;  '(lambda ()
-;;     (setq outline-regexp ";;[*\f]+")
-;;     (outline-minor-mode t)))
-;; (add-hook 'emacs-lisp-mode-hook
-;;  '(lambda ()
-;;     (setq outline-regexp ";;[*\f]+")
-;;     (outline-minor-mode t)))
-
-;; ;; YaTeX mode 
-;; (add-hook 'yatex-mode-hook
-;;           '(lambda () (outline-minor-mode t)))
-;; (make-variable-buffer-local 'outline-regexp)
-;; (add-hook
-;;  'yatex-mode-hook
-;;  (function
-;;   (lambda ()
-;;     (progn
-;;       (setq outline-level 'latex-outline-level)
-;;       (setq outline-regexp
-;;             (concat "[ \t]*\\\\\\(documentstyle\\|documentclass\\|"
-;;                     "chapter\\|section\\|subsection\\|subsubsection\\)"
-;;                     "\\*?[ \t]*[[{]")
-;;      )))))
-;; (make-variable-buffer-local 'outline-level)
-;; (setq-default outline-level 'outline-level)
-;; (defun latex-outline-level ()
-;;   (save-excursion
-;;     (looking-at outline-regexp)
-;;     (let ((title (buffer-substring (match-beginning 1) (match-end 1))))
-;;       (cond ((equal (substring title 0 4) "docu") 15)
-;;             ((equal (substring title 0 4) "chap") 0)
-;;             ((equal (substring title 0 4) "appe") 0)
-;;             (t (length title))))))
 
 ;; reftex-mode {{{2
 (add-hook 'yatex-mode-hook

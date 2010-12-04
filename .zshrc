@@ -33,7 +33,7 @@ alias vi=mvim
 alias ls='gls -F --color=auto'
 alias la='gls -aF --color=auto'
 alias ll='gls -laF --color=auto'
-alias emacs='open -a Emacs.app'
+alias emacs='open -a /Applications/Emacs.app'
 mdcd () {mkdir -p "$@" && cd "$*[-1]"}
 mdpu () {mkdir -p "$@" && pushd "$*[-1]"}
 alias pu=pushd po=popd dirs='dirs -v'
