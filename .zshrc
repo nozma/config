@@ -4,7 +4,8 @@ HISTSIZE=50000
 SAVEHIST=50000
 export OUTPUT_CHARSET=utf-8
 export LANG=ja_JP.UTF-8
-export PAGER="lv -Ou8"
+export PAGER="lv -cOu8"
+export LESS=mqeisz-2XR
 
 # Prompt {{{1
 setopt prompt_subst

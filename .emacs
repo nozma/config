@@ -48,6 +48,9 @@
  nil 'japanese-jisx0208
  (font-spec :family "TakaoExGothic"))
 
+;; imput {{{2
+(setq default-imput-method "MacOSX")
+
 ;; key mapping {{{2
 ;; C-zで逆スクロール {{{3
 (define-key global-map (kbd "C-z") 'scroll-down)
@@ -360,13 +363,25 @@
 (autoload 'turn-off-screen-lines-mode "screen-lines"
   "Turn off Screen Lines minor mode for the current buffer." t)
 
-;;** simple-hatena-mode {{{2
+;; simple-hatena-mode {{{2
 (setq load-path
       (cons "~/.emacs.d/elisp/simple-hatena-mode" load-path))
 (require 'simple-hatena-mode)
 (setq simple-hatena-default-id "Rion778")
 (setq simple-hatena-bin "~/local/bin/hw.pl")
 (setq simple-hatena-root "~/.s-hatena")
+
+;; latex数式をgoogle chart apiを使った数式表現に変換
+(defun latex-to-google-chart-api (start end)
+  (interactive "r")
+  (let ((latex-expression (kill-region start end)))
+    (insert-string
+     (concat "<img src=\"http://chart.apis.google.com/shart?cnt=tx&chl="
+             (w3m-url-encode-string (car kill-ring))
+             "\" alt=\"\" />") )))
+(global-set-key "\C-c\C-l\C-t" 'latex-to-google-chart-api)
+
+
 (add-hook 'simple-hatena-mode-hook
           '(lambda ()
              (turn-on-screen-lines-mode)
@@ -439,7 +454,7 @@
 ;      dvi2-command "open -a TexShop")
 
 ;; latexmk and Skim
-(setq tex-command "latexmk -pdfps"
+(setq tex-command "latexmk -pdf"
       dvi2-command "open -a Skim")
 
 ;; 漢字コード
