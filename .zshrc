@@ -30,7 +30,8 @@ alias copy='cp -ip' del='rm -i' move='mv -i'
 alias fullreset='echo "\ec\ec"'
 h () {history $* | less}
 alias ja='LANG=ja_JP.eucJP XMODIFERS=@im=kinput2'
-alias vi=mvim
+alias vim=mvim
+alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 alias ls='gls -F --color=auto'
 alias la='gls -aF --color=auto'
 alias ll='gls -laF --color=auto'
