@@ -100,9 +100,11 @@ lazy fmaps -u='http://code.google.com/p/vimperator-labs/issues/detail' u
 " _smooziee.js "{{{2 http://coderepos.org/share/browser/lang/javascript/vimperator-plugins/trunk/_smooziee.js
 let g:smooziee_scroll_amount="150"
 let g:smooziee_scroll_interval="30"
-" Addon "{{{1
+
 " Hatena Bookmark "{{{2 'http://b.hatena.ne.jp/guide/firefox_addon'
 javascript if (typeof hBookmark != 'undefined') liberator.loadScript('chrome://hatenabookmark/content/vimperator/plugin/hatenabookmark.js', {__proto__: this}); 
+" sbmcommentsviewer.js "{{{2
+map C :viewSBMComments -t ht<CR>
 
 " Finish Loading "{{{1
 echo "Loading done! :-)" 
