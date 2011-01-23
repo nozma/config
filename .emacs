@@ -1,11 +1,11 @@
 ;;; for Emacs 23
 
-;;* ----- åŸºæœ¬è¨­å®š -----{{{1
-;; ã‚¨ãƒ©ãƒ¼æ™‚ã«ã‚¨ãƒ©ãƒ¼ç®‡æ‰€è¡¨ç¤º
+;;* ----- ´ğËÜÀßÄê -----{{{1
+;; ¥¨¥é¡¼»ş¤Ë¥¨¥é¡¼²Õ½êÉ½¼¨
 (setq debug-on-error t)
 
 ;; path {{{2
-;; load-pathã‚’è¿½åŠ ã™ã‚‹é–¢æ•° (from WEB+DP PRESS Vol.58)
+;; load-path¤òÄÉ²Ã¤¹¤ë´Ø¿ô (from WEB+DP PRESS Vol.58)
 (defun add-to-load-path (&rest paths)
   (let (path)
     (dolist (path paths paths)
@@ -13,7 +13,7 @@
         (add-to-list 'load-path default-directory)
         (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
           (normal-top-level-add-subdirs-to-load-path))))))
-;; elisp, confãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã¨ã‚µãƒ–ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’load-pathã«è¿½åŠ 
+;; elisp, conf¥Ç¥£¥ì¥¯¥È¥ê¤È¥µ¥Ö¥Ç¥£¥ì¥¯¥È¥ê¤òload-path¤ËÄÉ²Ã
 (add-to-load-path "elisp" "conf" "colors")
 
 (setq load-path
@@ -40,7 +40,7 @@
 (setq locale-coding-system 'utf-8)
 
 ;; font {{{2
-;; Inconsolata and Takaoã‚´ã‚·ãƒƒã‚¯ {{{3
+;; Inconsolata and Takao¥´¥·¥Ã¥¯ {{{3
 (set-face-attribute 'default nil
                     :family "Inconsolata"
                     :height 160)
@@ -52,72 +52,72 @@
 (setq default-imput-method "MacOSX")
 
 ;; key mapping {{{2
-;; C-zã§é€†ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ« {{{3
+;; C-z¤ÇµÕ¥¹¥¯¥í¡¼¥ë {{{3
 (define-key global-map (kbd "C-z") 'scroll-down)
-;; C-hã‚’ãƒãƒƒã‚¯ã‚¹ãƒšãƒ¼ã‚¹ã«å‰²ã‚Šå½“ã¦ {{{3
+;; C-h¤ò¥Ğ¥Ã¥¯¥¹¥Ú¡¼¥¹¤Ë³ä¤êÅö¤Æ {{{3
 (keyboard-translate ?\C-h ?\C-?)
 (global-set-key (kbd "C-x ?") 'help-command)
-;; Optionã‚­ãƒ¼ã‚’Metaã‚­ãƒ¼ã¨ã—ã¦ç”¨ã„ã‚‹(for Carbon Emacs) {{{3
+;; Option¥­¡¼¤òMeta¥­¡¼¤È¤·¤ÆÍÑ¤¤¤ë(for Carbon Emacs) {{{3
 (setq mac-option-modifier 'meta)
-;; commandã¨optionã„ã‚Œã‹ãˆ {{{3
+;; command¤Èoption¤¤¤ì¤«¤¨ {{{3
 (setq ns-command-modifier 'meta)
 (setq ns-alternate-modifier 'super)
-;; C-x bã§ãƒŸãƒ‹ãƒãƒƒãƒ•ã‚¡ã«ãƒãƒƒãƒ•ã‚¡å€™è£œã‚’è¡¨ç¤º {{{3
+;; C-x b¤Ç¥ß¥Ë¥Ğ¥Ã¥Õ¥¡¤Ë¥Ğ¥Ã¥Õ¥¡¸õÊä¤òÉ½¼¨ {{{3
 (iswitchb-mode t)
 (iswitchb-default-keybindings)
-;; C-kã§è¡Œå…¨ä½“ã‚’å‰Šé™¤ {{{3
+;; C-k¤Ç¹ÔÁ´ÂÎ¤òºï½ü {{{3
 (setq kill-whole-line t)
-;; C-mã§newline-and-indent {{{3
+;; C-m¤Çnewline-and-indent {{{3
 (define-key global-map (kbd "C-m") 'newline-and-indent)
-;; M-kã§ã‚«ãƒ¬ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ã‚’é–‰ã˜ã‚‹ {{{3
+;; M-k¤Ç¥«¥ì¥ó¥È¥Ğ¥Ã¥Õ¥¡¤òÊÄ¤¸¤ë {{{3
 (define-key global-map (kbd "M-k") 'kill-this-buffer)
-;; M-Kã§ã‚«ãƒ¬ãƒ³ãƒˆãƒ•ãƒ¬ãƒ¼ãƒ ã‚’é–‰ã˜ã‚‹ {{{3
+;; M-K¤Ç¥«¥ì¥ó¥È¥Õ¥ì¡¼¥à¤òÊÄ¤¸¤ë {{{3
 (define-key global-map (kbd "M-K") 'delete-frame)
-;; C-tã§ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹ {{{3
+;; C-t¤Ç¥¦¥£¥ó¥É¥¦¤òÀÚ¤êÂØ¤¨¤ë {{{3
 (define-key global-map (kbd "C-t") 'other-window)
-;; C-Tã§ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹ {{{3
+;; C-T¤Ç¥Õ¥ì¡¼¥à¤òÀÚ¤êÂØ¤¨¤ë {{{3
 (define-key global-map (kbd "C-T") 'other-frame)
-;; ã‚¿ãƒ–ã®ä»£ã‚ã‚Šã«ç©ºç™½ã‚’ä½¿ç”¨ {{{3
+;; ¥¿¥Ö¤ÎÂå¤ï¤ê¤Ë¶õÇò¤ò»ÈÍÑ {{{3
 (setq-default indent-tabs-mode nil)
-;; çŸ©å½¢é¸æŠ {{{3
+;; ¶ë·ÁÁªÂò {{{3
 (cua-mode t)
 (setq cua-enable-cua-keys nil)
 
 ;; visual {{{2
-;; ã‚«ãƒ¼ã‚½ãƒ«ç‚¹æ»…ON {{{3
+;; ¥«¡¼¥½¥ëÅÀÌÇON {{{3
 (blink-cursor-mode t)
 
-;; ã‚¿ã‚¤ãƒˆãƒ«ãƒãƒ¼ã«ãƒãƒƒãƒ•ã‚¡åã‚’è¡¨ç¤º {{{3
+;; ¥¿¥¤¥È¥ë¥Ğ¡¼¤Ë¥Ğ¥Ã¥Õ¥¡Ì¾¤òÉ½¼¨ {{{3
 (setq frame-title-format
       (format "%%f - Emacs@%s" (system-name)))
 
-;; èµ·å‹•æ™‚ã®ç”»é¢ã‚’è¡¨ç¤ºã•ã›ãªã„ {{{3
+;; µ¯Æ°»ş¤Î²èÌÌ¤òÉ½¼¨¤µ¤»¤Ê¤¤ {{{3
 (setq inhibit-startup-screen t)
 
-;; ãƒ„ãƒ¼ãƒ«ãƒãƒ¼éè¡¨ç¤º {{{3
+;; ¥Ä¡¼¥ë¥Ğ¡¼ÈóÉ½¼¨ {{{3
 (tool-bar-mode 0)
 
-;; å¯¾å¿œã™ã‚‹æ‹¬å¼§ã®å¼·èª¿è¡¨ç¤º {{{3
+;; ÂĞ±ş¤¹¤ë³ç¸Ì¤Î¶¯Ä´É½¼¨ {{{3
 (setq show-paren-delay 0)
 (show-paren-mode t)
 (setq show-paren-style 'expression)
 (set-face-background 'show-paren-match-face nil)
 (set-face-underline-p 'show-paren-match-face "gray40")
 
-;; è¡Œç•ªå·ã®è¡¨ç¤º {{{3
+;; ¹ÔÈÖ¹æ¤ÎÉ½¼¨ {{{3
 (global-linum-mode)
 (set-face-attribute 'linum nil :foreground "red" :height 0.8)
 (setq linum-format "%4d")
 
-;; ãƒ¢ãƒ¼ãƒ‰ãƒ©ã‚¤ãƒ³ {{{3
-(line-number-mode t)                    ; è¡Œç•ªå·
-(column-number-mode t)                  ; åˆ—ç•ªå·
-(require 'time)                         ; æ™‚åˆ»ã®è¡¨ç¤º
+;; ¥â¡¼¥É¥é¥¤¥ó {{{3
+(line-number-mode t)                    ; ¹ÔÈÖ¹æ
+(column-number-mode t)                  ; ÎóÈÖ¹æ
+(require 'time)                         ; »ş¹ï¤ÎÉ½¼¨
 (setq display-time-24hr-format t)
 (setq display-time-string-forms '(24-hours ":" minutes))
 (display-time-mode t)
 
-;; ç¸¦åˆ†å‰²æ™‚ã®è¡ŒæŠ˜ã‚Šè¿”ã—è¨­å®š {{{3
+;; ½ÄÊ¬³ä»ş¤Î¹ÔÀŞ¤êÊÖ¤·ÀßÄê {{{3
 (setq truncate-partial-width-windows nil)
 
 ;; frame {{{3
@@ -137,13 +137,13 @@
               initial-frame-alist))
 (setq default-frame-alist initial-frame-alist)
 
-;; ã‚«ãƒ©ãƒ¼ãƒ†ãƒ¼ãƒã®è¨­å®š (http://www.nongnu.org/color-theme/) {{{3
+;; ¥«¥é¡¼¥Æ¡¼¥Ş¤ÎÀßÄê (http://www.nongnu.org/color-theme/) {{{3
 (when (require 'color-theme nil t)
   (color-theme-initialize))
 (load-file "~/.emacs.d/colors/color-theme-ir-black.el") ;; http://d.hatena.ne.jp/a666666/20100206/1265403745
 (color-theme-ir-black)
 
-;; è¡Œã®ãƒã‚¤ãƒ©ã‚¤ãƒˆ (from WEB+DB PRESS Vol.58) {{{3
+;; ¹Ô¤Î¥Ï¥¤¥é¥¤¥È (from WEB+DB PRESS Vol.58) {{{3
 (defface my-hl-line-face
   '((((class color) (background dark))
      (:background "gray5"
@@ -155,23 +155,23 @@
 (setq hl-line-face 'my-hl-line-face)
 (global-hl-line-mode t)
 
-;; ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ã‚’è¡¨ç¤º {{{3
+;; ²èÁü¥Õ¥¡¥¤¥ë¤òÉ½¼¨ {{{3
 (auto-image-file-mode t)
 
 ;; backup {{{2
-;; ä¿å­˜å…ˆ {{{3
+;; ÊİÂ¸Àè {{{3
 (setq make-backup-files t)
 (setq backup-directory-alist
       (cons (cons "\\.*$" (expand-file-name "~/emacsbackup"))
             backup-directory-alist))
 
-;; è¨­å®š {{{3
+;; ÀßÄê {{{3
 (setq verison-control t)
 (setq kept-new-versions 5)
 (setq kept-old-versions 5)
 (setq delete-old-versions t)
 
-;; çŠ¶æ…‹ã®ä¿å­˜ {{{3
+;; ¾õÂÖ¤ÎÊİÂ¸ {{{3
 (require 'desktop)
 (desktop-save-mode 1)
 
@@ -194,10 +194,10 @@
                                        (list  "^\\(\\*[*a-zA-Z0-9_-]*\\)\\(.*\\)$"
                                               '(1 hatena-text-slag-face t)
                                               '(2 hatena-text-subtitle-face t))
-                                       ;; å¿…ãš[]ã§å›²ã¾ã‚Œã¦ã„ãªã‘ã‚Œã°ãªã‚‰ãªã„ã‚‚ã®
+                                       ;; É¬¤º[]¤Ç°Ï¤Ş¤ì¤Æ¤¤¤Ê¤±¤ì¤Ğ¤Ê¤é¤Ê¤¤¤â¤Î
                                        (list "\\[[*a-zA-Z0-9_-]+\\(:[^\n]+\\)+\\]"
                                              '(0 hatena-text-inline-face t))
-                                       ;; å¿…ãšã—ã‚‚[]ã§å›²ã¾ã‚Œã¦ã„ãªãã¦ã‚‚ã‚ˆã„ã‚‚ã®
+                                       ;; É¬¤º¤·¤â[]¤Ç°Ï¤Ş¤ì¤Æ¤¤¤Ê¤¯¤Æ¤â¤è¤¤¤â¤Î
                                        (list "\\[?\\(id\\|a\\|b\\|d\\|f\\|g\\|graph\\|i\\|idea\\|map\\|question\\|r\\|isbn\\|asin\\)\\(:[a-zA-Z0-9_+:-]+\\)+\\]?"
                                              '(0 hatena-text-inline-face t))
                                        (list  "^\\(:\\)[^:\n]+\\(:\\)"
@@ -216,27 +216,27 @@
              (defface hatena-text-slag-face
                       '((((class color) (background light)) (:foreground "IndianRed"))
                         (((class color) (background dark)) (:foreground "wheat")))
-                      "å°è¦‹å‡ºã—ã®*ã‚¿ã‚¤ãƒ ã‚¹ã‚¿ãƒ³ãƒ—orã‚¹ãƒ©ãƒƒã‚°*éƒ¨åˆ†ã®ãƒ•ã‚§ã‚¤ã‚¹ã€‚")
+                      "¾®¸«½Ğ¤·¤Î*¥¿¥¤¥à¥¹¥¿¥ó¥×or¥¹¥é¥Ã¥°*ÉôÊ¬¤Î¥Õ¥§¥¤¥¹¡£")
 
              (defface hatena-text-subtitle-face
                       '((((class color) (background light)) (:foreground "DarkOliveGreen"))
                         (((class color) (background dark)) (:foreground "wheat")))
-                      "å°è¦‹å‡ºã—ã®ãƒ•ã‚§ã‚¤ã‚¹ã€‚")
+                      "¾®¸«½Ğ¤·¤Î¥Õ¥§¥¤¥¹¡£")
 
              (defface hatena-text-inline-face
                       '((((class color) (background light)) (:foreground "MediumBlue" :bold t))
                         (((class color) (background dark)) (:foreground "wheat" :bold t)))
-                      "idè¨˜æ³•ã‚„[keyword:Emacs]ç­‰ã®face")
+                      "idµ­Ë¡¤ä[keyword:Emacs]Åù¤Îface")
 
              (defface hatena-text-markup-face
                       '((((class color) (background light)) (:foreground "DarkOrange" :bold t))
                         (((class color) (background dark)) (:foreground "IndianRed3" :bold t)))
-                      "ã¯ã¦ãªã®ãƒãƒ¼ã‚¯ã‚¢ãƒƒãƒ—ã®ãƒ•ã‚§ã‚¤ã‚¹ã€‚")
+                      "¤Ï¤Æ¤Ê¤Î¥Ş¡¼¥¯¥¢¥Ã¥×¤Î¥Õ¥§¥¤¥¹¡£")
 
              (defface hatena-text-link-face
                       '((((class color) (background light)) (:foreground "DeepPink"))
                         (((class color) (background dark)) (:foreground "wheat")))
-                      "ãƒªãƒ³ã‚¯ã®ãƒ•ã‚§ã‚¤ã‚¹ã€‚")
+                      "¥ê¥ó¥¯¤Î¥Õ¥§¥¤¥¹¡£")
              (font-lock-mode 1)
              (font-lock-fontify-buffer)
              ))
@@ -246,7 +246,7 @@
 (add-to-list 'load-path "~/.emacs.d/elisp/gist.el")
 (require 'gist)
 
-;; ã‚¯ãƒªãƒƒãƒ—ãƒœãƒ¼ãƒ‰ã¨ã‚­ãƒ«ãƒªãƒ³ã‚°ã®å…±æœ‰ http://blog.lathi.net/articles/2007/11/07/sharing-the-mac-clipboard-with-emacs {{{2
+;; ¥¯¥ê¥Ã¥×¥Ü¡¼¥É¤È¥­¥ë¥ê¥ó¥°¤Î¶¦Í­ http://blog.lathi.net/articles/2007/11/07/sharing-the-mac-clipboard-with-emacs {{{2
 (defun copy-from-osx ()
  (shell-command-to-string "pbpaste"))
 
@@ -261,7 +261,7 @@
 
 ;; egg.el (git://github.com/bogolisk/egg.git) {{{2
 (require 'egg)
-(define-key global-map (kbd "C-t") 'other-window) ;; ä½•æ•…ã‹ç„¡åŠ¹ã«ãªã‚‹ã®ã§
+(define-key global-map (kbd "C-t") 'other-window) ;; ²¿¸Î¤«Ìµ¸ú¤Ë¤Ê¤ë¤Î¤Ç
 
 ;; (install-elisp "http://www.emacswiki.org/emacs/download/multi-term.el") {{{2
 (when (require 'multi-term nil t)
@@ -286,28 +286,28 @@
 ;; (auto-install-batch "anything") {{{3
 (when (require 'anything nil t)
   (setq
-   anything-idle-delay 0.3              ; å€™è£œè¡¨ç¤ºã¾ã§ã®æ™‚é–“
-   anything-input-idle-delay 0.2        ; ã‚¿ã‚¤ãƒ—ã‹ã‚‰å†æç”»ã¾ã§ã®æ™‚é–“
-   anything-candidate-number-limit 100  ; å€™è£œæœ€å¤§è¡¨ç¤ºæ•°
-   anything-quick-update t              ; å€™è£œãŒå¤šã„ã¨ãä½“æ„Ÿé€Ÿåº¦å‘ä¸Š
-   anything-enable-shortcuts 'alphabet) ; å€™è£œé¸æŠã‚’ã‚¢ãƒ«ãƒ•ã‚¡ãƒ™ãƒƒãƒˆã§
+   anything-idle-delay 0.3              ; ¸õÊäÉ½¼¨¤Ş¤Ç¤Î»ş´Ö
+   anything-input-idle-delay 0.2        ; ¥¿¥¤¥×¤«¤éºÆÉÁ²è¤Ş¤Ç¤Î»ş´Ö
+   anything-candidate-number-limit 100  ; ¸õÊäºÇÂçÉ½¼¨¿ô
+   anything-quick-update t              ; ¸õÊä¤¬Â¿¤¤¤È¤­ÂÎ´¶Â®ÅÙ¸ş¾å
+   anything-enable-shortcuts 'alphabet) ; ¸õÊäÁªÂò¤ò¥¢¥ë¥Õ¥¡¥Ù¥Ã¥È¤Ç
   (when (require 'anything-config nil t)
-    (setq anything-su-or-sudo "sudo"))  ; rootæ¨©é™å®Ÿè¡Œæ™‚ã®ã‚³ãƒãƒ³ãƒ‰
+    (setq anything-su-or-sudo "sudo"))  ; root¸¢¸Â¼Â¹Ô»ş¤Î¥³¥Ş¥ó¥É
   (require 'anything-match-plugin nil t)
   (and (equal current-language-environment "Japanese")
        (executable-find "cmigemo")
        (require 'anything-migemo nil t))
   (when (require 'anything-complete nil t)
-    ;; (anything-read-string-mode 1)    ; M-xè£œé–“ã‚’Anythingã§
-    (anything-lisp-complete-symbol-set-timer 150)); lispã‚·ãƒ³ãƒœãƒ«è£œå®Œå€™è£œã®å†æ¤œç´¢æ™‚é–“
+    ;; (anything-read-string-mode 1)    ; M-xÊä´Ö¤òAnything¤Ç
+    (anything-lisp-complete-symbol-set-timer 150)); lisp¥·¥ó¥Ü¥ëÊä´°¸õÊä¤ÎºÆ¸¡º÷»ş´Ö
   (require 'anything-show-completion nil t)
   (when (require 'auto-install nil t)
     (require 'anything-auto-install nil t))
   (when (require 'descbinds-anything nil t)
-    (descbinds-anything-install))       ; describe-bindingsã‚’Anythingã«ç½®ãæ›ãˆã‚‹
+    (descbinds-anything-install))       ; describe-bindings¤òAnything¤ËÃÖ¤­´¹¤¨¤ë
   (require 'anything-grep nil t))
 
-;; ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆæ¤œç´¢ã®ãŸã‚ã®anythingã‚³ãƒãƒ³ãƒ‰ (WEB+DB PRESS Vol.58) {{{3
+;; ¥É¥­¥å¥á¥ó¥È¸¡º÷¤Î¤¿¤á¤Îanything¥³¥Ş¥ó¥É (WEB+DB PRESS Vol.58) {{{3
 (setq anything-for-document-sources
       (list
        anything-c-source-man-pages
@@ -334,13 +334,13 @@
 ;; (install-elisp "http://www.emacswiki.org/emacs/download/redo+.el) ;; {{{2
 (when (require 'redo+ nil t)
   ;; global-map
-  (global-set-key (kbd "C-'") 'redo)) ;C-'ã§redo
+  (global-set-key (kbd "C-'") 'redo)) ;C-'¤Çredo
 
 ;;** smartchr.el {{{2 http://tech.kayac.com/archive/emacs-tips-smartchr.html
 (require 'smartchr)
 
 ;;** org-mode {{{2
-;; org-modeã‚’GTDã«ä½¿ã†æ–¹æ³• #1 - é›‘å¤šãªè¦šãˆæ›¸ã http://d.hatena.ne.jp/t0m0_tomo/20091229/1262082716
+;; org-mode¤òGTD¤Ë»È¤¦ÊıË¡ #1 - »¨Â¿¤Ê³Ğ¤¨½ñ¤­ http://d.hatena.ne.jp/t0m0_tomo/20091229/1262082716
 (load "org-mode")
 (setq org-combined-agenda-icalendar-file "~/org/calendar/org.ics")
 (setq org-icalendar-include-todo nil)
@@ -374,7 +374,7 @@
 (setq simple-hatena-bin "~/local/bin/hw.pl")
 (setq simple-hatena-root "~/.s-hatena")
 
-;; latexæ•°å¼ã‚’google chart apiã‚’ä½¿ã£ãŸæ•°å¼è¡¨ç¾ã«å¤‰æ›
+;; latex¿ô¼°¤ògoogle chart api¤ò»È¤Ã¤¿¿ô¼°É½¸½¤ËÊÑ´¹
 (defun latex-to-google-chart-api (start end)
   (interactive "r")
   (let ((latex-expression (kill-region start end)))
@@ -404,7 +404,7 @@
 
 ;;** ESS {{{2 
 (require 'ess-site)
-;; ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦åˆ†å‰²è¨­å®š
+;; ¥¦¥£¥ó¥É¥¦Ê¬³äÀßÄê
 (defun ess-format-window ()
   (split-window-horizontally)
   (other-window 1)
@@ -447,12 +447,12 @@
 (require 'auto-complete-yasnippet)
 (require 'auto-complete-acr)
 ;;** YaTeX {{{2
-;; .texãƒ•ã‚¡ã‚¤ãƒ«ã§è‡ªå‹•çš„ã«yatex-mode
+;; .tex¥Õ¥¡¥¤¥ë¤Ç¼«Æ°Åª¤Ëyatex-mode
 (setq auto-mode-alist 
       (cons (cons "\\.tex$" 'yatex-mode) auto-mode-alist))
 (autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
 
-;; TeXShopã§ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼
+;; TeXShop¤Ç¥×¥ì¥Ó¥å¡¼
 ;(setq tex-command "~/Library/TeXShop/bin/platex2pdf-utf8"
 ;      dvi2-command "open -a TexShop")
 
@@ -460,24 +460,24 @@
 (setq tex-command "latexmk -pdf"
       dvi2-command "open -a Skim")
 
-;; æ¼¢å­—ã‚³ãƒ¼ãƒ‰
+;; ´Á»ú¥³¡¼¥É
 (setq YaTeX-kanji-code 4)
 
 ;; AMS-LaTeX
 (setq YaTeX-use-AMS-LaTeX t)
 
 ;; GNU MDK {{{2
-;; ãƒ­ãƒ¼ãƒ‰ãƒ‘ã‚¹ã®è¿½åŠ 
+;; ¥í¡¼¥É¥Ñ¥¹¤ÎÄÉ²Ã
 (setq load-path (cons "/opt/local/share/mdk" load-path))
-;; .mixalãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿ã§è‡ªå‹•çš„ã«mixal-mode
+;; .mixal¥Õ¥¡¥¤¥ëÆÉ¤ß¹ş¤ß¤Ç¼«Æ°Åª¤Ëmixal-mode
 (autoload 'mixal-mode "mixal-mode" t)
 (add-to-list 'auto-mode-alist '("\\.mixal\\'" . mixal-mode))
-;; mixvmã®ä½¿ç”¨
+;; mixvm¤Î»ÈÍÑ
 (autoload 'mixvm "mixvm" "mixvm/gud interaction" t)
 
 ;;; SLIME {{{2
-;; M-x my-slime: åˆ†å‰²ã—ãŸã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã§slimeèµ·å‹•
-;; C-c C-r: é¸æŠç¯„å›²ã‚’slime-replã¸é€ã£ã¦è©•ä¾¡
+;; M-x my-slime: Ê¬³ä¤·¤¿¥¦¥£¥ó¥É¥¦¤Çslimeµ¯Æ°
+;; C-c C-r: ÁªÂòÈÏ°Ï¤òslime-repl¤ØÁ÷¤Ã¤ÆÉ¾²Á
 (add-to-list 'load-path "/opt/local/share/emacs/site-lisp/slime")
 (require 'slime-autoloads)
 (setq slime-lisp-implementations
@@ -521,8 +521,8 @@
 (global-set-key "\C-c\C-r" 'slime-repl-send-region)
 
 ;;; ejacs {{{2
-;; C-c C-jã§js-consoleã‚’èµ·å‹•
-;; C-c rã§é¸æŠç¯„å›²ã‚’å®Ÿè¡Œ 
+;; C-c C-j¤Çjs-console¤òµ¯Æ°
+;; C-c r¤ÇÁªÂòÈÏ°Ï¤ò¼Â¹Ô 
 (autoload 'js-console "js-console" nil t)
 (defun js-console-execute-region (start end)
   "Execute region"
@@ -543,7 +543,7 @@
   )
 (add-hook 'js-mode-hook
           (lambda ()
-            (moz-minor-mode 1) ;; è¦moz.el
+            (moz-minor-mode 1) ;; Í×moz.el
             (local-set-key "\C-c\C-j" 'run-js-console-and-split-window)
             (local-set-key "\C-cr" 'js-console-execute-region)
             ))
@@ -552,7 +552,7 @@
 ; (autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
 
 ;; tabber.el (http://sourceforge.net/projects/emhacks/) {{{2
-;; scratch buffer ä»¥å¤–ã‚’ã¾ã¨ã‚ã¦ã‚¿ãƒ–ã«è¡¨ç¤ºã™ã‚‹
+;; scratch buffer °Ê³°¤ò¤Ş¤È¤á¤Æ¥¿¥Ö¤ËÉ½¼¨¤¹¤ë
 (require 'cl)
 (when (require 'tabbar nil t)
    (setq tabbar-buffer-groups-function
@@ -565,7 +565,7 @@
             (buffer-list))))
    (tabbar-mode))
 
-;; Ctrl-Tab, Ctrl-Shift-Tab ã§ã‚¿ãƒ–ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
+;; Ctrl-Tab, Ctrl-Shift-Tab ¤Ç¥¿¥Ö¤òÀÚ¤êÂØ¤¨¤ë
  (dolist (func '(tabbar-mode tabbar-forward-tab tabbar-forward-group tabbar-backward-tab tabbar-backward-group))
    (autoload func "tabbar" "Tabs at the top of buffers and easy control-tab navigation"))
  (defmacro defun-prefix-alt (name on-no-prefix on-prefix &optional do-always)
@@ -580,7 +580,7 @@
  (global-set-key [(control tab)] 'shk-tabbar-next)
  (global-set-key [(control shift tab)] 'shk-tabbar-prev)
 
-;; å¤–è¦³å¤‰æ›´
+;; ³°´ÑÊÑ¹¹
 (set-face-attribute
   'tabbar-default-face nil
   :background "gray30")
@@ -610,7 +610,7 @@
           (lambda ()
             (local-set-key "\C-t" 'other-window)
             ))
-;; HyperSpecã‚’w3mã§è¦‹ã‚‹
+;; HyperSpec¤òw3m¤Ç¸«¤ë
 (defadvice common-lisp-hyperspec
   (around hyperspec-lookup-w3m () activate)
   (let* ((window-configuration (current-window-configuration))
