@@ -242,6 +242,9 @@
              ))
 
 ;; -------------------- elisp ---------------------- {{{1
+;; gist.el (https://github.com/defunkt/gist.el) {{{2
+(add-to-list 'load-path "~/.emacs.d/elisp/gist.el")
+(require 'gist)
 
 ;; クリップボードとキルリングの共有 http://blog.lathi.net/articles/2007/11/07/sharing-the-mac-clipboard-with-emacs {{{2
 (defun copy-from-osx ()
