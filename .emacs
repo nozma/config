@@ -242,9 +242,6 @@
              ))
 
 ;; -------------------- elisp ---------------------- {{{1
-;; gist.el (https://github.com/defunkt/gist.el) {{{2
-(add-to-list 'load-path "~/.emacs.d/elisp/gist.el")
-(require 'gist)
 
 ;; クリップボードとキルリングの共有 http://blog.lathi.net/articles/2007/11/07/sharing-the-mac-clipboard-with-emacs {{{2
 (defun copy-from-osx ()
@@ -324,6 +321,13 @@
             (thing-at-point 'symbol) nil nil nil
             "*anything for document*"))
 (global-set-key (kbd "s-d") 'anything-for-document)
+
+;; gist.el (https://github.com/defunkt/gist.el) {{{2
+(add-to-list 'load-path "~/.emacs.d/elisp/gist.el")
+(require 'gist)
+
+;; anything-gist.el (gist:467982) {{{2
+(require 'anything-gist)
    
 ;; (install-elisp "http://www.emacswiki.org/emacs/download/auto-install.el") ;; {{{2
 (when (require 'auto-install nil t)
