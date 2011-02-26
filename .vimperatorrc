@@ -105,6 +105,40 @@ let g:smooziee_scroll_interval="30"
 javascript if (typeof hBookmark != 'undefined') liberator.loadScript('chrome://hatenabookmark/content/vimperator/plugin/hatenabookmark.js', {__proto__: this}); 
 " sbmcommentsviewer.js "{{{2
 map C :viewSBMComments -t ht<CR>
+ 
+" read it later {{{2
+javascript <
+    liberator.globalVariables.migrate_elements = [
+        {
+            // star button of awesome bar
+            id:    'star-button',
+            dest:  'security-button',
+            after: true,
+        },
+        {
+            // icon that show the existence of RSS and Atom on current page
+            id:    'feed-button',
+            dest:  'security-button',
+            after: true,
+        },
+        {
+            // favicon of awesome bar
+            id:    'page-proxy-stack',
+            dest:  'liberator-statusline',
+            after: false,
+        },
+        {
+            id:    'isRitL-later',
+            dest:  'security-button',
+            after: true,
+        },
+        {
+            id:    'isRitL-mark1',
+            dest:  'security-button',
+            after: true,
+        },
+   ];
+EOM
 
 " Finish Loading "{{{1
 echo "Loading done! :-)" 
