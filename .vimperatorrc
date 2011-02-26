@@ -107,38 +107,24 @@ javascript if (typeof hBookmark != 'undefined') liberator.loadScript('chrome://h
 map C :viewSBMComments -t ht<CR>
  
 " read it later {{{2
-javascript <
-    liberator.globalVariables.migrate_elements = [
-        {
-            // star button of awesome bar
-            id:    'star-button',
-            dest:  'security-button',
-            after: true,
-        },
-        {
-            // icon that show the existence of RSS and Atom on current page
-            id:    'feed-button',
-            dest:  'security-button',
-            after: true,
-        },
-        {
-            // favicon of awesome bar
-            id:    'page-proxy-stack',
-            dest:  'liberator-statusline',
-            after: false,
-        },
-        {
-            id:    'isRitL-later',
-            dest:  'security-button',
-            after: true,
-        },
-        {
-            id:    'isRitL-mark1',
-            dest:  'security-button',
-            after: true,
-        },
-   ];
-EOM
+" Read It Later button move to statusbar
+:javascript <<EOF
+(function(){
+var RILAddPanel = document.createElement('readitlateradd');
+var RILAddButton = document.getElementById('RIL_urlbar_add');
+RILAddPanel.setAttribute('id','RIL_urlbar_add-clone');
+RILAddPanel.appendChild(RILAddButton.cloneNode(true));
+RILAddButton.parentNode.removeChild(RILAddButton);
+document.getElementById('status-bar').insertBefore(RILAddPanel,document.getElementById('security-button'));
+
+var RILMarkPanel = document.createElement('readitlatermark');
+var RILMarkButton = document.getElementById('RIL_urlbar_mark');
+RILMarkPanel.setAttribute('id','RIL_urlbar_mark-clone');
+RILMarkPanel.appendChild(RILMarkButton.cloneNode(true));
+RILMarkButton.parentNode.removeChild(RILMarkButton);
+document.getElementById('status-bar').insertBefore(RILMarkPanel,document.getElementById('security-button'));
+})();
+EOF
 
 " Finish Loading "{{{1
 echo "Loading done! :-)" 
