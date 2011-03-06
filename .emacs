@@ -630,16 +630,16 @@
                (use-local-map hs-map)))))
     ad-do-it))
 
-;; zlc.el http://d.hatena.ne.jp/mooz/20101003/p1 {{{2
-(require 'zlc)
-(let ((map minibuffer-local-map))
-  (define-key map (kbd "<backtab>") 'zlc-select-previous)
-  (define-key map (kbd "S-<tab>") 'zlc-select-previous)
-  (define-key map (kbd "C-p") 'zlc-select-previous-vertical)
-  (define-key map (kbd "C-n") 'zlc-select-next-vertical)
-  (define-key map (kbd "C-b") 'zlc-select-previous)
-  (define-key map (kbd "C-f") 'zlc-select-next)
-)
+;;; zlc.el http://d.hatena.ne.jp/mooz/20101003/p1 {{{2
+;(require 'zlc)
+;(let ((map minibuffer-local-map))
+;  (define-key map (kbd "<backtab>") 'zlc-select-previous)
+;  (define-key map (kbd "S-<tab>") 'zlc-select-previous)
+;  (define-key map (kbd "C-p") 'zlc-select-previous-vertical)
+;  (define-key map (kbd "C-n") 'zlc-select-next-vertical)
+;  (define-key map (kbd "C-b") 'zlc-select-previous)
+;  (define-key map (kbd "C-f") 'zlc-select-next)
+;)
 
 ;; Yet another incomplete http://d.hatena.ne.jp/tarao/20101011/1286804507 {{{2
 (require 'yaicomplete)
