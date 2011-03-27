@@ -160,6 +160,12 @@ highlight def link csvHeading Type
 autocmd FileType perl,cgi :compiler perl
 nnoremap <C-p> :w !perl<CR>
 
+" python {{{2
+
+autocmd FileType python setl autoindent
+autocmd FileType python setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+autocmd FileType python setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
+
 " commentstring {{{2
 
 autocmd Filetype hatena set commentstring=<!--%s-->
