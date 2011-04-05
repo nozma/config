@@ -257,6 +257,11 @@
 
 ;; -------------------- elisp ---------------------- {{{1
 
+;; word-count-mode
+(autoload 'word-count-mode "word-count"
+  "Minor mode to count words." t nil)
+(global-set-key "\M-+" 'word-count-mode)
+
 ;; クリップボードとキルリングの共有 http://blog.lathi.net/articles/2007/11/07/sharing-the-mac-clipboard-with-emacs {{{2
 (defun copy-from-osx ()
  (shell-command-to-string "pbpaste"))
