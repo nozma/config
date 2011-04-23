@@ -173,6 +173,29 @@ autocmd Filetype R set commentstring=#%s
 autocmd Filetype lisp set commentstring=;;%s
 
 " Plugin "{{{1
+" vundle {{{2
+
+filetype off
+
+set rtp+=~/.vim/vundle.git/ 
+call vundle#rc()
+
+" My Bundles here:
+"
+" original repos on github
+Bundle 'tpope/vim-fugitive'
+Bundle 'lokaltog/vim-easymotion'
+Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+" vim-scripts repos
+Bundle 'L9'
+Bundle 'FuzzyFinder'
+Bundle 'rails.vim'
+" non github repos
+Bundle 'git://git.wincent.com/command-t.git'
+" ...
+
+filetype plugin indent on 
+
 " unite.vim {{{2
 " 入力モードで開始する
 " let g:unite_enable_start_insert=1
