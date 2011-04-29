@@ -402,7 +402,7 @@
   (interactive "r")
   (let ((latex-expression (kill-region start end)))
     (insert-string
-     (concat "<img src=\"http://chart.apis.google.com/shart?cnt=tx&chl="
+     (concat "<img src=\"http://chart.apis.google.com/chart?cht=tx&chl="
              (w3m-url-encode-string (car kill-ring))
              "\" alt=\"\" />") )))
 (global-set-key "\C-c\C-l\C-t" 'latex-to-google-chart-api)
