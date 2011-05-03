@@ -40,13 +40,20 @@
 (setq locale-coding-system 'utf-8)
 
 ;; font {{{2
-;; Inconsolata and Takaoゴシック {{{3
+;;; Inconsolata and Takaoゴシック {{{3
+;(set-face-attribute 'default nil
+;                    :family "Inconsolata"
+;                    :height 160)
+;(set-fontset-font
+; nil 'japanese-jisx0208
+; (font-spec :family "TakaoExGothic"))
+;; Rikty {{{2 (http://save.sys.t.u-tokyo.ac.jp/~yusa/fonts/ricty.html)
 (set-face-attribute 'default nil
-                    :family "Inconsolata"
-                    :height 160)
+                   :family "Ricty"
+                   :height 160)
 (set-fontset-font
- nil 'japanese-jisx0208
- (font-spec :family "TakaoExGothic"))
+nil 'japanese-jisx0208
+(font-spec :family "Ricty"))
 
 ;; imput {{{2
 (setq default-imput-method "MacOSX")
