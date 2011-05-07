@@ -82,7 +82,7 @@ liberator.globalVariables.copy_templates = [
 ];
 EOM
 
-map ,t :tw<Space>
+map ,T :tw<Space>
 map ,l :copy<Space>titleAndtinyurl<CR>:tw<Space>Browsing: <S-Insert>
 map ,u :copy<Space>%URL%<CR>
 map ,c :copy<Space>%TITLE% %URL%<CR>
