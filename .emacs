@@ -407,7 +407,7 @@ nil 'japanese-jisx0208
 ;; latex数式をgoogle chart apiを使った数式表現に変換
 (defun latex-to-google-chart-api ()
   (interactive)
-  (replace-regexp "\\[tex:\\(.*\\)\\]"
+  (replace-regexp "\\[tex:\\(.*?\\)\\]"
     (query-replace-compile-replacement
      "<img src=\"http://chart.apis.google.com/chart?cht=tx&chl=\\,(w3m-url-encode-string \\1)\"/>" t) nil (point-min) (point-max)))
 (global-set-key "\C-c\C-l\C-t" 'latex-to-google-chart-api)
