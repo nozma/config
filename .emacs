@@ -47,13 +47,13 @@
 ;(set-fontset-font
 ; nil 'japanese-jisx0208
 ; (font-spec :family "TakaoExGothic"))
-;; Rikty {{{2 (http://save.sys.t.u-tokyo.ac.jp/~yusa/fonts/ricty.html)
+;; Rikty {{{3 (http://save.sys.t.u-tokyo.ac.jp/~yusa/fonts/ricty.html)
 (set-face-attribute 'default nil
-                   :family "Ricty"
+                   :family "Ricty Discord"
                    :height 160)
 (set-fontset-font
 nil 'japanese-jisx0208
-(font-spec :family "Ricty"))
+(font-spec :family "Ricty Discord"))
 
 ;; imput {{{2
 (setq default-imput-method "MacOSX")
