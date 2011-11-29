@@ -62,13 +62,13 @@ map ,J :open javascript:
 " コマンドラインでime off
 :style -name comandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
 
-" 特定のページに対する設定 {{{1
-" Vimperatorを無効にするページ {{{2
-" リストにないページではVimperatorを復帰する
-autocmd LocationChange .* js modes.passAllKeys = false
-" Smart.fmのフラッシュページ
-autocmd LocationChange smart\\.fm/(study|flash) js modes.passAllKeys = true
-
+"" 特定のページに対する設定 {{{1
+"" Vimperatorを無効にするページ {{{2
+"" リストにないページではVimperatorを復帰する
+"autocmd LocationChange .* js modes.passAllKeys = false
+"" Smart.fmのフラッシュページ
+"autocmd LocationChange smart\\.fm/(study|flash) js modes.passAllKeys = true
+"
 " Plugin "{{{1
 
 " feeder.js "{{{2
@@ -125,6 +125,9 @@ RILMarkButton.parentNode.removeChild(RILMarkButton);
 document.getElementById('status-bar').insertBefore(RILMarkPanel,document.getElementById('security-button'));
 })();
 EOF
+
+" Evernote Firefox Extension
+command clip javascript Evernote.Overlay.init(null)
 
 " Finish Loading "{{{1
 echo "Loading done! :-)" 
