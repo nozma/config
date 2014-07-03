@@ -14,22 +14,6 @@
           (normal-top-level-add-subdirs-to-load-path))))))
 ;; elisp, confその他サブディレクトリの追加
 (add-to-load-path "elisp" "conf" "colors" "public_repos")
-(setq load-path
-      (append
-        (list
-          "/sbin"
-          "/usr/sbin"
-          "/bin"
-          "/usr/bin"
-          "/opt/local/bin"
-          "/sw/bin"
-          "/usr/local/bin"
-          (expand-file-name "~/bin")
-          (expand-file-name "~/site-lisp")
-          (expand-file-name "~/.emacs.d")
-          (expand-file-name "~/.emacs.d/bin")
-          )
-        load-path))
 
 ;; backup -------------------------------------------------------
 ;; 保存先
@@ -151,6 +135,17 @@
   (setq auto-install-directory "~/.emacs.d/elisp/")
   (auto-install-update-emacswiki-package-name t)
   (auto-install-compatibility-setup))
+;; redo+.el
+;; (install-elisp "http://www.emacswiki.org/emacs/download/redo+.el")
+(when (require 'redo+ nil t)
+  ;; C-.にredoをセット
+  (global-set-key (kbd "C-.") 'redo))
+
+;; package.el ---------------------------------------------------
+(when (require 'package nil t)
+  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+  (package-initialize))
 
 ;; latex数式をgoogle chart apiを使った数式表現に変換-------------
 (defun latex-to-google-chart-api ()
@@ -205,63 +200,50 @@
               (modes  . '(ess-mode))))
 
 ;; auto-complete.el ---------------------------------------------
-;; (require 'auto-complete-config)
-;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp/ac-dict")
-;; (ac-config-default)
+(when (require 'auto-complete-config nil t)
+  (add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp/ac-dict")
+  (ac-config-default))
 
-;; tabber.el (http://sourceforge.net/projects/emhacks/) ---------
-;; scratch buffer 以外をまとめてタブに表示する
-(require 'cl)
-(when (require 'tabbar nil t)
-   (setq tabbar-buffer-groups-function
-  (lambda (b) (list "All Buffers")))
-   (setq tabbar-buffer-list-function
-         (lambda ()
-           (remove-if
-            (lambda(buffer)
-              (find (aref (buffer-name buffer) 0) " *"))
-            (buffer-list))))
-   (tabbar-mode))
-;; Ctrl-Tab, Ctrl-Shift-Tab でタブを切り替える
-(dolist (func '(tabbar-mode tabbar-forward-tab tabbar-forward-group tabbar-backward-tab tabbar-backward-group))
-  (autoload func "tabbar" "Tabs at the top of buffers and easy control-tab navigation"))
-(defmacro defun-prefix-alt (name on-no-prefix on-prefix &optional do-always)
-  `(defun ,name (arg)
-     (interactive "P")
-     ,do-always
-     (if (equal nil arg)
-         ,on-no-prefix
-       ,on-prefix)))
-(defun-prefix-alt shk-tabbar-next (tabbar-forward-tab) (tabbar-forward-group) (tabbar-mode 1))
-(defun-prefix-alt shk-tabbar-prev (tabbar-backward-tab) (tabbar-backward-group) (tabbar-mode 1))
-(global-set-key [(control tab)] 'shk-tabbar-next)
-(global-set-key [(control shift tab)] 'shk-tabbar-prev)
-
-;; 外観変更
-(set-face-attribute
-  'tabbar-default-face nil
-  :background "gray30")
-(set-face-attribute
-  'tabbar-unselected-face nil
-  :background "gray40"
-  :foreground "gray"
-  :box nil)
-(set-face-attribute
-  'tabbar-selected-face nil
-  :background "black"
-  :foreground "gray"
-  :box nil)
-(set-face-attribute
-  'tabbar-button-face nil
-  :box '(:line-width 1 :color "gray40" :style released-button))
-(set-face-attribute
-  'tabbar-separator-face nil
-  :height 0.7)
+;; tabber.el ----------------------------------------------------
+;; 設定参考：http://hico-horiuchi.hateblo.jp/entry/20121208/1354975316
+(require 'tabbar)
+(tabbar-mode)
+(global-set-key [(control tab)] 'tabbar-forward)  ; 次のタブ
+(global-set-key [(control shift tab)] 'tabbar-backward) ; 前のタブ
+;; タブ上でマウスホイールを使わない
+(tabbar-mwheel-mode nil)
+;; グループを使わない
+(setq tabbar-buffer-groups-function nil)
+;; 左側のボタンを消す
+(dolist (btn '(tabbar-buffer-home-button
+               tabbar-scroll-left-button
+               tabbar-scroll-right-button))
+  (set btn (cons (cons "" nil)
+                 (cons "" nil))))
+;; 色設定
+(set-face-attribute ; バー自体の色
+  'tabbar-default nil
+   :background "white"
+   :family "Inconsolata"
+   :height 1.0)
+(set-face-attribute ; アクティブなタブ
+  'tabbar-selected nil
+   :background "black"
+   :foreground "white"
+   :weight 'bold
+   :box nil)
+(set-face-attribute ; 非アクティブなタブ
+  'tabbar-unselected nil
+   :background "white"
+   :foreground "black"
+   :box nil)
+;; 幅設定
+(setq tabbar-separator '(1.5))
 
 ;; ;; Yet another incomplete ---------------------------------------
-;; ;; http://d.hatena.ne.jp/tarao/20101011/1286804507 
-;; (require 'yaicomplete)
-;; (yaicomplete-mode)                      
+;; http://d.hatena.ne.jp/tarao/20101011/1286804507 
+(require 'yaicomplete)
+(yaicomplete-mode)
 
 ;; hatena-diary -------------------------------------------------
 (require 'hatena-diary)
@@ -288,3 +270,4 @@
 ;;              (hatenahelper-mode 1)
 ;;              (setq simple-hatena-use-timestamp-permalink-flag nil)
 ;;              ))
+
