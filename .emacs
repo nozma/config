@@ -204,7 +204,7 @@
   (add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp/ac-dict")
   (ac-config-default))
 
-;; tabber.el ----------------------------------------------------
+;; tabbar.el ----------------------------------------------------
 ;; 設定参考：http://hico-horiuchi.hateblo.jp/entry/20121208/1354975316
 (require 'tabbar)
 (tabbar-mode)
