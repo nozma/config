@@ -13,7 +13,7 @@
         (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
           (normal-top-level-add-subdirs-to-load-path))))))
 ;; elisp, confその他サブディレクトリの追加
-(add-to-load-path "elisp" "conf" "colors")
+(add-to-load-path "elisp" "conf" "colors" "public_repos")
 (setq load-path
       (append
         (list
@@ -49,8 +49,15 @@
 ;;; encoding ----------------------------------------------------
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
-(setq file-name-coding-system 'utf-8)
-(setq locale-coding-system 'utf-8)
+;; Mac OS Xの場合のファイル名の設定
+(when (eq system-type 'darwin)
+  (require 'ucs-normalize)
+  (set-file-name-coding-system 'utf-8-hfs)
+  (setq locale-coding-system 'utf-8-hfs))
+;; Windowsの場合のファイル名の設定
+(when (eq window-system 'w32)
+  (set-file-name-coding-system 'cp932)
+  (setq locale-coding-system 'cp932))
 
 ;;; imput -------------------------------------------------------
 (setq default-imput-method "MacOSX")
@@ -102,7 +109,8 @@
 (require 'time)                         ; 時刻
 (setq display-time-24hr-format t)
 (setq display-time-string-forms '(24-hours ":" minutes))
-(display-time-mode t)
+(display-time-mode t)                     ; 時間表示
+(size-indication-mode t)                  ; ファイルサイズ
 (setq truncate-partial-width-windows nil) ; 縦分割時の折り返し
 ;;frame
 (setq initial-frame-alist
@@ -133,32 +141,44 @@
 (global-hl-line-mode t)
 ;; fontlock
 (global-font-lock-mode t)
-;; ( add-hook 'text-mode-hook
-;;           (require 'hatena-markup-mode)
-;;           (setq text-mode 'hatena:markup-mode))
+(add-hook 'text-mode-hook
+          (require 'hatena-markup-mode)
+          (setq text-mode 'hatena:markup-mode))
 
 ;; ===== elisp ==================================================
 ;; auto-install -------------------------------------------------
-;; (when (require 'auto-install nil t)
-;;   (setq auto-install-directory "~/.emacs.d/elisp/")
-;;   (auto-install-update-emacswiki-package-name t)
-;;   (auto-install-compatibility-setup))
+(when (require 'auto-install nil t)
+  (setq auto-install-directory "~/.emacs.d/elisp/")
+  (auto-install-update-emacswiki-package-name t)
+  (auto-install-compatibility-setup))
 
-;; ;; latex数式をgoogle chart apiを使った数式表現に変換-------------
-;; (defun latex-to-google-chart-api ()
-;;   (interactive)
-;;   (replace-regexp "\\[tex:\\(.*?\\)\\]"
-;;     (query-replace-compile-replacement
-;;      "<img src=\"http://chart.apis.google.com/chart?cht=tx&chl=\\,(url-hexify-string \\1)\"/>" t) nil (point-min) (point-max)))
-;; (global-set-key "\C-c\C-l\C-t" 'latex-to-google-chart-api)
-;; ;; 逆変換
-;; (defun google-chart-api-to-latex ()
-;;   (interactive)
-;;   (replace-regexp "<img src=\"http://chart.apis.google.com/chart\\?cht=tx&chl=\\(.*?\\)\"/>"
-;;     (query-replace-compile-replacement
-;;      "[tex:\\,(url-unhex-string \\1)]" t) nil (point-min) (point-max)))
-;; (global-set-key "\C-c\C-t\C-l" 'google-chart-api-to-latex)
+;; latex数式をgoogle chart apiを使った数式表現に変換-------------
+(defun latex-to-google-chart-api ()
+  (interactive)
+  (replace-regexp "\\[tex:\\(.*?\\)\\]"
+    (query-replace-compile-replacement
+     "<img src=\"http://chart.apis.google.com/chart?cht=tx&chl=\\,(url-hexify-string \\1)\"/>" t) nil (point-min) (point-max)))
+(global-set-key "\C-c\C-l\C-t" 'latex-to-google-chart-api)
+;; 逆変換
+(defun google-chart-api-to-latex ()
+  (interactive)
+  (replace-regexp "<img src=\"http://chart.apis.google.com/chart\\?cht=tx&chl=\\(.*?\\)\"/>"
+    (query-replace-compile-replacement
+     "[tex:\\,(url-unhex-string \\1)]" t) nil (point-min) (point-max)))
+(global-set-key "\C-c\C-t\C-l" 'google-chart-api-to-latex)
 
+;; リージョン内の行数と文字数をモードラインに表示する------------
+;; d.hatena.ne.jp/sonota88/20110224/1298557375
+;; 備考 - 改行も1文字としてカウントされる。
+(defun count-lines-and-chars ()
+  (if mark-active
+      (format "%d lines,%d chars "
+              (count-lines (region-beginning) (region-end))
+              (- (region-end) (region-beginning)))
+      ;;(count-lines-region (region-beginning) (region-end)) ;; これだとエコーエリアがチラつく
+    ""))
+(add-to-list 'default-mode-line-format
+             '(:eval (count-lines-and-chars)))
 
 ;; ESS ----------------------------------------------------------
 (require 'ess-site)
