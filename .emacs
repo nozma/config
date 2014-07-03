@@ -1,21 +1,19 @@
-;;; for Emacs 23
+;; for Emacs 24
 
-;;* ----- ´ğËÜÀßÄê -----{{{1
-;; ¥¨¥é¡¼»ş¤Ë¥¨¥é¡¼²Õ½êÉ½¼¨
-(setq debug-on-error t)
+;;;; ======= Basic Settings =====================================
 
-;; path {{{2
-;; load-path¤òÄÉ²Ã¤¹¤ë´Ø¿ô (from WEB+DP PRESS Vol.58)
+;;; path --------------------------------------------------------
+;; load-pathã‚’è¿½åŠ ã™ã‚‹é–¢æ•° (from WEB+DP PRESS Vol.58)
 (defun add-to-load-path (&rest paths)
   (let (path)
     (dolist (path paths paths)
-      (let ((default-directory (expand-file-name (concat user-emacs-directory path))))
+      (let ((default-directory
+              (expand-file-name (concat user-emacs-directory path))))
         (add-to-list 'load-path default-directory)
         (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
           (normal-top-level-add-subdirs-to-load-path))))))
-;; elisp, conf¥Ç¥£¥ì¥¯¥È¥ê¤È¥µ¥Ö¥Ç¥£¥ì¥¯¥È¥ê¤òload-path¤ËÄÉ²Ã
+;; elisp, confãã®ä»–ã‚µãƒ–ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®è¿½åŠ 
 (add-to-load-path "elisp" "conf" "colors")
-
 (setq load-path
       (append
         (list
@@ -33,141 +31,99 @@
           )
         load-path))
 
-;; encoding {{{2
+;; backup -------------------------------------------------------
+;; ä¿å­˜å…ˆ
+(setq make-backup-files t)
+(setq backup-directory-alist
+      (cons (cons "\\.*$" (expand-file-name "~/emacsbackup"))
+            backup-directory-alist))
+;; ä¿å­˜è¨­å®š
+(setq verison-control t)
+(setq kept-new-versions 5)
+(setq kept-old-versions 5)
+(setq delete-old-versions t)
+;; çŠ¶æ…‹ã‚’ä¿å­˜
+(require 'desktop)
+(desktop-save-mode 1)
+
+;;; encoding ----------------------------------------------------
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
 (setq file-name-coding-system 'utf-8)
 (setq locale-coding-system 'utf-8)
 
-;; font {{{2
-;;; Inconsolata and Takao¥´¥·¥Ã¥¯ {{{3
-;(set-face-attribute 'default nil
-;                    :family "Inconsolata"
-;                    :height 160)
-;(set-fontset-font
-; nil 'japanese-jisx0208
-; (font-spec :family "TakaoExGothic"))
-;; Rikty {{{3 (http://save.sys.t.u-tokyo.ac.jp/~yusa/fonts/ricty.html)
-(set-face-attribute 'default nil
-                   :family "Ricty Discord"
-                   :height 160)
-(set-fontset-font
-nil 'japanese-jisx0208
-(font-spec :family "Ricty Discord"))
-
-;; imput {{{2
+;;; imput -------------------------------------------------------
 (setq default-imput-method "MacOSX")
-
-;; key mapping {{{2
-;; C-z¤ÇµÕ¥¹¥¯¥í¡¼¥ë {{{3
-(define-key global-map (kbd "C-z") 'scroll-down)
-;; C-h¤ò¥Ğ¥Ã¥¯¥¹¥Ú¡¼¥¹¤Ë³ä¤êÅö¤Æ {{{3
-(keyboard-translate ?\C-h ?\C-?)
-(global-set-key (kbd "C-x ?") 'help-command)
-;; Option¥­¡¼¤òMeta¥­¡¼¤È¤·¤ÆÍÑ¤¤¤ë(for Carbon Emacs) {{{3
-(setq mac-option-modifier 'meta)
-;; command¤Èoption¤¤¤ì¤«¤¨ {{{3
+;;; key mapping
+(define-key global-map (kbd "C-z") 'scroll-down) ; C-z: é€†ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«
+(keyboard-translate ?\C-h ?\C-?)                 ; C-h: backspace
+(global-set-key (kbd "C-x ?") 'help-command)     ; C-x ?: help
+;; command<->option
 (setq ns-command-modifier 'meta)
 (setq ns-alternate-modifier 'super)
-;; C-x b¤Ç¥ß¥Ë¥Ğ¥Ã¥Õ¥¡¤Ë¥Ğ¥Ã¥Õ¥¡¸õÊä¤òÉ½¼¨ {{{3
-(iswitchb-mode t)
-(iswitchb-default-keybindings)
-;; C-k¤Ç¹ÔÁ´ÂÎ¤òºï½ü {{{3
-(setq kill-whole-line t)
-;; C-m¤Çnewline-and-indent {{{3
+(iswitchb-mode t)                       ; C-x b: ãƒãƒƒãƒ•ã‚¡å€™è£œé¸æŠ
+(setq kill-whole-line t)                ; C-k: è¡Œå‰Šé™¤
 (define-key global-map (kbd "C-m") 'newline-and-indent)
-;; M-k¤Ç¥«¥ì¥ó¥È¥Ğ¥Ã¥Õ¥¡¤òÊÄ¤¸¤ë {{{3
 (define-key global-map (kbd "M-k") 'kill-this-buffer)
-;; M-K¤Ç¥«¥ì¥ó¥È¥Õ¥ì¡¼¥à¤òÊÄ¤¸¤ë {{{3
 (define-key global-map (kbd "M-K") 'delete-frame)
-;; C-t¤Ç¥¦¥£¥ó¥É¥¦¤òÀÚ¤êÂØ¤¨¤ë {{{3
 (define-key global-map (kbd "C-t") 'other-window)
-;; C-T¤Ç¥Õ¥ì¡¼¥à¤òÀÚ¤êÂØ¤¨¤ë {{{3
-(define-key global-map (kbd "C-T") 'other-frame)
-;; ¥¿¥Ö¤ÎÂå¤ï¤ê¤Ë¶õÇò¤ò»ÈÍÑ {{{3
-(setq-default indent-tabs-mode nil)
-;; ¶ë·ÁÁªÂò {{{3
+(setq-default indent-tabs-mode nil)     ; tabã‚’ç©ºç™½ã«
+;; çŸ©å½¢é¸æŠ(cua-mode)
 (cua-mode t)
 (setq cua-enable-cua-keys nil)
 
-;; visual {{{2
-;; Á´³Ñ¥¹¥Ú¡¼¥¹¤È¥¿¥ÖÊ¸»ú¤Î²Ä»ë²½ {{{3
-(setq whitespace-style
-      '(tabs tab-mark spaces space-mark))
-(setq whitespace-space-regexp "\\(\x3000+\\)")
-(setq whitespace-display-mappings
-      '((space-mark ?\x3000 [?\¢¢])
-        (tab-mark   ?\t   [?\xBB ?\t])
-        ))
-(require 'whitespace)
-(global-whitespace-mode 1)
-(set-face-foreground 'whitespace-space "LightSlateGray")
-(set-face-background 'whitespace-space "DarkSlateGray")
-(set-face-foreground 'whitespace-tab "LightSlateGray")
-(set-face-background 'whitespace-tab "DarkSlateGray")
-;; ¥«¡¼¥½¥ëÅÀÌÇON {{{3
-(blink-cursor-mode t)
-
-;; ¥¿¥¤¥È¥ë¥Ğ¡¼¤Ë¥Ğ¥Ã¥Õ¥¡Ì¾¤òÉ½¼¨ {{{3
+;;; visual ------------------------------------------------------
+;; font
+;; Rikty (http://save.sys.t.u-tokyo.ac.jp/~yusa/fonts/ricty.html)
+(set-face-attribute 'default nil
+                   :family "Ricty"
+                   :height 160)
+(set-fontset-font
+ nil 'japanese-jisx0208
+(font-spec :family "Ricty"))
+;; ç©ºç™½ã®å¯è¦–åŒ–
+;(whitespace-mode)
+;; ã‚¿ã‚¤ãƒˆãƒ«ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
 (setq frame-title-format
       (format "%%f - Emacs@%s" (system-name)))
-
-;; µ¯Æ°»ş¤Î²èÌÌ¤òÉ½¼¨¤µ¤»¤Ê¤¤ {{{3
-(setq inhibit-startup-screen t)
-
-;; ¥Ä¡¼¥ë¥Ğ¡¼ÈóÉ½¼¨ {{{3
-(tool-bar-mode 0)
-
-;; ÂĞ±ş¤¹¤ë³ç¸Ì¤Î¶¯Ä´É½¼¨ {{{3
-(setq show-paren-delay 0)
+(setq inhibit-startup-screen t)         ; ã‚¹ã‚¿ãƒ¼ãƒˆã‚¢ãƒƒãƒ—ç”»é¢éè¡¨ç¤º
+(tool-bar-mode 0)                       ; ãƒ„ãƒ¼ãƒ«ãƒãƒ¼éè¡¨ç¤º
+;; å¯¾å¿œã™ã‚‹ã‚«ãƒƒã‚³ã®å¼·èª¿è¡¨ç¤º
+;; (setq show-paren-delay 0)
 (show-paren-mode t)
-(setq show-paren-style 'expression)
-(set-face-background 'show-paren-match-face nil)
-(set-face-underline-p 'show-paren-match-face "gray40")
-
-;; ¹ÔÈÖ¹æ¤ÎÉ½¼¨ {{{3
+(setq show-paren-style 'single)
+;; è¡Œç•ªå·è¡¨ç¤º
 (global-linum-mode)
 (set-face-attribute 'linum nil :foreground "red" :height 0.8)
-(setq linum-format "%4d")
-
-;; ¥â¡¼¥É¥é¥¤¥ó {{{3
-(line-number-mode t)                    ; ¹ÔÈÖ¹æ
-(column-number-mode t)                  ; ÎóÈÖ¹æ
-(require 'time)                         ; »ş¹ï¤ÎÉ½¼¨
+(setq linum-format "%4d: ")
+;; mode-line
+(line-number-mode t)                    ; è¡Œ
+(column-number-mode t)                  ; åˆ—
+(require 'time)                         ; æ™‚åˆ»
 (setq display-time-24hr-format t)
 (setq display-time-string-forms '(24-hours ":" minutes))
 (display-time-mode t)
-
-;; ½ÄÊ¬³ä»ş¤Î¹ÔÀŞ¤êÊÖ¤·ÀßÄê {{{3
-(setq truncate-partial-width-windows nil)
-
-;; frame {{{3
+(setq truncate-partial-width-windows nil) ; ç¸¦åˆ†å‰²æ™‚ã®æŠ˜ã‚Šè¿”ã—
+;;frame
 (setq initial-frame-alist
       (append (list '(foreground-color . "azure3")
-		    '(background-color . "black")
-		    '(border-color . "black")
-		    ;'(mouse-color . "white")
-		    ;'(cursor-color . "white")
+                    '(background-color . "black")
+                    '(border-color . "black")
+                    ;'(mouse-color . "white")
+                    ;'(cursor-color . "white")
                     '(cursor-type . bar)
                     '(alpha . (80 80 0 0))
-		    '(width . 155)
-		    '(height . 60)
-		    '(top . 0)
-		    '(left . 0)
-		    )
+                    '(width . 158)
+                    '(height . 57)
+                    '(top . 0)
+                    '(left . 0)
+                    )
               initial-frame-alist))
 (setq default-frame-alist initial-frame-alist)
-
-;; ¥«¥é¡¼¥Æ¡¼¥Ş¤ÎÀßÄê (http://www.nongnu.org/color-theme/) {{{3
-(when (require 'color-theme nil t)
-  (color-theme-initialize))
-(load-file "~/.emacs.d/colors/color-theme-ir-black.el") ;; http://d.hatena.ne.jp/a666666/20100206/1265403745
-(color-theme-ir-black)
-
-;; ¹Ô¤Î¥Ï¥¤¥é¥¤¥È (from WEB+DB PRESS Vol.58) {{{3
+;; ç¾åœ¨è¡Œã‚’ãƒã‚¤ãƒ©ã‚¤ãƒˆ (from WEB+DB PRESS Vol.58)
 (defface my-hl-line-face
   '((((class color) (background dark))
-     (:background "gray5"
+     (:background "gray10"
       :underline  "gray20"))
     (((class color) (background light))
      (:background "LightGoldenrodYellow" t))
@@ -175,269 +131,44 @@ nil 'japanese-jisx0208
   "hl-line's my face")
 (setq hl-line-face 'my-hl-line-face)
 (global-hl-line-mode t)
-
-;; ²èÁü¥Õ¥¡¥¤¥ë¤òÉ½¼¨ {{{3
-(auto-image-file-mode t)
-
-;; backup {{{2
-;; ÊİÂ¸Àè {{{3
-(setq make-backup-files t)
-(setq backup-directory-alist
-      (cons (cons "\\.*$" (expand-file-name "~/emacsbackup"))
-            backup-directory-alist))
-
-;; ÀßÄê {{{3
-(setq verison-control t)
-(setq kept-new-versions 5)
-(setq kept-old-versions 5)
-(setq delete-old-versions t)
-
-;; ¾õÂÖ¤ÎÊİÂ¸ {{{3
-(require 'desktop)
-(desktop-save-mode 1)
-
-;; fontlock {{{2
+;; fontlock
 (global-font-lock-mode t)
-;; text-mode fontlock (import from simple-hatena-mode) {{{3
-(add-hook 'text-mode-hook
-          '(lambda ()
-             ;; (require 'hatenahelper-mode)
-             ;; (hatenahelper-mode 1)
-             (defvar hatena-text-font-lock-keywords nil)
-             (defvar hatena-text-slag-face 'hatena-text-slag-face)
-             (defvar hatena-text-subtitle-face 'hatena-text-subtitle-face)
-             (defvar hatena-text-inline-face 'hatena-text-inline-face)
-             (defvar hatena-text-markup-face 'hatena-text-markup-face)
-             (defvar hatena-text-link-face 'hatena-text-link-face)
+;; ( add-hook 'text-mode-hook
+;;           (require 'hatena-markup-mode)
+;;           (setq text-mode 'hatena:markup-mode))
 
-             (font-lock-add-keywords 'text-mode
-                                     (list
-                                       (list  "^\\(\\*[*a-zA-Z0-9_-]*\\)\\(.*\\)$"
-                                              '(1 hatena-text-slag-face t)
-                                              '(2 hatena-text-subtitle-face t))
-                                       ;; É¬¤º[]¤Ç°Ï¤Ş¤ì¤Æ¤¤¤Ê¤±¤ì¤Ğ¤Ê¤é¤Ê¤¤¤â¤Î
-                                       (list "\\[[*a-zA-Z0-9_-]+\\(:[^\n]+\\)+\\]"
-                                             '(0 hatena-text-inline-face t))
-                                       ;; É¬¤º¤·¤â[]¤Ç°Ï¤Ş¤ì¤Æ¤¤¤Ê¤¯¤Æ¤â¤è¤¤¤â¤Î
-                                       (list "\\[?\\(id\\|a\\|b\\|d\\|f\\|g\\|graph\\|i\\|idea\\|map\\|question\\|r\\|isbn\\|asin\\)\\(:[a-zA-Z0-9_+:-]+\\)+\\]?"
-                                             '(0 hatena-text-inline-face t))
-                                       (list  "^\\(:\\)[^:\n]+\\(:\\)"
-                                              '(1 hatena-text-markup-face t)
-                                              '(2 hatena-text-markup-face t))
-                                       (list  "^\\([-+]+\\)"
-                                              '(1 hatena-text-markup-face t))
-                                       (list  "\\(((\\).*\\())\\)"
-                                              '(1 hatena-text-markup-face t)
-                                              '(2 hatena-text-markup-face t))
-                                       (list  "^\\(>>\\|<<\\|><!--\\|--><\\|>|?[^|]*|\\||?|<\\|=====?\\)"
-                                              '(1 hatena-text-markup-face t))
-                                       (list  "\\(s?https?://\[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#\]+\\)"
-                                              '(1 hatena-text-link-face t))))
+;; ===== elisp ==================================================
+;; auto-install -------------------------------------------------
+;; (when (require 'auto-install nil t)
+;;   (setq auto-install-directory "~/.emacs.d/elisp/")
+;;   (auto-install-update-emacswiki-package-name t)
+;;   (auto-install-compatibility-setup))
 
-             (defface hatena-text-slag-face
-                      '((((class color) (background light)) (:foreground "IndianRed"))
-                        (((class color) (background dark)) (:foreground "wheat")))
-                      "¾®¸«½Ğ¤·¤Î*¥¿¥¤¥à¥¹¥¿¥ó¥×or¥¹¥é¥Ã¥°*ÉôÊ¬¤Î¥Õ¥§¥¤¥¹¡£")
-
-             (defface hatena-text-subtitle-face
-                      '((((class color) (background light)) (:foreground "DarkOliveGreen"))
-                        (((class color) (background dark)) (:foreground "wheat")))
-                      "¾®¸«½Ğ¤·¤Î¥Õ¥§¥¤¥¹¡£")
-
-             (defface hatena-text-inline-face
-                      '((((class color) (background light)) (:foreground "MediumBlue" :bold t))
-                        (((class color) (background dark)) (:foreground "wheat" :bold t)))
-                      "idµ­Ë¡¤ä[keyword:Emacs]Åù¤Îface")
-
-             (defface hatena-text-markup-face
-                      '((((class color) (background light)) (:foreground "DarkOrange" :bold t))
-                        (((class color) (background dark)) (:foreground "IndianRed3" :bold t)))
-                      "¤Ï¤Æ¤Ê¤Î¥Ş¡¼¥¯¥¢¥Ã¥×¤Î¥Õ¥§¥¤¥¹¡£")
-
-             (defface hatena-text-link-face
-                      '((((class color) (background light)) (:foreground "DeepPink"))
-                        (((class color) (background dark)) (:foreground "wheat")))
-                      "¥ê¥ó¥¯¤Î¥Õ¥§¥¤¥¹¡£")
-             (font-lock-mode 1)
-             (font-lock-fontify-buffer)
-             ))
-
-;; -------------------- elisp ---------------------- {{{1
-
-;; word-count-mode
-(autoload 'word-count-mode "word-count"
-  "Minor mode to count words." t nil)
-(global-set-key "\M-+" 'word-count-mode)
-
-;; ¥¯¥ê¥Ã¥×¥Ü¡¼¥É¤È¥­¥ë¥ê¥ó¥°¤Î¶¦Í­ http://blog.lathi.net/articles/2007/11/07/sharing-the-mac-clipboard-with-emacs {{{2
-(defun copy-from-osx ()
- (shell-command-to-string "pbpaste"))
-
-(defun paste-to-osx (text &optional push)
- (let ((process-connection-type nil))
-     (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
-       (process-send-string proc text)
-       (process-send-eof proc))))
-
-(setq interprogram-cut-function 'paste-to-osx)
-(setq interprogram-paste-function 'copy-from-osx)
-
-;; egg.el (git://github.com/bogolisk/egg.git) {{{2
-(require 'egg)
-(define-key global-map (kbd "C-t") 'other-window) ;; ²¿¸Î¤«Ìµ¸ú¤Ë¤Ê¤ë¤Î¤Ç
-
-;; (install-elisp "http://www.emacswiki.org/emacs/download/multi-term.el") {{{2
-(when (require 'multi-term nil t)
-  (setq multi-term-program "/bin/zsh"))
-
-;; migemo.el (from WEB+DB PRESS Vol.58) {{{2
-(when (and (executable-find "cmigemo")
-           (require 'migemo nil t))
-  (setq migemo-command "cmigemo")
-  (setq migemo-options '("-q" "--emacs" "-i" "\a"))
-  (setq migemo-dictionary
-        "/usr/local/share/migemo/utf-8/migemo-dict")
-  (setq migemo-user-dictionary nil)
-  (setq migemo-regex-dictionary nil)
-  (setq migemo-use-pattern-alist t)
-  (setq migemo-use-frequent-pattern-alist t)
-  (setq migemo-pattern-alist-length 1000)
-  (setq migemo-coding-system 'utf-8-unix)
-  (migemo-init))
-
-;;; anything (from WEB+DB PRESS Vol.58) {{{2
-;; (auto-install-batch "anything") {{{3
-(when (require 'anything nil t)
-  (setq
-   anything-idle-delay 0.3              ; ¸õÊäÉ½¼¨¤Ş¤Ç¤Î»ş´Ö
-   anything-input-idle-delay 0.2        ; ¥¿¥¤¥×¤«¤éºÆÉÁ²è¤Ş¤Ç¤Î»ş´Ö
-   anything-candidate-number-limit 100  ; ¸õÊäºÇÂçÉ½¼¨¿ô
-   anything-quick-update t              ; ¸õÊä¤¬Â¿¤¤¤È¤­ÂÎ´¶Â®ÅÙ¸ş¾å
-   anything-enable-shortcuts 'alphabet) ; ¸õÊäÁªÂò¤ò¥¢¥ë¥Õ¥¡¥Ù¥Ã¥È¤Ç
-  (when (require 'anything-config nil t)
-    (setq anything-su-or-sudo "sudo"))  ; root¸¢¸Â¼Â¹Ô»ş¤Î¥³¥Ş¥ó¥É
-  (require 'anything-match-plugin nil t)
-  (and (equal current-language-environment "Japanese")
-       (executable-find "cmigemo")
-       (require 'anything-migemo nil t))
-  (when (require 'anything-complete nil t)
-    ;; (anything-read-string-mode 1)    ; M-xÊä´Ö¤òAnything¤Ç
-    (anything-lisp-complete-symbol-set-timer 150)); lisp¥·¥ó¥Ü¥ëÊä´°¸õÊä¤ÎºÆ¸¡º÷»ş´Ö
-  (require 'anything-show-completion nil t)
-  (when (require 'auto-install nil t)
-    (require 'anything-auto-install nil t))
-  (when (require 'descbinds-anything nil t)
-    (descbinds-anything-install))       ; describe-bindings¤òAnything¤ËÃÖ¤­´¹¤¨¤ë
-  (require 'anything-grep nil t))
-
-;; ¥É¥­¥å¥á¥ó¥È¸¡º÷¤Î¤¿¤á¤Îanything¥³¥Ş¥ó¥É (WEB+DB PRESS Vol.58) {{{3
-(setq anything-for-document-sources
-      (list
-       anything-c-source-man-pages
-       anything-c-source-info-cl
-       anything-c-source-info-pages
-       anything-c-source-info-elisp
-       anything-c-source-apropos-emacs-commands
-       anything-c-source-apropos-emacs-functions
-       anything-c-source-apropos-emacs-variables))
-(defun anything-for-document ()
-  "Preconfigured 'anything' for anything-for-document."
-  (interactive)
-  (anything anything-for-document-sources
-            (thing-at-point 'symbol) nil nil nil
-            "*anything for document*"))
-(global-set-key (kbd "s-d") 'anything-for-document)
-
-;; gist.el (https://github.com/defunkt/gist.el) {{{2
-(add-to-list 'load-path "~/.emacs.d/elisp/gist.el")
-(require 'gist)
-
-;; anything-gist.el (gist:467982) {{{2
-(require 'anything-gist)
-   
-;; (install-elisp "http://www.emacswiki.org/emacs/download/auto-install.el") ;; {{{2
-(when (require 'auto-install nil t)
-  (setq auto-install-directory "~/.emacs.d/elisp/")
-  (auto-install-update-emacswiki-package-name t)
-  (auto-install-compatibility-setup))
-
-;; (install-elisp "http://www.emacswiki.org/emacs/download/redo+.el) ;; {{{2
-(when (require 'redo+ nil t)
-  ;; global-map
-  (global-set-key (kbd "C-'") 'redo)) ;C-'¤Çredo
-
-;;** smartchr.el {{{2 http://tech.kayac.com/archive/emacs-tips-smartchr.html
-(require 'smartchr)
-
-;;** org-mode {{{2
-;; org-mode¤òGTD¤Ë»È¤¦ÊıË¡ #1 - »¨Â¿¤Ê³Ğ¤¨½ñ¤­ http://d.hatena.ne.jp/t0m0_tomo/20091229/1262082716
-(load "org-mode")
-(setq org-combined-agenda-icalendar-file "~/org/calendar/org.ics")
-(setq org-icalendar-include-todo nil)
-(setq org-icalendar-use-deadline '(event-if-todo event-if-not-todo))
-(setq org-icalendar-use-scheduled '(event-if-todo event-if-not-todo))
-
-(defun org-push-daily-my ()
-  (interactive)
-  (org-export-icalendar-combine-agenda-files)
-  (call-process "org2googleCalendar.pl" nil nil nil
-                (expand-file-name org-combined-agenda-icalendar-file)))
-(define-key global-map [f12] 'org-push-daily-my)
-
-(setq org-directory "~/org")
-(setq org-mobile-inbox-for-pull "~/org/flagged.org")
-(setq org-mobile-directory "~/Dropbox/MobileOrg")
-
-;;** screen-lines-mode {{{2
-(autoload 'screen-lines-mode "screen-lines"
-  "Toggle Screen Lines minor mode for the current buffer." t)
-(autoload 'turn-on-screen-lines-mode "screen-lines"
-  "Turn on Screen Lines minor mode for the current buffer." t)
-(autoload 'turn-off-screen-lines-mode "screen-lines"
-  "Turn off Screen Lines minor mode for the current buffer." t)
-
-;; simple-hatena-mode {{{2
-(setq load-path
-      (cons "~/.emacs.d/elisp/simple-hatena-mode" load-path))
-(require 'simple-hatena-mode)
-(setq simple-hatena-default-id "Rion778")
-(setq simple-hatena-bin "~/local/bin/hw.pl")
-(setq simple-hatena-root "~/.s-hatena")
-
-;; latex¿ô¼°¤ògoogle chart api¤ò»È¤Ã¤¿¿ô¼°É½¸½¤ËÊÑ´¹
-(defun latex-to-google-chart-api ()
-  (interactive)
-  (replace-regexp "\\[tex:\\(.*?\\)\\]"
-    (query-replace-compile-replacement
-     "<img src=\"http://chart.apis.google.com/chart?cht=tx&chl=\\,(w3m-url-encode-string \\1)\"/>" t) nil (point-min) (point-max)))
-(global-set-key "\C-c\C-l\C-t" 'latex-to-google-chart-api)
+;; ;; latexæ•°å¼ã‚’google chart apiã‚’ä½¿ã£ãŸæ•°å¼è¡¨ç¾ã«å¤‰æ›-------------
+;; (defun latex-to-google-chart-api ()
+;;   (interactive)
+;;   (replace-regexp "\\[tex:\\(.*?\\)\\]"
+;;     (query-replace-compile-replacement
+;;      "<img src=\"http://chart.apis.google.com/chart?cht=tx&chl=\\,(url-hexify-string \\1)\"/>" t) nil (point-min) (point-max)))
+;; (global-set-key "\C-c\C-l\C-t" 'latex-to-google-chart-api)
+;; ;; é€†å¤‰æ›
+;; (defun google-chart-api-to-latex ()
+;;   (interactive)
+;;   (replace-regexp "<img src=\"http://chart.apis.google.com/chart\\?cht=tx&chl=\\(.*?\\)\"/>"
+;;     (query-replace-compile-replacement
+;;      "[tex:\\,(url-unhex-string \\1)]" t) nil (point-min) (point-max)))
+;; (global-set-key "\C-c\C-t\C-l" 'google-chart-api-to-latex)
 
 
-(add-hook 'simple-hatena-mode-hook
-          '(lambda ()
-             (turn-on-screen-lines-mode)
-             (require 'hatenahelper-mode)
-             (hatenahelper-mode 1)
-             (setq simple-hatena-use-timestamp-permalink-flag nil)
-             ))
-
-;; reftex-mode {{{2
-(add-hook 'yatex-mode-hook
-          #'(lambda ()
-              (reftex-mode 1)
-              (define-key reftex-mode-map
-                (concat YaTeX-prefix ">") 'YaTeX-comment-region)
-              (define-key reftex-mode-map
-                (concat YaTeX-prefix "<") 'YaTeX-uncomment-region)))
-
-;;** ESS {{{2 
+;; ESS ----------------------------------------------------------
 (require 'ess-site)
-;; ¥¦¥£¥ó¥É¥¦Ê¬³äÀßÄê
+;; ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦åˆ†å‰²è¨­å®š
 (defun ess-format-window ()
   (split-window-horizontally)
   (other-window 1)
   (split-window)
   (other-window 1)
+  (define-key global-map (kbd "C-t") 'other-window)
   )
 (add-hook 'ess-pre-run-hook 'ess-format-window)
 (setq auto-mode-alist
@@ -449,138 +180,17 @@ nil 'japanese-jisx0208
 (require 'align)
 (add-to-list 'align-rules-list
              '(ess-assignment-operator
-	       (regexp . "\\(\\s-*\\)<-[^#\t\n]")
-	       (repeat . nil)
-	       (modes  . '(ess-mode))))
+              (regexp . "\\(\\s-*\\)<-[^#\t\n]")
+              (repeat . nil)
+              (modes  . '(ess-mode))))
 
-;;** R-object-popup.el {{{2
-;;http://sheephead.homelinux.org/2010/03/02/1807/
-(require 'ess-R-object-popup)
+;; auto-complete.el ---------------------------------------------
+;; (require 'auto-complete-config)
+;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp/ac-dict")
+;; (ac-config-default)
 
-;;** auto-complete.el {{{2
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp/ac-dict")
-(ac-config-default)
-
-;;** yasunippet.el {{{2
-;(add-to-list 'load-path "~/site-lisp/auto-complete-acr")
-(require 'yasnippet)
-(yas/initialize)
-(yas/load-directory "~/.emacs.d/elisp/auto-complete-acr/snippets")
-
-;;** auto-complete-acr.el {{{2
-(require 'auto-complete)
-(global-auto-complete-mode t)
-(add-hook 'ess-pre-run-hook 'auto-complete-mode)
-(require 'auto-complete-yasnippet)
-(require 'auto-complete-acr)
-;;** YaTeX {{{2
-;; .tex¥Õ¥¡¥¤¥ë¤Ç¼«Æ°Åª¤Ëyatex-mode
-(setq auto-mode-alist 
-      (cons (cons "\\.tex$" 'yatex-mode) auto-mode-alist))
-(autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
-
-;; TeXShop¤Ç¥×¥ì¥Ó¥å¡¼
-;(setq tex-command "~/Library/TeXShop/bin/platex2pdf-utf8"
-;      dvi2-command "open -a TexShop")
-
-;; latexmk and Skim
-(setq tex-command "latexmk -pdf"
-      dvi2-command "open -a Skim")
-
-;; ´Á»ú¥³¡¼¥É
-(setq YaTeX-kanji-code 4)
-
-;; AMS-LaTeX
-(setq YaTeX-use-AMS-LaTeX t)
-
-;; GNU MDK {{{2
-;; ¥í¡¼¥É¥Ñ¥¹¤ÎÄÉ²Ã
-(setq load-path (cons "/opt/local/share/mdk" load-path))
-;; .mixal¥Õ¥¡¥¤¥ëÆÉ¤ß¹ş¤ß¤Ç¼«Æ°Åª¤Ëmixal-mode
-(autoload 'mixal-mode "mixal-mode" t)
-(add-to-list 'auto-mode-alist '("\\.mixal\\'" . mixal-mode))
-;; mixvm¤Î»ÈÍÑ
-(autoload 'mixvm "mixvm" "mixvm/gud interaction" t)
-
-;;; SLIME {{{2
-;; M-x my-slime: Ê¬³ä¤·¤¿¥¦¥£¥ó¥É¥¦¤Çslimeµ¯Æ°
-;; C-c C-r: ÁªÂòÈÏ°Ï¤òslime-repl¤ØÁ÷¤Ã¤ÆÉ¾²Á
-(add-to-list 'load-path "/opt/local/share/emacs/site-lisp/slime")
-(require 'slime-autoloads)
-(setq slime-lisp-implementations
-     `((sbcl ("/opt/local/bin/sbcl"))
-       (abcl ("/opt/local/bin/abcl"))
-       (clisp ("/opt/local/bin/clisp"))))
-(setq slime-net-coding-system 'utf-8-unix)
-(add-hook 'lisp-mode-hook
-           (lambda ()
-             (global-set-key "\C-cH" 'hyperspec-lookup)
-             (cond ((not (featurep 'slime))
-                    (require 'slime)
-                    (normal-mode)))))
-(eval-after-load "slime"
-   '(slime-setup '(slime-fancy slime-banner)))
-(global-set-key "\C-cs" 'slime-selector)
-(defun my-slime (&optional command coding-system)
-  "Run slime and split window."
-  (interactive)
-  (if (< (count-windows) 2)
-      (split-window-horizontally)
-  )
-  (other-window 1)
-  (slime command coding-system)
-  (other-window 1)
-  (global-set-key "\C-cH" 'hyperspec-lookup)
-  )
-(defun slime-repl-send-region (start end)
-  "Send region to slime-repl."
-  (interactive "r")
-  (let ((buf-name (buffer-name (current-buffer)))
-        (sbcl-buf (get-buffer "*slime-repl sbcl*")))
-    (cond (sbcl-buf 
-           (copy-region-as-kill start end)
-           (switch-to-buffer-other-window sbcl-buf)
-           (yank)
-           (slime-repl-send-input "\n")
-           (switch-to-buffer-other-window buf-name))
-          (t (message "Not exist *slime-repl sbcl* buffer!")))
-    ))
-(global-set-key "\C-c\C-r" 'slime-repl-send-region)
-
-;;; ejacs {{{2
-;; C-c C-j¤Çjs-console¤òµ¯Æ°
-;; C-c r¤ÇÁªÂòÈÏ°Ï¤ò¼Â¹Ô 
-(autoload 'js-console "js-console" nil t)
-(defun js-console-execute-region (start end)
-  "Execute region"
-  (interactive "r")
-  (let ((buf-name (buffer-name (current-buffer))))
-    (copy-region-as-kill start end)
-    (switch-to-buffer-other-window "*js*")
-    (js-console-exec-input (car kill-ring))
-    (switch-to-buffer-other-window buf-name)))
-(defun run-js-console-and-split-window ()
-  "Run js-console and split window horizontally."
-  (interactive)
-  (if (< (count-windows) 2)
-      (split-window-horizontally)
-  )
-  (js-console)
-  (other-window 1)
-  )
-(add-hook 'js-mode-hook
-          (lambda ()
-            (moz-minor-mode 1) ;; Í×moz.el
-            (local-set-key "\C-c\C-j" 'run-js-console-and-split-window)
-            (local-set-key "\C-cr" 'js-console-execute-region)
-            ))
-
-;;; moz.el {{{2
-; (autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
-
-;; tabber.el (http://sourceforge.net/projects/emhacks/) {{{2
-;; scratch buffer °Ê³°¤ò¤Ş¤È¤á¤Æ¥¿¥Ö¤ËÉ½¼¨¤¹¤ë
+;; tabber.el (http://sourceforge.net/projects/emhacks/) ---------
+;; scratch buffer ä»¥å¤–ã‚’ã¾ã¨ã‚ã¦ã‚¿ãƒ–ã«è¡¨ç¤ºã™ã‚‹
 (require 'cl)
 (when (require 'tabbar nil t)
    (setq tabbar-buffer-groups-function
@@ -592,79 +202,69 @@ nil 'japanese-jisx0208
               (find (aref (buffer-name buffer) 0) " *"))
             (buffer-list))))
    (tabbar-mode))
+;; Ctrl-Tab, Ctrl-Shift-Tab ã§ã‚¿ãƒ–ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
+(dolist (func '(tabbar-mode tabbar-forward-tab tabbar-forward-group tabbar-backward-tab tabbar-backward-group))
+  (autoload func "tabbar" "Tabs at the top of buffers and easy control-tab navigation"))
+(defmacro defun-prefix-alt (name on-no-prefix on-prefix &optional do-always)
+  `(defun ,name (arg)
+     (interactive "P")
+     ,do-always
+     (if (equal nil arg)
+         ,on-no-prefix
+       ,on-prefix)))
+(defun-prefix-alt shk-tabbar-next (tabbar-forward-tab) (tabbar-forward-group) (tabbar-mode 1))
+(defun-prefix-alt shk-tabbar-prev (tabbar-backward-tab) (tabbar-backward-group) (tabbar-mode 1))
+(global-set-key [(control tab)] 'shk-tabbar-next)
+(global-set-key [(control shift tab)] 'shk-tabbar-prev)
 
-;; Ctrl-Tab, Ctrl-Shift-Tab ¤Ç¥¿¥Ö¤òÀÚ¤êÂØ¤¨¤ë
- (dolist (func '(tabbar-mode tabbar-forward-tab tabbar-forward-group tabbar-backward-tab tabbar-backward-group))
-   (autoload func "tabbar" "Tabs at the top of buffers and easy control-tab navigation"))
- (defmacro defun-prefix-alt (name on-no-prefix on-prefix &optional do-always)
-   `(defun ,name (arg)
-      (interactive "P")
-      ,do-always
-      (if (equal nil arg)
- 	 ,on-no-prefix
-        ,on-prefix)))
- (defun-prefix-alt shk-tabbar-next (tabbar-forward-tab) (tabbar-forward-group) (tabbar-mode 1))
- (defun-prefix-alt shk-tabbar-prev (tabbar-backward-tab) (tabbar-backward-group) (tabbar-mode 1))
- (global-set-key [(control tab)] 'shk-tabbar-next)
- (global-set-key [(control shift tab)] 'shk-tabbar-prev)
-
-;; ³°´ÑÊÑ¹¹
+;; å¤–è¦³å¤‰æ›´
 (set-face-attribute
   'tabbar-default-face nil
   :background "gray30")
- (set-face-attribute
+(set-face-attribute
   'tabbar-unselected-face nil
   :background "gray40"
   :foreground "gray"
   :box nil)
- (set-face-attribute
+(set-face-attribute
   'tabbar-selected-face nil
   :background "black"
   :foreground "gray"
   :box nil)
- (set-face-attribute
+(set-face-attribute
   'tabbar-button-face nil
   :box '(:line-width 1 :color "gray40" :style released-button))
- (set-face-attribute
+(set-face-attribute
   'tabbar-separator-face nil
   :height 0.7)
 
-;; w3m {{{2
-(require 'w3m-load)
-(setq w3m-home-page "http://google.com")
-(setq w3m-use-cookies t)
-(setq brouwse-url-brouser-function 'w3m-brouse-url)
-(add-hook 'w3m-mode-hook
-          (lambda ()
-            (local-set-key "\C-t" 'other-window)
-            ))
-;; HyperSpec¤òw3m¤Ç¸«¤ë
-(defadvice common-lisp-hyperspec
-  (around hyperspec-lookup-w3m () activate)
-  (let* ((window-configuration (current-window-configuration))
-         (browse-url-browser-function
-          `(lambda (url new-window)
-             (w3m-browse-url url nil)
-             (let ((hs-map (copy-keymap w3m-mode-map)))
-               (define-key hs-map (kbd "q")
-                 (lambda ()
-                   (interactive)
-                   (kill-buffer nil)
-                   (set-window-configuration ,window-configuration)))
-               (use-local-map hs-map)))))
-    ad-do-it))
+;; ;; Yet another incomplete ---------------------------------------
+;; ;; http://d.hatena.ne.jp/tarao/20101011/1286804507 
+;; (require 'yaicomplete)
+;; (yaicomplete-mode)                      
 
-;;; zlc.el http://d.hatena.ne.jp/mooz/20101003/p1 {{{2
-;(require 'zlc)
-;(let ((map minibuffer-local-map))
-;  (define-key map (kbd "<backtab>") 'zlc-select-previous)
-;  (define-key map (kbd "S-<tab>") 'zlc-select-previous)
-;  (define-key map (kbd "C-p") 'zlc-select-previous-vertical)
-;  (define-key map (kbd "C-n") 'zlc-select-next-vertical)
-;  (define-key map (kbd "C-b") 'zlc-select-previous)
-;  (define-key map (kbd "C-f") 'zlc-select-next)
-;)
+;; hatena-diary -------------------------------------------------
+(require 'hatena-diary)
+(require 'hatena-markup-mode)
+(setq hatena:d:major-mode 'hatena:markup-mode)
+(require 'hatena-multi-mode)
+(add-hook 'hatena:markup-mode-hook #'hatena:multi-mode)
+;; ã‚·ãƒ§ãƒ¼ãƒˆã‚«ãƒƒãƒˆ
+(global-set-key "\C-chl" 'hatena:d:list)
+(global-set-key "\C-chdl" 'hatena:d:list-draft)
+(global-set-key "\C-chn" 'hatena:d:new)
+(global-set-key "\C-chdn" 'hatena:d:new-draft)
 
-;; Yet another incomplete http://d.hatena.ne.jp/tarao/20101011/1286804507 {{{2
-(require 'yaicomplete)
-(yaicomplete-mode)
+;; simple-hatena-mode -------------------------------------------
+;; (setq load-path
+;;       (cons "~/.emacs.d/elisp/simple-hatena-mode" load-path))
+;; (require 'simple-hatena-mode)
+;; (setq simple-hatena-default-id "Rion778")
+;; (setq simple-hatena-bin "~/local/bin/hw.pl")
+;; (setq simple-hatena-root "~/.s-hatena")
+;; (add-hook 'simple-hatena-mode-hook
+;;           '(lambda ()
+;;              (require 'hatenahelper-mode)
+;;              (hatenahelper-mode 1)
+;;              (setq simple-hatena-use-timestamp-permalink-flag nil)
+;;              ))

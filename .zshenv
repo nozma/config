@@ -31,13 +31,16 @@ export CVS_RSH=ssh
 export PATH=/Applications/pTeX.app/teTeX/bin:$PATH
 
 # git-osx-installer
-export PATH=/usr/local/git:/usr/local/git/bin:$PATH
+# export PATH=/usr/local/git:/usr/local/git/bin:$PATH
 
 #ruby1.9.1
 export RUBYLIB=$HOME/.gem/ruby/1.9.1/lib
 
 # perlbrew
-source /Users/rito/perl5/perlbrew/etc/bashrc
+source ~/perl5/perlbrew/etc/bashrc
 
 # mysql
 export PATH=/usr/local/mysql/bin:$PATH
+
+# cabal
+export PATH=$HOME/.cabal/bin:$PATH

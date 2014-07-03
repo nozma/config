@@ -1,7 +1,7 @@
 " Basic "{{{1
 " Options "{{{2
 
-filetype plugin indent on
+filetype off
 syntax enable
 set nocompatible
 set shell=zsh
@@ -173,52 +173,82 @@ autocmd Filetype R set commentstring=#%s
 autocmd Filetype lisp set commentstring=;;%s
 
 " Plugin "{{{1
-" vundle {{{2
+" vundle(off) {{{2
 
+"set nocompatible               " be improved
+"filetype off                   " required!
+"set rtp+=~/.vim/bundle/vundle/
+"call vundle#rc()
+"" let vundle manage vundle
+"" required!
+"bundle 'gmarik/vundle'
+"" my bundles here:
+"bundle 'shougo/unite.vim'
+"bundle 'shougo/vimfiler'
+"bundle 'quickrun.vim'
+"" original repos on github
+"bundle 'tpope/vim-fugitive'
+"bundle 'lokaltog/vim-easymotion'
+"bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+"bundle 'tpope/vim-rails.git'
+"" vim-scripts repos
+"bundle 'l9'
+"bundle 'fuzzyfinder'
+"" non github repos
+"bundle 'git://git.wincent.com/command-t.git'
+"" ...
+"filetype plugin indent on     " required!
+""
+"" Brief help
+"" :BundleList          - list configured bundles
+"" :BundleInstall(!)    - install(update) bundles
+"" :BundleSearch(!) foo - search(or refresh cache first) for foo
+"" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+""
+"" see :h vundle for more details or wiki for FAQ
+"" NOTE: comments after Bundle command are not allowed..
+
+" neobundle {{{2
 filetype off
 
-set rtp+=~/.vim/vundle.git/ 
-call vundle#rc()
+if has('vim_starting')
+  set runtimepath+=~/.vim/neobundle.vim.git
+  call neobundle#rc(expand('~/.vim/.bundle'))
+endif
 
-" My Bundles here:
-"
-" original repos on github
-Bundle 'tpope/vim-fugitive'
-Bundle 'lokaltog/vim-easymotion'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-" vim-scripts repos
-Bundle 'L9'
-Bundle 'FuzzyFinder'
-Bundle 'rails.vim'
-" non github repos
-Bundle 'git://git.wincent.com/command-t.git'
-" ...
+" my bundles here:
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'quickrun.vim'
+NeoBundle 'mattn/webapi-vim'
+NeoBundle 'moznion/hateblo.vim'
+NeoBundle 'kana/vim-metarw'
 
-filetype plugin indent on 
+filetype plugin on
+filetype indent on
 
 " unite.vim {{{2
-" $BF~NO%b!<%I$G3+;O$9$k(B
+" 入力モードで開始する
 " let g:unite_enable_start_insert=1
-" $B%P%C%U%!0lMw(B
+" バッファ一覧
 nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
-" $B%U%!%$%k0lMw(B
+" ファイル一覧
 nnoremap <silent> ,uf :<C-u>Unite -buffer-name=files file<CR>
-" $B%l%8%9%?0lMw(B
+" レジスタ一覧
 nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
-" $B:G6a;HMQ$7$?%U%!%$%k0lMw(B
+" 最近使用したファイル一覧
 nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
-" $B>oMQ%;%C%H(B
+" 常用セット
 nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
-" $BA4It>h$;(B
+" 全部乗せ
 nnoremap <silent> ,ua :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
 
-" $B%&%#%s%I%&$rJ,3d$7$F3+$/(B
+" ウィンドウを分割して開く
 au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
 au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-" $B%&%#%s%I%&$r=D$KJ,3d$7$F3+$/(B
+" ウィンドウを縦に分割して開く
 au FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
 au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-" ESC$B%-!<$r(B2$B2s2!$9$H=*N;$9$k(B
+" ESCキーを2回押すと終了する
 au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
 
