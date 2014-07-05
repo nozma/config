@@ -147,6 +147,10 @@
   (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
   (package-initialize))
 
+;; smart-compile.el ---------------------------------------------
+(when (require 'smart-compile nil t)
+  (global-set-key "\C-x\C-x" 'smart-compile))
+
 ;; latex数式をgoogle chart apiを使った数式表現に変換-------------
 (defun latex-to-google-chart-api ()
   (interactive)
@@ -245,17 +249,17 @@
 (require 'yaicomplete)
 (yaicomplete-mode)
 
-;; hatena-diary -------------------------------------------------
-(require 'hatena-diary)
-(require 'hatena-markup-mode)
-(setq hatena:d:major-mode 'hatena:markup-mode)
-(require 'hatena-multi-mode)
-(add-hook 'hatena:markup-mode-hook #'hatena:multi-mode)
-;; ショートカット
-(global-set-key "\C-chl" 'hatena:d:list)
-(global-set-key "\C-chdl" 'hatena:d:list-draft)
-(global-set-key "\C-chn" 'hatena:d:new)
-(global-set-key "\C-chdn" 'hatena:d:new-draft)
+;; ;; hatena-diary -------------------------------------------------
+;; (require 'hatena-diary)
+;; (require 'hatena-markup-mode)
+;; (setq hatena:d:major-mode 'hatena:markup-mode)
+;; (require 'hatena-multi-mode)
+;; (add-hook 'hatena:markup-mode-hook #'hatena:multi-mode)
+;; ;; ショートカット
+;; (global-set-key "\C-chl" 'hatena:d:list)
+;; (global-set-key "\C-chdl" 'hatena:d:list-draft)
+;; (global-set-key "\C-chn" 'hatena:d:new)
+;; (global-set-key "\C-chdn" 'hatena:d:new-draft)
 
 ;; simple-hatena-mode -------------------------------------------
 ;; (setq load-path
