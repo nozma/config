@@ -109,7 +109,7 @@ javascript if (typeof hBookmark != 'undefined') liberator.loadScript('chrome://h
 set complete+=Hy
 
 " sbmcommentsviewer.js "{{{2
-map C :viewSBMComments -t ht<CR>
+map C :viewSBMComments -t hlT -f id,comment<CR>
  
 " Evernote Firefox Extension
 command clip javascript evernote_doAction( document.popupNode, null );
