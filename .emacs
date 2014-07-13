@@ -142,6 +142,7 @@
   (global-set-key (kbd "C-.") 'redo))
 
 ;; package.el ---------------------------------------------------
+;; リポジトリの追加
 (when (require 'package nil t)
   (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
   (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
@@ -150,6 +151,16 @@
 ;; smart-compile.el ---------------------------------------------
 (when (require 'smart-compile nil t)
   (global-set-key "\C-x\C-x" 'smart-compile))
+
+;; open-junk-file.el --------------------------------------------
+;; 試行錯誤用ファイルを開く
+(require 'open-junk-file)
+(global-set-key (kbd "C-x C-z") 'open-junk-file)
+
+;; lispxmp.el ---------------------------------------------------
+;; S式の評価結果を注釈する
+(require 'lispxmp)
+(define-key emacs-lisp-mode-map (kbd "C-c C-d") 'lispxmp)
 
 ;; latex数式をgoogle chart apiを使った数式表現に変換-------------
 (defun latex-to-google-chart-api ()
