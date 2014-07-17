@@ -15,48 +15,35 @@ set backupdir=~/vimbackup
 set directory=~/vimbackup
 
 " Encodings "{{{2
-" To deal with Japanese language. 
-if $ENV_WORKING ==# 'summer'
-  set encoding=japan
+set   encoding=utf-8
+
+if has('win32') && has('kaoriya')
+  set   ambiwidth=auto
 else
-  set encoding=utf-8
+  set   ambiwidth=double
 endif
- 
+
 if has('iconv')
   let s:enc_euc = 'euc-jp'
   let s:enc_jis = 'iso-2022-jp'
- 
-  " Does iconv support JIS X 0213 ?
+
   if iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
     let s:enc_euc = 'euc-jisx0213,euc-jp'
     let s:enc_jis = 'iso-2022-jp-3'
   endif
- 
-  " Make fileencodings
-  let &fileencodings = 'ucs-bom'
-  if &encoding !=# 'utf-8'
-    let &fileencodings = &fileencodings . ',' . 'ucs-2le'
-    let &fileencodings = &fileencodings . ',' . 'ucs-2'
-  endif
-  let &fileencodings = &fileencodings . ',' . s:enc_jis
- 
-  if &encoding ==# 'utf-8'
-    let &fileencodings = &fileencodings . ',' . s:enc_euc
-    let &fileencodings = &fileencodings . ',' . 'cp932'
-  elseif &encoding =~# '^euc-\%(jp\|jisx0213\)$'
-    let &encoding = s:enc_euc
-    let &fileencodings = &fileencodings . ',' . 'utf-8'
-    let &fileencodings = &fileencodings . ',' . 'cp932'
-  else " cp932
-    let &fileencodings = &fileencodings . ',' . 'utf-8'
-    let &fileencodings = &fileencodings . ',' . s:enc_euc
-  endif
-  let &fileencodings = &fileencodings . ',' . &encoding
- 
+
+  set   fileencodings&
+  let &fileencodings = &fileencodings.','.s:enc_jis.',cp932,'.s:enc_euc
+
   unlet s:enc_euc
   unlet s:enc_jis
 endif
- 
+
+if has('win32unix')
+  set   termencoding=cp932
+elseif !has('macunix')
+  set   termencoding=euc-jp
+endif
  
 if $ENV_ACCESS ==# 'summer'
   set termencoding=cp932
