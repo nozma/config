@@ -16,6 +16,7 @@ set directory=~/vimbackup
 
 " Encodings "{{{2
 set   encoding=utf-8
+set   fenc=utf-8
 
 if has('win32') && has('kaoriya')
   set   ambiwidth=auto
