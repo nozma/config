@@ -109,14 +109,12 @@ javascript if (typeof hBookmark != 'undefined') liberator.loadScript('chrome://h
 set complete+=Hy
 
 " sbmcommentsviewer.js "{{{2
-map C :viewSBMComments -t hlT -f id,comment<CR>
+map C :viewSBMComments -t h -f id,comment<CR>
  
-" Evernote Firefox Extension
+" Evernote Firefox Extension "{{{2
 command clip javascript evernote_doAction( document.popupNode, null );
 noremap ,e :js __readable_by_evernote.readable_by_evernote__menu__call(buffer.URL)<CR>
 noremap ,E :js __readable_by_evernote.__readable_by_evernote__launch(true)<CR>
-
-
 
 " Finish Loading "{{{1
 echo "Loading done! :-)" 
