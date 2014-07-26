@@ -64,11 +64,9 @@ map ,J :open javascript:
 
 "" 特定のページに対する設定 {{{1
 "" Vimperatorを無効にするページ {{{2
-"" リストにないページではVimperatorを復帰する
-"autocmd LocationChange .* js modes.passAllKeys = false
-"" Smart.fmのフラッシュページ
-"autocmd LocationChange smart\\.fm/(study|flash) js modes.passAllKeys = true
-"
+ignorekeys clear
+ignorekeys add iknow\\.jp/courses
+
 " Plugin "{{{1
 
 " twittperator.js{{{2
