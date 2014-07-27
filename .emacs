@@ -130,14 +130,6 @@
           (setq text-mode 'hatena:markup-mode))
 
 ;; ===== elisp ==================================================
-;; paredit ------------------------------------------------------
-;; カッコの対応を保持して編集
-(require 'paredit)
-(add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
-(add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
-(add-hook 'lisp-mode-hook 'enable-paredit-mode)
-(add-hook 'ielm-mode-hook 'enable-paredit-mode)
-
 ;; auto-install -------------------------------------------------
 (when (require 'auto-install nil t)
   (setq auto-install-directory "~/.emacs.d/elisp/")
@@ -155,6 +147,14 @@
   (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
   (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
   (package-initialize))
+
+;; paredit ------------------------------------------------------
+;; カッコの対応を保持して編集
+(require 'paredit)
+(add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
+(add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
+(add-hook 'lisp-mode-hook 'enable-paredit-mode)
+(add-hook 'ielm-mode-hook 'enable-paredit-mode)
 
 ;; smart-compile.el ---------------------------------------------
 (when (require 'smart-compile nil t)
