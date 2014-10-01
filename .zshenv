@@ -44,3 +44,6 @@ export PATH=/usr/local/mysql/bin:$PATH
 
 # cabal
 export PATH=$HOME/.cabal/bin:$PATH
+
+# python
+export PATH=/usr/share/python:$PATH

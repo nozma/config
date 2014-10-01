@@ -294,3 +294,6 @@
 ;;              (setq simple-hatena-use-timestamp-permalink-flag nil)
 ;;              ))
 
+;; elpy ----------------------------------------------------------
+(package-initialize)
+(elpy-enable)
