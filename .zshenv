@@ -4,7 +4,7 @@ limit coredumpsize 0
 typeset -U path
 
 export PATH=$HOME/local/bin:/opt/local/bin:/usr/local/bin:/usr/X11R6/bin:/usr/bin:/bin:/opt:local/sbin:/usr/local/sbin:/usr/sbin:/sbin:/usr/.local/bin
-export MANPATH=$HOME/local/man:opt/local/man:usr/local/man:/usr/share/man:/usr/X11R6/man
+export MANPATH=/usr/local/share/man/ja_JP.UTF-8:/usr/local/share/man/ja:$MANPATH
 
 export LANG=ja_JP.UTF-8
 export LC_CTYPE="$LANG"
