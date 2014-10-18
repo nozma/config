@@ -62,18 +62,22 @@ zstyle ':completion:*' completer _oldlist _complete _match _ignored _approximate
 autoload -U compinit && compinit
 
 # script {{{1
-# auto-fu.zsh {{{2
-source ~/.zsh/script/auto-fu.zsh/auto-fu.zsh
-# { . ~/.zsh/auto-fu; auto-fu-install; }
-zstyle ':auto-fu:highlight' input bold
-zstyle ':auto-fu:highlight' completion fg=black,bold
-zstyle ':auto-fu:highlight' completion/one fg=white,bold,underline
-zstyle ':auto-fu:var' postdisplay ''
-zle-line-init() {
-    auto-fu-init
-}
-zle -N zle-line-init
-zle -N zle-keymap-select auto-fu-zle-keymap-select
+# Incremental completion on zsh {{{2
+# http://mimosa-pudica.net/zsh-incremental.html
+source ~/.zsh/script/incr*.zsh
+
+## auto-fu.zsh {{{2
+#source ~/.zsh/script/auto-fu.zsh/auto-fu.zsh
+## { . ~/.zsh/auto-fu; auto-fu-install; }
+#zstyle ':auto-fu:highlight' input bold
+#zstyle ':auto-fu:highlight' completion fg=black,bold
+#zstyle ':auto-fu:highlight' completion/one fg=white,bold,underline
+#zstyle ':auto-fu:var' postdisplay ''
+#zle-line-init() {
+#    auto-fu-init
+#}
+#zle -N zle-line-init
+#zle -N zle-keymap-select auto-fu-zle-keymap-select
 
 ## zsh-autosuggestions {{{2
 ## setup zsh-autosuggestions
