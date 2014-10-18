@@ -63,13 +63,30 @@ autoload -U compinit && compinit
 
 # script {{{1
 # auto-fu.zsh {{{2
-## auto-fu.zsh stuff.
-# source ~/.zsh/script/auto-fu.zsh/auto-fu.zsh
+source ~/.zsh/script/auto-fu.zsh/auto-fu.zsh
 # { . ~/.zsh/auto-fu; auto-fu-install; }
-# zstyle ':auto-fu:highlight' input bold
-# zstyle ':auto-fu:highlight' completion fg=black,bold
-# zstyle ':auto-fu:highlight' completion/one fg=white,bold,underline
-# zstyle ':auto-fu:var' postdisplay $''
+zstyle ':auto-fu:highlight' input bold
+zstyle ':auto-fu:highlight' completion fg=black,bold
+zstyle ':auto-fu:highlight' completion/one fg=white,bold,underline
+zstyle ':auto-fu:var' postdisplay ''
+zle-line-init() {
+    auto-fu-init
+}
+zle -N zle-line-init
+zle -N zle-keymap-select auto-fu-zle-keymap-select
+
+## zsh-autosuggestions {{{2
+## setup zsh-autosuggestions
+#source ~/.zsh/script/zsh-autosuggestions/autosuggestions.zsh
+## Enable autosuggestions automatically
+#zle-line-init() {
+#  zle autosuggest-start
+#}
+#zle -N zle-line-init
+## use C-t to toggle autosuggestions
+#bindkey '^T' autosuggest-toggle
+## use C-f to accept a suggested word
+#bindkey '^F' autosuggest-accept-suggested-word
 
 # screenでウィンドウタイトルを自動設定 {{{2
 # http://d.hatena.ne.jp/tarao/20100223/1266958660
