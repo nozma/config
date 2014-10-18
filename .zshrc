@@ -64,12 +64,12 @@ autoload -U compinit && compinit
 # script {{{1
 # auto-fu.zsh {{{2
 ## auto-fu.zsh stuff.
-# source ~/.zsh/script/auto-fu/auto-fu.zsh
+source ~/.zsh/script/auto-fu.zsh/auto-fu.zsh
 { . ~/.zsh/auto-fu; auto-fu-install; }
 zstyle ':auto-fu:highlight' input bold
 zstyle ':auto-fu:highlight' completion fg=black,bold
 zstyle ':auto-fu:highlight' completion/one fg=white,bold,underline
-zstyle ':auto-fu:var' postdisplay $'\n-azfu-'
+zstyle ':auto-fu:var' postdisplay $''
 zle-line-init () {auto-fu-init;}; zle -N zle-line-init
 
 # screenでウィンドウタイトルを自動設定 {{{2
