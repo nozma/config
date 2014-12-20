@@ -62,6 +62,24 @@ map ,J :open javascript:
 " コマンドラインでime off
 :style -name comandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
 
+" AutopagerizeのON/OFF
+javascript <<EOM
+mappings.addUserMap(
+    [modes.NORMAL],
+    ["a"],
+    "AutoPagerize On/Off",
+    function(){
+        var doc = window.getBrowser().contentDocument;
+        var elements = doc.evaluate('id("autopagerize_help")/div/a[contains(@class,"autopagerize_link")]',doc,null,7,null);
+        if(elements.snapshotLength){
+            var event = doc.createEvent('MouseEvents');
+            event.initEvent('click',true,true);
+            elements.snapshotItem(0).dispatchEvent(event);
+        }
+    }
+);
+EOM
+
 "" 特定のページに対する設定 {{{1
 "" Vimperatorを無効にするページ {{{2
 ignorekeys clear
