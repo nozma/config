@@ -50,8 +50,8 @@
 (keyboard-translate ?\C-h ?\C-?)                 ; C-h: backspace
 (global-set-key (kbd "C-x ?") 'help-command)     ; C-x ?: help
 ;; command<->option
-(setq ns-command-modifier 'meta)
-(setq ns-alternate-modifier 'super)
+;(setq ns-command-modifier 'meta)
+;(setq ns-alternate-modifier 'super)
 (iswitchb-mode t)                       ; C-x b: バッファ候補選択
 (setq kill-whole-line t)                ; C-k: 行削除
 (define-key global-map (kbd "C-m") 'newline-and-indent)
