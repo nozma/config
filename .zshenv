@@ -47,3 +47,6 @@ export PATH=$HOME/.cabal/bin:$PATH
 
 # python
 export PATH=/usr/share/python:$PATH
+
+# tex
+export PATH=/usr/texbin:$PATH

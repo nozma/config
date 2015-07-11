@@ -143,10 +143,13 @@
 
 ;; package.el ---------------------------------------------------
 ;; リポジトリの追加
-(when (require 'package nil t)
-  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-  (package-initialize))
+(require 'package) ;; You might already have this line
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.org/packages/"))
+(when (< emacs-major-version 24)
+  ;; For important compatibility libraries like cl-lib
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+(package-initialize) ;; You might already have this line
 
 ;; paredit ------------------------------------------------------
 ;; カッコの対応を保持して編集
@@ -300,3 +303,16 @@
 
 (custom-set-variables
  '(python-check-command "/usr/local/bin/pyflakes"))
+
+;; slime ----------------------------------------------------------
+(setq inferior-lisp-program "/usr/local/bin/clisp")
+(require 'slime)
+(slime-setup '(slime-fancy))
+(setq slime-net-coding-system 'utf-8-unix)
+
+(require 'ac-slime)
+(add-hook 'slime-mode-hook 'set-up-slime-ac)
+(add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
+
+;; exec-path-from-shell ------------------------------------------
+(exec-path-from-shell-initialize)
