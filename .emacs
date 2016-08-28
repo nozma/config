@@ -310,9 +310,9 @@
 (slime-setup '(slime-fancy))
 (setq slime-net-coding-system 'utf-8-unix)
 
-(require 'ac-slime)
-(add-hook 'slime-mode-hook 'set-up-slime-ac)
-(add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
+;; (require 'ac-slime)
+;; (add-hook 'slime-mode-hook 'set-up-slime-ac)
+;; (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
 
 ;; exec-path-from-shell ------------------------------------------
 (exec-path-from-shell-initialize)
