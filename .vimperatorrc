@@ -16,7 +16,7 @@ set editor=gvim
 
 " Visual "{{{1
 " http://vimperator.g.hatena.ne.jp/teramako/20100307/1267955731
-colorscheme persona
+"colorscheme persona
 " http://coderepos.org/share/browser/lang/javascript/vimperator-plugins/trunk/colors/sweets_snaka.vimp
 colorscheme sweets_snaka
 
