@@ -1,5 +1,7 @@
 # .zshenv
 
+setopt no_global_rcs
+
 limit coredumpsize 0
 typeset -U path
 
@@ -46,7 +48,9 @@ export PATH=/usr/local/mysql/bin:$PATH
 export PATH=$HOME/.cabal/bin:$PATH
 
 # python
-export PATH=/usr/share/python:$PATH
+export PYENV_ROOT="${HOME}/.pyenv"
+export PATH=${PYENV_ROOT}/bin:$PATH
+eval "$(pyenv init -)"
 
 # tex
 export PATH=/usr/texbin:$PATH
