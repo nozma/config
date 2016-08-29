@@ -83,7 +83,8 @@ EOM
 "" 特定のページに対する設定 {{{1
 "" Vimperatorを無効にするページ {{{2
 ignorekeys clear
-ignorekeys add iknow\\.jp/courses
+ignorekeys add iknow\\.jp -except :
+ignorekeys add localhost:8888 -except :
 
 " Plugin "{{{1
 
