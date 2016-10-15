@@ -61,6 +61,8 @@ zstyle ':completion:*' completer _oldlist _complete _match _ignored _approximate
 
 autoload -U compinit && compinit
 
+fpath=(/usr/local/share/zsh-completions $fpath)
+
 # script {{{1
 # Incremental completion on zsh {{{2
 # http://mimosa-pudica.net/zsh-incremental.html
