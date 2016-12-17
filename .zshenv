@@ -39,7 +39,7 @@ export PATH=/Applications/pTeX.app/teTeX/bin:$PATH
 export RUBYLIB=$HOME/.gem/ruby/1.9.1/lib
 
 # perlbrew
-source ~/perl5/perlbrew/etc/bashrc
+#source ~/perl5/perlbrew/etc/bashrc
 
 # mysql
 export PATH=/usr/local/mysql/bin:$PATH
@@ -48,9 +48,9 @@ export PATH=/usr/local/mysql/bin:$PATH
 export PATH=$HOME/.cabal/bin:$PATH
 
 # python
-export PYENV_ROOT="${HOME}/.pyenv"
-export PATH=${PYENV_ROOT}/bin:$PATH
-eval "$(pyenv init -)"
+#export PYENV_ROOT="${HOME}/.pyenv"
+#export PATH=${PYENV_ROOT}/bin:$PATH
+#eval "$(pyenv init -)"
 
 # tex
 export PATH=/usr/texbin:$PATH
