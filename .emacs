@@ -124,10 +124,10 @@
 (setq hl-line-face 'my-hl-line-face)
 (global-hl-line-mode t)
 ;; fontlock
-(global-font-lock-mode t)
-(add-hook 'text-mode-hook
-          (require 'hatena-markup-mode)
-          (setq text-mode 'hatena:markup-mode))
+;; (global-font-lock-mode t)
+;; (add-hook 'text-mode-hook
+;;           (require 'hatena-markup-mode)
+;;           (setq text-mode 'hatena:markup-mode))
 
 ;; ===== elisp ==================================================
 ;; auto-install -------------------------------------------------
