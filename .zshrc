@@ -66,7 +66,7 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 # script {{{1
 # Incremental completion on zsh {{{2
 # http://mimosa-pudica.net/zsh-incremental.html
-[ -f ~/.zsh/incr*.zsh ] && source ~/.zsh/incr*.zsh
+# [ -f ~/.zsh/incr*.zsh ] && source ~/.zsh/incr*.zsh
 
 ## auto-fu.zsh {{{2
 #source ~/.zsh/script/auto-fu.zsh/auto-fu.zsh
