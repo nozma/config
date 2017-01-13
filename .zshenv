@@ -48,9 +48,12 @@ export PATH=/usr/local/mysql/bin:$PATH
 export PATH=$HOME/.cabal/bin:$PATH
 
 # python
-#export PYENV_ROOT="${HOME}/.pyenv"
-#export PATH=${PYENV_ROOT}/bin:$PATH
-#eval "$(pyenv init -)"
+export PYENV_ROOT="${HOME}/.pyenv"
+export PATH=${PYENV_ROOT}/bin:$PATH
+eval "$(pyenv init -)"
 
 # tex
 export PATH=/usr/texbin:$PATH
+
+# Ada
+export PATH=/usr/local/gnat/bin:$PATH
