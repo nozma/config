@@ -64,6 +64,8 @@ autoload -U compinit && compinit
 fpath=(/usr/local/share/zsh-completions $fpath)
 
 # script {{{1
+# zsh-autosuggestions(https://github.com/zsh-users/zsh-autosuggestions) {{{2
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Incremental completion on zsh {{{2
 # http://mimosa-pudica.net/zsh-incremental.html
 # [ -f ~/.zsh/incr*.zsh ] && source ~/.zsh/incr*.zsh
