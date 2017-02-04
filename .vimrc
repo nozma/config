@@ -161,7 +161,7 @@ autocmd Filetype R set commentstring=#%s
 autocmd Filetype lisp set commentstring=;;%s
 
 " rust {{{2
-let g:rustfmt_autosave = a
+let g:rustfmt_autosave = 1
 let g:rustfmt_command = '$HOME/.cargo/bin/rustfmt'
 
 " Plugin "{{{1
