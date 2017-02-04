@@ -58,5 +58,9 @@ export PATH=/usr/texbin:$PATH
 # Ada
 export PATH=/usr/local/gnat/bin:$PATH
 
-# cargo
-export PATH=$HOME/.cargo/bin
+# rust
+source ~/.cargo/env
+
+# nodebrew
+export PATH=/usr/local/bin:$PATH
+
