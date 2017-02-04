@@ -62,5 +62,5 @@ export PATH=/usr/local/gnat/bin:$PATH
 source ~/.cargo/env
 
 # nodebrew
-export PATH=/usr/local/bin:$PATH
+export PATH=$HOME/.nodebrew/current/bin:$PATH
 
