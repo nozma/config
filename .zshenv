@@ -56,7 +56,7 @@ eval "$(pyenv init -)"
 export PATH=/usr/texbin:$PATH
 
 # Ada
-export PATH=/usr/local/gnat/bin:$PATH
+#export PATH=/usr/local/gnat/bin:$PATH
 
 # rust
 source ~/.cargo/env
