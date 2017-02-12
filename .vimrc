@@ -1,4 +1,11 @@
 " Basic "{{{1
+" Initialize "{{{2
+
+" Vim終了時にウィンドウタイトルを「Vimを使ってくれてありがとう」に変更しない
+" http://qiita.com/ttdoda/items/903e85f07d58018c851d
+let &t_ti .= "\e[22;0t"
+let &t_te .= "\e[23;0t"
+
 " Options "{{{2
 
 filetype off
