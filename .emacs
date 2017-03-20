@@ -1,6 +1,9 @@
 ;; for Emacs 24
 
 ;;;; ======= Basic Settings =====================================
+;; cask
+(require 'cask)
+(cask-initialize)
 
 ;;; path --------------------------------------------------------
 ;; load-pathを追加する関数 (from WEB+DP PRESS Vol.58)
@@ -268,8 +271,8 @@
 
 ;; ;; Yet another incomplete ---------------------------------------
 ;; http://d.hatena.ne.jp/tarao/20101011/1286804507 
-(require 'yaicomplete)
-(yaicomplete-mode)
+;;(require 'yaicomplete)
+;;(yaicomplete-mode)
 
 ;; ;; hatena-diary -------------------------------------------------
 ;; (require 'hatena-diary)
