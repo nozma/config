@@ -336,3 +336,4 @@
 
 ;; skk ------------------------------------------------------------
 (setq skk-tut-file "/usr/local/Cellar/emacs-mac/emacs-25.2-rc1-mac-6.2/share/skk/SKK.tut")
+(global-set-key "\C-x\C-j" 'skk-mode )
