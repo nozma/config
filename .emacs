@@ -1,6 +1,9 @@
 ;; for Emacs 24
 
 ;;;; ======= Basic Settings =====================================
+;; cask
+(require 'cask)
+(cask-initialize)
 
 ;;; path --------------------------------------------------------
 ;; load-pathを追加する関数 (from WEB+DP PRESS Vol.58)
@@ -124,10 +127,10 @@
 (setq hl-line-face 'my-hl-line-face)
 (global-hl-line-mode t)
 ;; fontlock
-(global-font-lock-mode t)
-(add-hook 'text-mode-hook
-          (require 'hatena-markup-mode)
-          (setq text-mode 'hatena:markup-mode))
+;; (global-font-lock-mode t)
+;; (add-hook 'text-mode-hook
+;;           (require 'hatena-markup-mode)
+;;           (setq text-mode 'hatena:markup-mode))
 
 ;; ===== elisp ==================================================
 ;; auto-install -------------------------------------------------
@@ -268,8 +271,8 @@
 
 ;; ;; Yet another incomplete ---------------------------------------
 ;; http://d.hatena.ne.jp/tarao/20101011/1286804507 
-(require 'yaicomplete)
-(yaicomplete-mode)
+;;(require 'yaicomplete)
+;;(yaicomplete-mode)
 
 ;; ;; hatena-diary -------------------------------------------------
 ;; (require 'hatena-diary)
@@ -302,6 +305,13 @@
 (elpy-enable)
 
 (custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (ddskk web-mode use-package tabbar smex smartparens slime projectile prodigy popwin paredit pallet open-junk-file nyan-mode multiple-cursors magit lispxmp idle-highlight-mode htmlize flycheck-cask expand-region exec-path-from-shell elpy drag-stuff)))
  '(python-check-command "/usr/local/bin/pyflakes"))
 
 ;; slime ----------------------------------------------------------
@@ -316,3 +326,15 @@
 
 ;; exec-path-from-shell ------------------------------------------
 (exec-path-from-shell-initialize)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+
+;; skk ------------------------------------------------------------
+(setq skk-tut-file "/usr/local/Cellar/emacs-mac/emacs-25.2-rc1-mac-6.2/share/skk/SKK.tut")
+(global-set-key "\C-x\C-j" 'skk-mode )
+(put 'set-goal-column 'disabled nil)

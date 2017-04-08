@@ -64,9 +64,11 @@ autoload -U compinit && compinit
 fpath=(/usr/local/share/zsh-completions $fpath)
 
 # script {{{1
+# zsh-autosuggestions(https://github.com/zsh-users/zsh-autosuggestions) {{{2
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Incremental completion on zsh {{{2
 # http://mimosa-pudica.net/zsh-incremental.html
-source ~/.zsh/script/incr*.zsh
+# [ -f ~/.zsh/incr*.zsh ] && source ~/.zsh/incr*.zsh
 
 ## auto-fu.zsh {{{2
 #source ~/.zsh/script/auto-fu.zsh/auto-fu.zsh
@@ -98,7 +100,10 @@ source ~/.zsh/script/incr*.zsh
 # http://d.hatena.ne.jp/tarao/20100223/1266958660
 typeset -ga precmd_functions
 typeset -ga preexec_functions
-source ~/.zsh/term.zshrc
+# source ~/.zsh/term.zshrc
 
 # rvm {{{2
 if [[ -s /Users/rito/.rvm/scripts/rvm ]] ; then source /Users/rito/.rvm/scripts/rvm ; fi
+# pyenv使用時にbrew doctorした際のWarningを消す {{{2
+#  phpenv入れてる時brew doctorしたら出るWarning消した - Qiita - http://tinyurl.com/hectd6s
+alias brew="env PATH=${PATH/\/Users\/ryo\/\.pyenv/shims:/} brew"

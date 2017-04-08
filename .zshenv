@@ -39,7 +39,7 @@ export PATH=/Applications/pTeX.app/teTeX/bin:$PATH
 export RUBYLIB=$HOME/.gem/ruby/1.9.1/lib
 
 # perlbrew
-source ~/perl5/perlbrew/etc/bashrc
+#source ~/perl5/perlbrew/etc/bashrc
 
 # mysql
 export PATH=/usr/local/mysql/bin:$PATH
@@ -54,3 +54,13 @@ eval "$(pyenv init -)"
 
 # tex
 export PATH=/usr/texbin:$PATH
+
+# Ada
+#export PATH=/usr/local/gnat/bin:$PATH
+
+# rust
+source ~/.cargo/env
+
+# nodebrew
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+
