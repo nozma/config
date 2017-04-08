@@ -109,6 +109,7 @@ map ,T :tw<Space>
 map ,l :copy<Space>titleAndtinyurl<CR>:tw<Space>Browsing: <M-v> 
 map ,u :copy<Space>%URL%<CR>
 map ,c :copy<Space>%TITLE% %URL%<CR>
+map ,m :copy<Space>[%TITLE%](%URL%)<CR>
 
 " feedSomeKeys_3.js "{{{2 
 command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
