@@ -59,7 +59,7 @@ export PATH=/usr/texbin:$PATH
 #export PATH=/usr/local/gnat/bin:$PATH
 
 # rust
-source ~/.cargo/env
+#source ~/.cargo/env
 
 # nodebrew
 export PATH=$HOME/.nodebrew/current/bin:$PATH
