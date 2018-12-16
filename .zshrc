@@ -103,7 +103,7 @@ typeset -ga preexec_functions
 # source ~/.zsh/term.zshrc
 
 # rvm {{{2
-if [[ -s /Users/rito/.rvm/scripts/rvm ]] ; then source /Users/rito/.rvm/scripts/rvm ; fi
+#if [[ -s /Users/rito/.rvm/scripts/rvm ]] ; then source /Users/rito/.rvm/scripts/rvm ; fi
 # pyenv使用時にbrew doctorした際のWarningを消す {{{2
 #  phpenv入れてる時brew doctorしたら出るWarning消した - Qiita - http://tinyurl.com/hectd6s
-alias brew="env PATH=${PATH/\/Users\/ryo\/\.pyenv/shims:/} brew"
+#alias brew="env PATH=${PATH/\/Users\/ryo\/\.pyenv/shims:/} brew"
