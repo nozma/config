@@ -20,6 +20,7 @@ set shell=zsh
 set backup
 set backupdir=~/vimbackup
 set directory=~/vimbackup
+set backupskip=/tmp/*,/private/tmp/*
 
 " Encodings "{{{2
 set encoding=utf-8
